@@ -1,0 +1,7 @@
+name: BermudaStaffUI
+main: github.bermuda.clovermmo.CloverMMO
+version: 1.0.0.2
+author: Bermuda
+website: https://bermudanightcore.com/
+description: This plugin is a MMO for 1.8 - 1.12.2
+prefix: CloverMMO

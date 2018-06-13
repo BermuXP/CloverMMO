@@ -1,8 +1,12 @@
 package github.bermuda.clovermmo;
 
+import github.bermuda.clovermmo.commands.level;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.logging.Logger;
 
 public class CloverMMO extends JavaPlugin implements Listener {
 
@@ -11,19 +15,28 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        PluginDescriptionFile pdFile = getDescription();
         clover = this;
-        config.addDefault("test", true);
+        config.addDefault("text ", true);
         config.options().copyDefaults(true);
         saveConfig();
-
-        getLogger().info("CloverMMO has been enabled");
+        //logs in the console.
+        Logger logger = getLogger();
+        logger.info(pdFile.getName() + " has been enabled (v."  + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(this, this);
+        //gets the commands from /command
+        getCommand("level").setExecutor(new level());
     }
-
 
 
     @Override
     public void onDisable() {
-        getLogger().info("CloverMMO has been disabled");
+        PluginDescriptionFile pdFile = getDescription();
+        //logs in the console.
+        Logger logger = getLogger();
+        getLogger().info(pdFile.getName() + " has been disabled (v."  + pdFile.getVersion() + ")");
+        logger.info("CloverMMO has been disabled");
     }
+
+
 }

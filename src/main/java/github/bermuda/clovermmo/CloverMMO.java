@@ -4,7 +4,6 @@ import github.bermuda.clovermmo.commands.level;
 import github.bermuda.clovermmo.commands.rank;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,7 +26,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v."  + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(this, this);
-        //gets the commands from /command
+        //gets the commands from the commands folder.
         getCommand("level").setExecutor(new level());
         getCommand("rank").setExecutor(new rank());
     }

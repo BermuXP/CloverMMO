@@ -5,9 +5,10 @@ author: Bermuda
 website: https://bermudanightcore.com/
 description: This plugin is a MMO for 1.8 - 1.12.2
 prefix: CloverMMO
+depend: [Vault]
 commands:
   rank:
-    description: The command /rank shows your current rank in this server.
+    description: The command /Rank shows your current Rank in this server.
   level:
     description: the command /level shows your current level in this server.
 

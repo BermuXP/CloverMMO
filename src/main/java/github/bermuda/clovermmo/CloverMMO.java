@@ -27,10 +27,16 @@ public class CloverMMO extends JavaPlugin implements Listener {
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v."  + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(this, this);
+<<<<<<< HEAD
         //gets the commands from /command
         getCommand("Level").setExecutor(new Level());
         getCommand("Profile").setExecutor(new Profile());
         getCommand("Rank").setExecutor(new Rank());
+=======
+        //gets the commands from the commands folder.
+        getCommand("level").setExecutor(new level());
+        getCommand("rank").setExecutor(new rank());
+>>>>>>> ee3b6ae04f8db72b997a9aa99316f848797b77ed
     }
 
     @Override

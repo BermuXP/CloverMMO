@@ -2,6 +2,7 @@ package github.bermuda.clovermmo.API;
 
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
+<<<<<<< HEAD
 
 public class Vault extends Chat {
     
@@ -81,13 +82,28 @@ public class Vault extends Chat {
 
     @Deprecated
     public void setPlayerInfoDouble(String s, String s1, String s2, double v) {
+=======
+import org.bukkit.World;
+import org.bukkit.plugin.RegisteredServiceProvider;
+
+import static org.bukkit.Bukkit.getServer;
+
+public class Vault {
+
+    public static Chat chat = null;
+
+    public Vault(){
+        setupChat();
+>>>>>>> ee3b6ae04f8db72b997a9aa99316f848797b77ed
     }
 
-    @Override
-    public double getGroupInfoDouble(String s, String s1, String s2, double v) {
-        return 0;
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+        chat = rsp.getProvider();
+        return chat != null;
     }
 
+<<<<<<< HEAD
     @Override
     public void setGroupInfoDouble(String s, String s1, String s2, double v) {
     }
@@ -128,6 +144,12 @@ public class Vault extends Chat {
     @Override
     public void setGroupInfoString(String s, String s1, String s2, String s3) {
     }
+=======
+    public static Chat getChat() {
+        return chat;
+    }
+
+>>>>>>> ee3b6ae04f8db72b997a9aa99316f848797b77ed
 }
 
 

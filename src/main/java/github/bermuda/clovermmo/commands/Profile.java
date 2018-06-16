@@ -4,11 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class Level implements CommandExecutor {
-
+public class Profile implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         return false;
     }
 }

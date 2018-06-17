@@ -8,7 +8,14 @@ prefix: CloverMMO
 depend: [Vault]
 commands:
   rank:
-    description: The command /Rank shows your current Rank in this server.
+    description: The command /rank shows your current Rank in this server.
   level:
-    description: the command /Level shows your current Level in this server.
-
+    description: the command /level shows your current level in this server.
+  profile:
+    description: the command /profile shows your current profile in this server.
+  cloverboard:
+    description: cloverboard shows your profile status in a handy scoreboarConfig.
+  cloverreload:
+    description: reloads clovermmo.
+  clovermmo:
+    description: CloverMMO is a MMORPG plugin,with this you can implement new races, classes and many other MMO features!

@@ -1,12 +1,14 @@
 package github.bermuda.clovermmo;
 
-import github.bermuda.clovermmo.commands.Level;
-import github.bermuda.clovermmo.commands.Profile;
-import github.bermuda.clovermmo.commands.Rank;
+import github.bermuda.clovermmo.commands.*;
 
+import github.bermuda.clovermmo.config.scoreboarConfig;
+import net.milkbowl.vault.chat.Chat;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -14,7 +16,9 @@ import java.util.logging.Logger;
 public class CloverMMO extends JavaPlugin implements Listener {
 
     public static CloverMMO clover;
+    public boolean noErrorsInConfigFiles = true;
     FileConfiguration config = getConfig();
+    public static Chat chat = null;
 
     @Override
     public void onEnable() {
@@ -23,26 +27,44 @@ public class CloverMMO extends JavaPlugin implements Listener {
         config.addDefault("text", true);
         config.options().copyDefaults(true);
         saveConfig();
-        //logs in the console.
+        loadConfigFiles();
+        //logs startup in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v."  + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(this, this);
-<<<<<<< HEAD
-        //gets the commands from /command
-        getCommand("Level").setExecutor(new Level());
-        getCommand("Profile").setExecutor(new Profile());
-        getCommand("Rank").setExecutor(new Rank());
-=======
         //gets the commands from the commands folder.
         getCommand("level").setExecutor(new level());
         getCommand("rank").setExecutor(new rank());
->>>>>>> ee3b6ae04f8db72b997a9aa99316f848797b77ed
+        getCommand("profile").setExecutor(new profile());
+        getCommand("cloverboard").setExecutor(new cloverboard());
+        getCommand("clovermmo").setExecutor(new clovermmo());
+    }
+
+    private void loadConfigFiles() {
+        scoreboarConfig.getInstance();
+    }
+
+    public void debug(String message) {
+        getLogger().info("[Debug] " + message);
+    }
+
+//    @EventHandler
+//    public void onPlayerJoin(PlayerJoinEvent e){
+// }
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
+        chat = rsp.getProvider();
+        return chat != null;
+    }
+
+    public static Chat getChat() {
+        return chat;
     }
 
     @Override
     public void onDisable() {
         PluginDescriptionFile pdFile = getDescription();
-        //logs in the console.
+        //logs disable in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been disabled (v."  + pdFile.getVersion() + ")");
 

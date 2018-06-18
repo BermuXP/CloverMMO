@@ -16,19 +16,19 @@ public class cloverboard implements CommandExecutor {
 
     public static Chat chat = null;
 
+    //todo need to update when health is low, new rank/race etc
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("you must be a player to perform this command!");
             return false;
         }
-
         //loading scoreboarConfig
         ScoreboardManager scoreboard = Bukkit.getScoreboardManager();
         Scoreboard board = scoreboard.getNewScoreboard();
 
         //scoreboards object
-        Objective object = board.registerNewObjective("rank", "");
+        Objective object = board.registerNewObjective("cloverboard", "");
         object.setDisplaySlot(DisplaySlot.SIDEBAR);
         object.setDisplayName(ChatColor.DARK_AQUA + "CloverMMO");
 
@@ -48,20 +48,24 @@ public class cloverboard implements CommandExecutor {
 
         Score ten = object.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "» Race:");
         ten.setScore(10);
-        Score nine = object.getScore(ChatColor.WHITE + "Human");
+        Score nine = object.getScore(ChatColor.WHITE + "Tauren");
         nine.setScore(9);
 
         Score eight = object.getScore("  ");
         eight.setScore(8);
 
-        Score seven = object.getScore(ChatColor.GOLD + "" + ChatColor.BOLD +"» Health:");
+        Score seven = object.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "» Health:");
         seven.setScore(7);
-        Score six = object.getScore(String.valueOf(player.getHealth())+ "/" + player.getMaxHealth());
+
+        Score six = object.getScore((player.getHealth()-player.getLastDamage()) + "/" + player.getMaxHealth());
         six.setScore(6);
 
         Score five = object.getScore(ChatColor.AQUA + "" + ChatColor.STRIKETHROUGH + "+--------------------+");
         five.setScore(5);
 
+//        for (Player player1 : Bukkit.getOnlinePlayers()) {
+//
+//        }
         player.setScoreboard(board);
         return true;
     }

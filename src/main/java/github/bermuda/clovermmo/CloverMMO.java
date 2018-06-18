@@ -3,12 +3,14 @@ package github.bermuda.clovermmo;
 import github.bermuda.clovermmo.commands.*;
 
 import github.bermuda.clovermmo.config.scoreboarConfig;
+import github.bermuda.clovermmo.database.Database;
+import github.bermuda.clovermmo.database.SQLite;
 import net.milkbowl.vault.chat.Chat;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -19,25 +21,38 @@ public class CloverMMO extends JavaPlugin implements Listener {
     public boolean noErrorsInConfigFiles = true;
     FileConfiguration config = getConfig();
     public static Chat chat = null;
+    private Database db;
 
     @Override
     public void onEnable() {
-        PluginDescriptionFile pdFile = getDescription();
         clover = this;
-        config.addDefault("text", true);
-        config.options().copyDefaults(true);
-        saveConfig();
+        this.db = new SQLite(clover);
+        this.db.load();
+
+        PluginDescriptionFile pdFile = getDescription();
+//        config.addDefault("race:", "Human");
+//        config.options().copyDefaults(true);
         loadConfigFiles();
+        saveDefaultConfig();
         //logs startup in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v."  + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(this, this);
         //gets the commands from the commands folder.
+        commands();
+
+    }
+
+    private void commands() {
         getCommand("level").setExecutor(new level());
         getCommand("rank").setExecutor(new rank());
-        getCommand("profile").setExecutor(new profile());
         getCommand("cloverboard").setExecutor(new cloverboard());
         getCommand("clovermmo").setExecutor(new clovermmo());
+        getCommand("race").setExecutor(new race());
+    }
+
+    public Database getRDatabase() {
+        return this.db;
     }
 
     private void loadConfigFiles() {
@@ -48,18 +63,15 @@ public class CloverMMO extends JavaPlugin implements Listener {
         getLogger().info("[Debug] " + message);
     }
 
-//    @EventHandler
-//    public void onPlayerJoin(PlayerJoinEvent e){
-// }
-    private boolean setupChat() {
-        RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-        chat = rsp.getProvider();
-        return chat != null;
+    @EventHandler
+    public void onPlayerJoinEvent(PlayerJoinEvent event) {
+        if(!event.getPlayer().hasPlayedBefore()) {
+            event.getPlayer().sendMessage("Welcome" + event.getPlayer() + ", it's your first time here... to start you need to pick a race! what race are you?");
+        } else {
+            event.getPlayer().sendMessage("Welcome back" + event.getPlayer());
+        }
     }
 
-    public static Chat getChat() {
-        return chat;
-    }
 
     @Override
     public void onDisable() {

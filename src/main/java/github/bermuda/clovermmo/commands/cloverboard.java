@@ -48,7 +48,7 @@ public class cloverboard implements CommandExecutor {
 
         Score ten = object.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "» Race:");
         ten.setScore(10);
-        Score nine = object.getScore(ChatColor.WHITE + "Tauren");
+        Score nine = object.getScore(ChatColor.WHITE + "Elf");
         nine.setScore(9);
 
         Score eight = object.getScore("  ");
@@ -62,7 +62,6 @@ public class cloverboard implements CommandExecutor {
 
         Score five = object.getScore(ChatColor.AQUA + "" + ChatColor.STRIKETHROUGH + "+--------------------+");
         five.setScore(5);
-
 //        for (Player player1 : Bukkit.getOnlinePlayers()) {
 //
 //        }

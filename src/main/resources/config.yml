@@ -1,1 +1,8 @@
-player-name: Steve
+# default config.yml
+rules:
+  - Play Nice
+  - Respect others
+  - Have Fun
+  - Dont swear
+
+player-name:

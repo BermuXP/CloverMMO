@@ -7,9 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getServer;
 
-public class rank implements CommandExecutor {
+public class RankCommand implements CommandExecutor {
 
     public static Chat chat = null;
 
@@ -20,7 +21,7 @@ public class rank implements CommandExecutor {
         }
         setupChat();
         Player player = (Player) sender;
-        player.sendMessage(chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§"));
+        player.sendMessage(clover.cloverprefix + chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§"));
         return true;
     }
 

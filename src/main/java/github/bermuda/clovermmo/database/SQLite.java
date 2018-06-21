@@ -18,7 +18,7 @@ public class SQLite extends Database{
         dbname = plugin.getConfig().getString("SQLite.Filename", "CloverDB"); // Set the table name here e.g player_kills
     }
 
-    public String SQLiteCreateTokensTable = "CREATE TABLE IF NOT EXISTS race (" + // make sure to put your table name in here too.
+    public String SQLiteCreateTokensTable = "CREATE TABLE IF NOT EXISTS CloverDB(" + // make sure to put your table name in here too.
             "`player` varchar(32) NOT NULL," + // This creates the different colums you will save data too. varchar(32) Is a string, int = integer
             "`race` varchar(32) NOT NULL," +
             "`total` int(11) NOT NULL," +
@@ -28,7 +28,7 @@ public class SQLite extends Database{
 
     // SQL creation stuff, You can leave the blow stuff untouched.
     public Connection getSQLConnection() {
-        File dataFolder = new File(plugin.getDataFolder(), dbname+".db");
+        File dataFolder = new File(plugin.getDataFolder(), dbname + ".db");
         if (!dataFolder.exists()){
             try {
                 dataFolder.createNewFile();

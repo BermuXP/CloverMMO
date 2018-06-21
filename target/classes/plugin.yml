@@ -8,11 +8,11 @@ prefix: CloverMMO
 depend: [Vault]
 commands:
   rank:
-    description: The command /rank shows your current Rank in this server.
+    description: The command /RankCommand shows your current Rank in this server.
   level:
-    description: the command /level shows your current level in this server.
+    description: the command /LevelCommand shows your current LevelCommand in this server.
   cloverboard:
-    description: cloverboard shows your profile status in a handy scoreboarConfig.
+    description: cloverboard shows your profile status in a handy scoreboardConfig.
   cloverreload:
     description: reloads clovermmo.
   clovermmo:

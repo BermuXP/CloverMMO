@@ -1,14 +1,15 @@
 package github.bermuda.clovermmo.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class clovermmo implements CommandExecutor {
+import static github.bermuda.clovermmo.CloverMMO.clover;
+
+public class ClovermmoCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(ChatColor.BOLD +""+ ChatColor.GREEN + "CloverMMO " + ChatColor.BLUE + "»" + ChatColor.GOLD + " is a MMORPG plugin ,with this you can implement new races, classes and many other MMO features!");
+        sender.sendMessage(clover.cloverprefix + "is a MMORPG plugin ,with this you can implement new races, classes and many other MMO features!");
         return false;
     }
 }

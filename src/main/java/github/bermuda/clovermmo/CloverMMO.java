@@ -74,7 +74,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         String playername = event.getPlayer().getName();
         if (!event.getPlayer().hasPlayedBefore()) {
-            event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a RaceCommand! what RaceCommand are you?");
+            event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");
         } else {
             event.getPlayer().sendMessage("Welcome back " + playername);
         }

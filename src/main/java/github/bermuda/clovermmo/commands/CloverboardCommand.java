@@ -1,5 +1,7 @@
 package github.bermuda.clovermmo.commands;
 
+import github.bermuda.clovermmo.database.Database;
+import github.bermuda.clovermmo.database.SQLite;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,10 +14,13 @@ import org.bukkit.scoreboard.*;
 
 import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getServer;
+import static org.bukkit.Bukkit.reload;
 
 public class CloverboardCommand implements CommandExecutor {
 
     public static Chat chat = null;
+    private Database db;
+
 
     //todo need to update when health is low, new RankCommand/race etc
     @Override
@@ -51,7 +56,11 @@ public class CloverboardCommand implements CommandExecutor {
 
         Score ten = object.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "» Race:");
         ten.setScore(10);
-        Score nine = object.getScore(ChatColor.WHITE + "Elf");
+
+        db = new SQLite(clover);
+        db.load();
+        String race = db.getRace(player.getName());
+        Score nine = object.getScore(ChatColor.WHITE + race);
         nine.setScore(9);
 
         Score eight = object.getScore("  ");

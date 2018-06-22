@@ -1,1 +1,27 @@
+# use - racename to add a new race to your servers races.
+# example:
+# race:
+#   - Human
+#   - Elf
+# NOTE: Races do NOT support spacebars! you can however use _ but remember that players will have to type _ out when selecting the race,
+
 races:
+
+classes:
+
+# race: shows the race in /profile.
+# seperaterank: shows the rank seperate from the users username.
+# seperateusername: shows the username seperated from the users rank.
+# rankandusername: shows the rank and username together.
+# level: shows the users current player level.
+# maxhp: shows the max HP a user has.
+# exp: shows the users exp/exp needed for next level.
+# set to FALSE if you don't want to show certain things in profile and TRUE if you do want to show them.
+profile:
+  race:
+  seperaterank:
+  seperateusername:
+  rankandusername:
+  level:
+  exp:
+  maxhp:

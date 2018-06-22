@@ -8,40 +8,38 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class RaceCommand implements CommandExecutor {
+public class ClassCommand implements CommandExecutor {
     private CloverMMO clover;
-    private SubCommands subrace;
+    private SubCommands subclass;
 
-    public RaceCommand(CloverMMO cmmo) {
-        subrace = new SubCommands(cmmo);
+    public ClassCommand(CloverMMO cmmo) {
+        subclass = new SubCommands(cmmo);
         this.clover = cmmo;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        List<String> races = clover.getConfig().getStringList("races");
+        List<String> classes = clover.getConfig().getStringList("classes");
         if (args.length == 1) {
             boolean match = false;
-            for (String s : races) {
+            for (String s : classes) {
                 if (args[0].equalsIgnoreCase(s)) {
-                    subrace.RaceSubcommand(sender, args, s);
+                    subclass.ClassSubcommand(sender, args, s);
                     match = true;
                 }
             }
             if (!match) {
-                sender.sendMessage(clover.cloverprefix + "No such race exists, select one of the follow races:");
-                for (String s : races) {
-                    sender.sendMessage("» " + ChatColor.GOLD  + s);
+                sender.sendMessage(clover.cloverprefix + "No such class exists, select one of the follow classes:");
+                for (String s : classes) {
+                    sender.sendMessage("» " + ChatColor.GOLD + s);
                 }
             }
         } else {
-            sender.sendMessage(clover.cloverprefix + "Use /race [racename] and pick one of the following races:");
-            for (String s : races) {
+            sender.sendMessage(clover.cloverprefix + "Use /class [classname] and pick one of the following classes:");
+            for (String s : classes) {
                 sender.sendMessage("» " + ChatColor.GOLD + s);
             }
         }
         return false;
     }
-
-
 }

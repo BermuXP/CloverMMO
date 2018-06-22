@@ -46,15 +46,25 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     private void commands() {
         getCommand("level").setExecutor(new LevelCommand());
-        getCommand("rank").setExecutor(new RankCommand());
         getCommand("cloverboard").setExecutor(new CloverboardCommand());
         getCommand("clovermmo").setExecutor(new ClovermmoCommand());
         getCommand("race").setExecutor(new RaceCommand(clover));
+        getCommand("class").setExecutor(new ClassCommand(clover));
+        getCommand("profile").setExecutor(new ProfileCommand());
     }
 
     private void configbasic() {
-        List<String> listOfStrings = Arrays.asList("Humans", "Dwarves", "Elfs");
-        config.set("races", listOfStrings);
+        List<String> races = Arrays.asList("Ginger", "Monkey", "Elf", "Human");
+        config.set("races", races);
+        List<String> classes = Arrays.asList("Paladin", "Druid");
+        config.set("classes", classes);
+        config.set("profile.race", true);
+        config.set("profile.rankandusername", true);
+        config.set("profile.seperateusername", false);
+        config.set("profile.seperaterank", false);
+        config.set("profile.level", true);
+        config.set("profile.exp", true);
+        config.set("profile.maxhp", true);
         clover.saveConfig();
     }
 

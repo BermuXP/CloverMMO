@@ -12,15 +12,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.scoreboard.*;
 
+import java.util.logging.Logger;
+
 import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getServer;
-import static org.bukkit.Bukkit.reload;
 
 public class CloverboardCommand implements CommandExecutor {
 
     public static Chat chat = null;
     private Database db;
-
 
     //todo need to update when health is low, new RankCommand/race etc
     @Override
@@ -29,6 +29,9 @@ public class CloverboardCommand implements CommandExecutor {
             sender.sendMessage("you must be a player to perform this command!");
             return false;
         }
+
+        this.db = new SQLite(clover);
+        this.db.load();
 
         sender.sendMessage(clover.cloverprefix + "Cloverboard loaded!");
         //loading scoreboarConfig
@@ -43,7 +46,7 @@ public class CloverboardCommand implements CommandExecutor {
         setupChat();
         Player player = (Player) sender;
 
-        Score fourteen = object.getScore(ChatColor.AQUA + "" + ChatColor.STRIKETHROUGH + "+--------------------+ ");
+        Score fourteen = object.getScore(ChatColor.AQUA + " " + ChatColor.STRIKETHROUGH + "+--------------------+");
         fourteen.setScore(14);
 
         Score thirteen = object.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "» Player:");
@@ -57,9 +60,7 @@ public class CloverboardCommand implements CommandExecutor {
         Score ten = object.getScore(ChatColor.GOLD + "" + ChatColor.BOLD + "» Race:");
         ten.setScore(10);
 
-        db = new SQLite(clover);
-        db.load();
-        String race = db.getRace(player.getName());
+        String race = this.db.getRace(player);
         Score nine = object.getScore(ChatColor.WHITE + race);
         nine.setScore(9);
 

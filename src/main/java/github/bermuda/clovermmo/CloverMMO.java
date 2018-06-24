@@ -2,7 +2,9 @@ package github.bermuda.clovermmo;
 
 import github.bermuda.clovermmo.commands.*;
 
+import github.bermuda.clovermmo.config.raceConfig;
 import github.bermuda.clovermmo.config.scoreboarConfig;
+import github.bermuda.clovermmo.config.specConfig;
 import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.commands.RaceCommand;
 
@@ -25,7 +27,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
     public boolean noErrorsInConfigFiles = true;
     FileConfiguration config = getConfig();
     private Database db;
-    public String cloverprefix = ChatColor.BOLD +""+ ChatColor.GREEN + "CloverMMO " + ChatColor.BLUE + "» " + ChatColor.WHITE;
+    public String cloverprefix = ChatColor.BOLD + "" + ChatColor.GREEN + "CloverMMO " + ChatColor.BLUE + "» " + ChatColor.WHITE;
 
     @Override
     public void onEnable() {
@@ -46,15 +48,29 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     private void commands() {
         getCommand("level").setExecutor(new LevelCommand());
-        getCommand("rank").setExecutor(new RankCommand());
         getCommand("cloverboard").setExecutor(new CloverboardCommand());
         getCommand("clovermmo").setExecutor(new ClovermmoCommand());
         getCommand("race").setExecutor(new RaceCommand(clover));
+        getCommand("class").setExecutor(new ClassCommand(clover));
+        getCommand("profile").setExecutor(new ProfileCommand(clover));
     }
 
     private void configbasic() {
-        List<String> listOfStrings = Arrays.asList("Humans", "Dwarves", "Elfs");
-        config.set("races", listOfStrings);
+        List<String> races = Arrays.asList("Asatha", "Aasimar", "Tiefling", "Ifrit", "Halfling", "Human", "Oread", "Sylph", "Undine", "Halfling", "Half-elf", "Elf", "Dwarf", "Orc", "Half-orc", "Tengu");
+        config.set("races", races);
+
+        List<String> classes = Arrays.asList("Paladin", "Druid", "Priest", "Hunter", "Mage", "Necromancer", "Warrior", "Thief");
+        config.set("classes", classes);
+
+        config.set("profile.race", true);
+        config.set("profile.classes", true);
+        config.set("profile.rankandusername", true);
+        config.set("profile.seperateusername", false);
+        config.set("profile.seperaterank", false);
+        config.set("profile.level", true);
+        config.set("profile.exp", true);
+        config.set("profile.maxhp", true);
+        config.set("Onjoin.enable", true);
         clover.saveConfig();
     }
 
@@ -64,6 +80,8 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     private void loadConfigFiles() {
         scoreboarConfig.getInstance();
+        raceConfig.getInstance();
+        specConfig.getInstance();
     }
 
     public void debug(String message) {
@@ -73,12 +91,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         String playername = event.getPlayer().getName();
-        if (!event.getPlayer().hasPlayedBefore()) {
-            event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");
-        } else {
+        if (event.getPlayer().hasPlayedBefore()) {
             event.getPlayer().sendMessage("Welcome back " + playername);
+        } else {
+            event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");
         }
     }
+
 
     @Override
     public void onDisable() {

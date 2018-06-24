@@ -20,8 +20,8 @@ public class SQLite extends Database{
 
     public String SQLiteCreateTokensTable = "CREATE TABLE IF NOT EXISTS CloverDB(" + // make sure to put your table name in here too.
             "`player` varchar(32) NOT NULL," + // This creates the different colums you will save data too. varchar(32) Is a string, int = integer
-            "`race` varchar(32) NOT NULL," +
-            "`total` int(11) NOT NULL," +
+            "`race` varchar(32) NULL," +
+            "`class` varchar(32) NULL," +
             "PRIMARY KEY (`player`)" +  // This is creating 3 colums Player, Kills, Total. Primary key is what you are going to use as your indexer. Here we want to use player so
             ");"; // we can search by player, and get kills and total. If you some how were searching kills it would provide total and player.
 

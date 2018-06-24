@@ -17,11 +17,20 @@ public class SubCommands {
         this.plugin = cmmo;
     }
 
-    public void RaceSubcommand (CommandSender sender, String[] args, String race) {
+    public void RaceSubcommand(CommandSender sender, String[] args, String race) {
         Player player = (Player) sender;
-        player.sendMessage(clover.cloverprefix + "You have selected " + ChatColor.GOLD + race + ChatColor.WHITE +" as race!");
+        player.sendMessage(clover.cloverprefix + "You have succesfully selected " + ChatColor.GOLD + race + ChatColor.WHITE + " as race!");
         db = new SQLite(clover);
         db.load();
-        db.setRace(player, race, 6);
+        db.setRace(player, race);
     }
+
+    public void ClassSubcommand(CommandSender sender, String[] args, String classes) {
+        Player player = (Player) sender;
+        player.sendMessage(clover.cloverprefix + "You have succesfully selected " + ChatColor.GOLD + classes + ChatColor.WHITE + " as race!");
+        db = new SQLite(clover);
+        db.load();
+        db.setClass(player, classes);
+    }
+
 }

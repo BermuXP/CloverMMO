@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import github.bermuda.clovermmo.database.errors.Error;
 import github.bermuda.clovermmo.database.errors.Errors;
@@ -12,13 +13,14 @@ import org.bukkit.entity.Player;
 
 import github.bermuda.clovermmo.CloverMMO;
 
+import static org.bukkit.Bukkit.getLogger;
+
 public abstract class Database {
+    Logger logger = getLogger();
     CloverMMO plugin;
     Connection connection;
     // The name of the table we created back in SQLite class.
     public String table = "CloverDB";
-    public int tokens = 0;
-    public String race = "";
 
     public Database(CloverMMO instance) {
         plugin = instance;
@@ -35,25 +37,91 @@ public abstract class Database {
             ResultSet rs = ps.executeQuery();
             close(ps, rs);
         } catch (SQLException ex) {
-            plugin.getLogger().log(Level.SEVERE, "Unable to retrieve connection", ex);
+            logger.log(Level.SEVERE, "Unable to retrieve connection", ex);
         }
     }
 
-    // These are the methods you can use to get things out of your database. You of course can make new ones to return different things in the database.
-    // This returns the number of people the player killed.
-    public String getRace(String player) {
+    public String getRace(Player player) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = '" + player + "';");
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getString("player").equalsIgnoreCase(player.toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
-                   return rs.getString("race"); // Return the players ammount of kills. If you wanted to get total (just a random number for an example for you guys) You would change this to total!
+                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
+                    return rs.getString("race"); // Return the players ammount of kills. If you wanted to get total (just a random number for an example for you guys) You would change this to total!
                 }
             }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return "no race selected";
+    }
+
+    public String getClasses(Player player) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
+                    return rs.getString("class"); // Return the players ammount of kills. If you wanted to get total (just a random number for an example for you guys) You would change this to total!
+                }
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return "no class selected";
+    }
+
+
+    public void setRace(Player player, String race) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE " + table + " SET `race` = ? WHERE `player` = ?");
+            } else {
+                ps = conn.prepareStatement("INSERT INTO " + table + " (`race`,`player`) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, race);   // YOU MUST put these into this line!! And depending on how man
+            ps.setString(2, player.getName().toLowerCase());
+            ps.executeUpdate();
+            return;
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
@@ -68,51 +136,25 @@ public abstract class Database {
                 plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
             }
         }
-        return "no race selected";
+        return;
     }
 
-    // Exact same method here, Except as mentioned above i am looking for total!
-//    public Integer getTotal(String string) {
-//        Connection conn = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        try {
-//            conn = getSQLConnection();
-//            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = '" + string + "';");
-//
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                if (rs.getString("player").equalsIgnoreCase(string.toLowerCase())) {
-//                    return rs.getInt("total");
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
-//        } finally {
-//            try {
-//                if (ps != null) {
-//                    ps.close();
-//                }
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException ex) {
-//                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-//            }
-//        }
-//        return 0;
-//    }
-
-    // Now we need methods to save things to the database
-    public void setRace(Player player, String race, Integer total) {
+    public void setClass(Player player, String classes) {
         Connection conn = null;
         PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("REPLACE INTO " + table + " (player,race,total) VALUES (?,?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
-            ps.setString(1, player.getName().toLowerCase());                                             // YOU MUST put these into this line!! And depending on how many
-            ps.setString(2, race);
-            ps.setInt(3, total);
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE " + table + " SET `class` = ? WHERE `player` = ?");
+            } else {
+                ps = conn.prepareStatement("INSERT INTO " + table + " (`class`,`player`) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, classes);   // YOU MUST put these into this line!! And depending on how man
+            ps.setString(2, player.getName().toLowerCase());
             ps.executeUpdate();
             return;
         } catch (SQLException ex) {

@@ -2,9 +2,9 @@ package github.bermuda.clovermmo;
 
 import github.bermuda.clovermmo.commands.*;
 
+import github.bermuda.clovermmo.config.classConfig;
 import github.bermuda.clovermmo.config.raceConfig;
-import github.bermuda.clovermmo.config.scoreboarConfig;
-import github.bermuda.clovermmo.config.specConfig;
+import github.bermuda.clovermmo.config.scoreboardConfig;
 import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.commands.RaceCommand;
 
@@ -47,9 +47,10 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void commands() {
+//        String cmmo = "cmmo";
+        getCommand("clovermmo").setExecutor(new ClovermmoCommand());
         getCommand("level").setExecutor(new LevelCommand());
         getCommand("cloverboard").setExecutor(new CloverboardCommand());
-        getCommand("clovermmo").setExecutor(new ClovermmoCommand());
         getCommand("race").setExecutor(new RaceCommand(clover));
         getCommand("class").setExecutor(new ClassCommand(clover));
         getCommand("profile").setExecutor(new ProfileCommand(clover));
@@ -60,7 +61,14 @@ public class CloverMMO extends JavaPlugin implements Listener {
         config.set("races", races);
 
         List<String> classes = Arrays.asList("Paladin", "Druid", "Priest", "Hunter", "Mage", "Necromancer", "Warrior", "Thief");
-        config.set("classes", classes);
+        for (String s : classes) {
+            config.set("classes." + s, "");
+            clover.db = new SQLite(clover);
+            clover.db.load();
+            db.setDatabaseClasses(s);
+        }
+        List<String> specs = Arrays.asList("Windwalker", "Brewmaster");
+        config.set("specs", specs);
 
         config.set("profile.race", true);
         config.set("profile.classes", true);
@@ -70,6 +78,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
         config.set("profile.level", true);
         config.set("profile.exp", true);
         config.set("profile.maxhp", true);
+        config.set("profile.spec", true);
         config.set("Onjoin.enable", true);
         clover.saveConfig();
     }
@@ -79,9 +88,9 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void loadConfigFiles() {
-        scoreboarConfig.getInstance();
+        scoreboardConfig.getInstance();
         raceConfig.getInstance();
-        specConfig.getInstance();
+        classConfig.getInstance();
     }
 
     public void debug(String message) {

@@ -19,26 +19,42 @@ public class ClassCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        List<String> classes = clover.getConfig().getStringList("classes");
-        if (args.length == 1) {
-            boolean match = false;
-            for (String s : classes) {
-                if (args[0].equalsIgnoreCase(s)) {
-                    subclass.ClassSubcommand(sender, args, s);
-                    match = true;
+        if (args.length == 2) {
+
+            if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel") ) {
+                List<String> classes = clover.getConfig().getStringList("classes.");
+                boolean match = false;
+                for (String s : classes) {
+                    if (args[1].equalsIgnoreCase(s)) {
+                        subclass.ClassSelSubcommand(sender, args, s);
+                        match = true;
+                    }
+                }
+                if (!match) {
+                    sender.sendMessage(clover.cloverprefix + "No such class exists, select one of the follow classes:");
+                    for (String s : classes) {
+                        sender.sendMessage("» " + ChatColor.GOLD + s);
+                    }
                 }
             }
-            if (!match) {
-                sender.sendMessage(clover.cloverprefix + "No such class exists, select one of the follow classes:");
-                for (String s : classes) {
-                    sender.sendMessage("» " + ChatColor.GOLD + s);
+            List<String> spec = clover.getConfig().getStringList("specs");
+            if (args[0].equalsIgnoreCase("spec") || args[0].equalsIgnoreCase("subclass")) {
+                boolean match = false;
+                for (String specs : spec) {
+                    if (args[1].equalsIgnoreCase(specs)) {
+                        subclass.ClassSpecSubcommand(sender, args, specs);
+                        match = true;
+                    }
+                }
+                if (!match) {
+                    sender.sendMessage(clover.cloverprefix + "No such spec exists, select one of the follow specs:");
+                    for (String specs : spec) {
+                        sender.sendMessage("» " + ChatColor.GOLD + specs);
+                    }
                 }
             }
         } else {
-            sender.sendMessage(clover.cloverprefix + "Use /class [classname] and pick one of the following classes:");
-            for (String s : classes) {
-                sender.sendMessage("» " + ChatColor.GOLD + s);
-            }
+            sender.sendMessage(clover.cloverprefix + ChatColor.RED + "Invalid input" + ChatColor.WHITE + " did you mean /class spec or /class select?");
         }
         return false;
     }

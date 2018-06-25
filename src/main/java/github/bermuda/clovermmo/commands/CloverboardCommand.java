@@ -34,7 +34,7 @@ public class CloverboardCommand implements CommandExecutor {
         this.db.load();
 
         sender.sendMessage(clover.cloverprefix + "Cloverboard loaded!");
-        //loading scoreboarConfig
+        //loading scoreboardConfig
         ScoreboardManager scoreboard = Bukkit.getScoreboardManager();
         Scoreboard board = scoreboard.getNewScoreboard();
 

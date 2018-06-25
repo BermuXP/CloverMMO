@@ -19,18 +19,26 @@ public class SubCommands {
 
     public void RaceSubcommand(CommandSender sender, String[] args, String race) {
         Player player = (Player) sender;
-        player.sendMessage(clover.cloverprefix + "You have succesfully selected " + ChatColor.GOLD + race + ChatColor.WHITE + " as race!");
-        db = new SQLite(clover);
-        db.load();
+        player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + race + ChatColor.WHITE + " as race!");
+        dbloader();
         db.setRace(player, race);
     }
 
-    public void ClassSubcommand(CommandSender sender, String[] args, String classes) {
+    public void ClassSelSubcommand(CommandSender sender, String[] args, String classes) {
         Player player = (Player) sender;
-        player.sendMessage(clover.cloverprefix + "You have succesfully selected " + ChatColor.GOLD + classes + ChatColor.WHITE + " as race!");
-        db = new SQLite(clover);
-        db.load();
+        player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + classes + ChatColor.WHITE + " as class!");
+        dbloader();
         db.setClass(player, classes);
     }
 
+    public void ClassSpecSubcommand(CommandSender sender, String[] args, String spec) {
+        Player player = (Player) sender;
+        player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + spec + ChatColor.WHITE + " as spec!");
+        dbloader();
+        db.setSpec(player, spec);
+    }
+    private void dbloader() {
+        db = new SQLite(clover);
+        db.load();
+    }
 }

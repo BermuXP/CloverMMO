@@ -46,6 +46,7 @@ public class ProfileCommand implements CommandExecutor {
         Boolean level = clover.getConfig().getBoolean(pf + "level");
         Boolean exp = clover.getConfig().getBoolean(pf + "exp");
         Boolean maxhp = clover.getConfig().getBoolean(pf + "maxhp");
+        Boolean spec = clover.getConfig().getBoolean(pf + "spec");
 
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Profile");
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
@@ -66,6 +67,10 @@ public class ProfileCommand implements CommandExecutor {
             String clas = this.db.getClasses(player);
             sender.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + clas);
         }
+        if (spec == true) {
+            String specs = this.db.getSpec(player);
+            sender.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + specs);
+        }
         if (level == true) {
             sender.sendMessage("» " + ChatColor.GOLD + "Level: " + ChatColor.WHITE + player.getLevel());
         }
@@ -76,11 +81,9 @@ public class ProfileCommand implements CommandExecutor {
             sender.sendMessage("» " + ChatColor.GOLD + "Max Health: " + ChatColor.WHITE + String.valueOf(player.getHealthScale()));
         }
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
-        checkclass(player);
+//        checkclass(player);
         return false;
-
     }
-
 
     public void checkclass(Player player) {
         db = new SQLite(clover);

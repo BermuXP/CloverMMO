@@ -72,6 +72,37 @@ public abstract class Database {
         return "no race selected";
     }
 
+    public String getSpec(Player player) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
+                    return rs.getString("spec"); // Return the players ammount of kills. If you wanted to get total (just a random number for an example for you guys) You would change this to total!
+                }
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return "no spec selected";
+    }
+
     public String getClasses(Player player) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -149,7 +180,8 @@ public abstract class Database {
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE " + table + " SET `class` = ? WHERE `player` = ?");
+                    ps = conn.prepareStatement("UPDATE " + table + " SET `class` = ? WHERE `player` = ?");
+
             } else {
                 ps = conn.prepareStatement("INSERT INTO " + table + " (`class`,`player`) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
             }
@@ -174,6 +206,75 @@ public abstract class Database {
         return;
     }
 
+    public void setSpec(Player player, String spec) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE " + table + " SET `spec` = ? WHERE `player` = ?");
+            } else {
+                ps = conn.prepareStatement("INSERT INTO " + table + " (`spec`,`player`) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, spec);   // YOU MUST put these into this line!! And depending on how man
+            ps.setString(2, player.getName().toLowerCase());
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public void setDatabaseClasses(String mclass) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_classes WHERE mclass = ?");
+            ps.setString(1, mclass);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE table_classes SET `mclass` = ? WHERE _id = ?");
+                ps.setInt(2, rs.getInt( "_id"));
+            } else {
+                ps = conn.prepareStatement("INSERT INTO table_classes (`mclass`) VALUES (?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, mclass);   // YOU MUST put these into this line!! And depending on how man
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
 
     public void close(PreparedStatement ps, ResultSet rs) {
         try {

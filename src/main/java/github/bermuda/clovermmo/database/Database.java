@@ -180,7 +180,7 @@ public abstract class Database {
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             if (rs.next()) {
-                    ps = conn.prepareStatement("UPDATE " + table + " SET `class` = ? WHERE `player` = ?");
+                ps = conn.prepareStatement("UPDATE " + table + " SET `class` = ? WHERE `player` = ?");
 
             } else {
                 ps = conn.prepareStatement("INSERT INTO " + table + " (`class`,`player`) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
@@ -248,11 +248,12 @@ public abstract class Database {
         try {
             conn = getSQLConnection();
             ps = conn.prepareStatement("SELECT * FROM table_classes WHERE mclass = ?");
+
             ps.setString(1, mclass);
             rs = ps.executeQuery();
             if (rs.next()) {
                 ps = conn.prepareStatement("UPDATE table_classes SET `mclass` = ? WHERE _id = ?");
-                ps.setInt(2, rs.getInt( "_id"));
+                ps.setInt(2, rs.getInt("_id"));
             } else {
                 ps = conn.prepareStatement("INSERT INTO table_classes (`mclass`) VALUES (?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
             }
@@ -274,6 +275,35 @@ public abstract class Database {
             }
         }
         return;
+    }
+
+    public String getDatabaseClasses() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT mclass FROM table_classes");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                return rs.getString("mclass");
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return "no class selected";
     }
 
     public void close(PreparedStatement ps, ResultSet rs) {

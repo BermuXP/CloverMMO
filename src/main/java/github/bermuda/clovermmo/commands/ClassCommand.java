@@ -1,6 +1,7 @@
 package github.bermuda.clovermmo.commands;
 
 import github.bermuda.clovermmo.CloverMMO;
+import github.bermuda.clovermmo.database.Database;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class ClassCommand implements CommandExecutor {
     private CloverMMO clover;
+    private Database db;
     private SubCommands subclass;
 
     public ClassCommand(CloverMMO cmmo) {
@@ -20,9 +22,9 @@ public class ClassCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 2) {
-
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel") ) {
-                List<String> classes = clover.getConfig().getStringList("classes.");
+                String dclasses = db.getDatabaseClasses();
+                List<String> classes = clover.getConfig().getStringList(dclasses);
                 boolean match = false;
                 for (String s : classes) {
                     if (args[1].equalsIgnoreCase(s)) {

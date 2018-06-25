@@ -50,6 +50,7 @@ public class ProfileCommand implements CommandExecutor {
 
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Profile");
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
+
         if (rank == true) {
             sender.sendMessage("» " + ChatColor.GOLD + "Rank: " + chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§"));
         }
@@ -61,15 +62,27 @@ public class ProfileCommand implements CommandExecutor {
         }
         if (races == true) {
             String race = this.db.getRace(player);
-            sender.sendMessage("» " + ChatColor.GOLD + "Race: " + ChatColor.WHITE + race);
+            if (race != null) {
+                sender.sendMessage("» " + ChatColor.GOLD + "Race: " + ChatColor.WHITE + race);
+            } else {
+                sender.sendMessage("» " + ChatColor.GOLD + "Race: " + ChatColor.WHITE + "No race selected");
+            }
         }
         if (classes == true) {
             String clas = this.db.getClasses(player);
-            sender.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + clas);
+            if (clas != null) {
+                sender.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + clas);
+            } else {
+                sender.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + "No class selected");
+            }
         }
         if (spec == true) {
             String specs = this.db.getSpec(player);
-            sender.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + specs);
+            if (specs != null) {
+                sender.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + specs);
+            } else {
+                sender.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + "No spec selected");
+            }
         }
         if (level == true) {
             sender.sendMessage("» " + ChatColor.GOLD + "Level: " + ChatColor.WHITE + player.getLevel());
@@ -96,7 +109,7 @@ public class ProfileCommand implements CommandExecutor {
                 this.ability.hp(player);
             }
         }
-        if(clas.isEmpty()) {
+        if (clas.isEmpty()) {
             player.sendMessage(clover.cloverprefix + "You need to select a class before you can do this /class [classname] or /class to see all the possible classe");
         }
     }

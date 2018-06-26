@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -180,7 +182,7 @@ public abstract class Database {
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             if (rs.next()) {
-                    ps = conn.prepareStatement("UPDATE " + table + " SET `class` = ? WHERE `player` = ?");
+                ps = conn.prepareStatement("UPDATE " + table + " SET `class` = ? WHERE `player` = ?");
 
             } else {
                 ps = conn.prepareStatement("INSERT INTO " + table + " (`class`,`player`) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
@@ -248,13 +250,80 @@ public abstract class Database {
         try {
             conn = getSQLConnection();
             ps = conn.prepareStatement("SELECT * FROM table_classes WHERE mclass = ?");
+
             ps.setString(1, mclass);
             rs = ps.executeQuery();
             if (rs.next()) {
                 ps = conn.prepareStatement("UPDATE table_classes SET `mclass` = ? WHERE _id = ?");
-                ps.setInt(2, rs.getInt( "_id"));
+                ps.setInt(2, rs.getInt("_id"));
             } else {
                 ps = conn.prepareStatement("INSERT INTO table_classes (`mclass`) VALUES (?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, mclass);   // YOU MUST put these into this line!! And depending on how man
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public List<String> getDatabaseClasses() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<String> strin = new ArrayList<String>();
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_classes");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                    strin.add(rs.getString("mclass"));
+            }
+            return strin;
+        } catch (SQLException ex) {
+            logger.log(Level.INFO, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return strin;
+    }
+
+    public void setDatabaseSpecNames(String mclass, String mspecname) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_classpecs WHERE mclass = ?");
+            ps.setString(1, mclass);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE table_classpecs SET `mclass` = ? WHERE mspec = ?");
+                ps.setInt(2, rs.getInt("mspec"));
+            } else {
+                ps = conn.prepareStatement("INSERT INTO table_classpecs (`mclass`),(`mspec`)  VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps.setString(2, mspecname);
             }
             ps.setString(1, mclass);   // YOU MUST put these into this line!! And depending on how man
             ps.executeUpdate();

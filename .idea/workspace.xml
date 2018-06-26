@@ -67,8 +67,8 @@
       <file leaf-file-name="Database.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
-              <caret line="285" column="53" selection-start-line="285" selection-start-column="53" selection-end-line="285" selection-end-column="53" />
+            <state relative-caret-position="346">
+              <caret line="264" column="19" lean-forward="true" selection-start-line="264" selection-start-column="19" selection-end-line="265" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -496,16 +496,15 @@
       <workItem from="1529832323198" duration="6578000" />
       <workItem from="1529860098935" duration="4152000" />
       <workItem from="1529941468586" duration="3707000" />
-      <workItem from="1529958772151" duration="994000" />
+      <workItem from="1529958772151" duration="1015000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="189952000" />
+    <option name="totallyTimeSpent" value="189973000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="bottom" id="TODO" order="4" />
@@ -795,8 +794,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="285" column="53" selection-start-line="285" selection-start-column="53" selection-end-line="285" selection-end-column="53" />
+        <state relative-caret-position="346">
+          <caret line="264" column="19" lean-forward="true" selection-start-line="264" selection-start-column="19" selection-end-line="265" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

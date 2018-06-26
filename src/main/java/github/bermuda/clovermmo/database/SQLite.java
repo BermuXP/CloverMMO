@@ -24,9 +24,8 @@ public class SQLite extends Database{
             "`class` varchar(32) NULL," +
             "`spec` varchar(32) NULL," +
             "PRIMARY KEY (`player`));" +  // This is creating 3 colums Player, Kills, Total. Primary key is what you are going to use as your indexer. Here we want to use player so
-            "CREATE TABLE IF NOT EXISTS table_classes(`_id` integer PRIMARY KEY NOT NULL, `mclass` varchar(32) NOT NULL);";
-
-    // SQL creation stuff, You can leave the blow stuff untouched.
+            "CREATE TABLE IF NOT EXISTS table_classes(`_id` integer PRIMARY KEY NOT NULL, `mclass` varchar(32) NOT NULL);" +
+            "CREATE TABLE IF NOT EXISTS table_classpecs(`mclass` varchar(32) NOT NULL, `mspec` varchar(32) NOT NULL);";
     public Connection getSQLConnection() {
         File dataFolder = new File(plugin.getDataFolder(), dbname + ".db");
         if (!dataFolder.exists()){

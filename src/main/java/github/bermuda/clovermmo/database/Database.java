@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -277,17 +279,86 @@ public abstract class Database {
         return;
     }
 
-    public String getDatabaseClasses() {
+    public List<String> getDatabaseClasses() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<String> strin = new ArrayList<String>();
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_classes");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                    strin.add(rs.getString("mclass"));
+            }
+            return strin;
+        } catch (SQLException ex) {
+            logger.log(Level.INFO, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return strin;
+    }
+
+    public void setDatabaseSpecNames(String mclass, String mspecname) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT mclass FROM table_classes");
+            ps = conn.prepareStatement("SELECT * FROM table_classpecs WHERE mspec = ?");
+            ps.setString(1, mspecname);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE table_classpecs SET `mspec` = ? WHERE mclass = ?");
+                ps.setInt(2, rs.getInt("mclass"));
+            } else {
+                ps = conn.prepareStatement("INSERT INTO table_classpecs (`mspec`,`mclass`)  VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps.setString(2, mclass);
+            }
+            ps.setString(1, mspecname);   // YOU MUST put these into this line!! And depending on how man
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public List<String> getDatabaseSpecNames(String mClass) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<String> strin = new ArrayList<String>();
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_classpecs WHERE mclass = ?");
+            ps.setString(1, mClass);
             rs = ps.executeQuery();
             while (rs.next()) {
-
-                return rs.getString("mclass");
+                if (rs.getString("mclass").equalsIgnoreCase(mClass)) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
+                    strin.add(rs.getString("mspec"));
+                }
             }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
@@ -303,8 +374,9 @@ public abstract class Database {
                 logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
             }
         }
-        return "no class selected";
+        return strin;
     }
+
 
     public void close(PreparedStatement ps, ResultSet rs) {
         try {

@@ -76,20 +76,22 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("races." + r + ".bowdamage", 10);
             config.addDefault("races." + r + ".sworddamage", "");
             config.addDefault("races." + r + ".axedamage", "");
-
             config.addDefault("races", races);
         }
 
         List<String> classes = Arrays.asList("Paladin", "Druid", "Priest", "Hunter", "Mage", "Necromancer", "Warrior", "Thief");
+
+
         for (String s : classes) {
 
             List<String> randomnames = Arrays.asList("wowaspecname", "wowasecondspecname", "evenathirdspecname");
+
             config.addDefault("classes." + s + ".spec.name", randomnames);
-            for (String random : randomnames) {
-                    clover.db = new SQLite(clover);
-                    clover.db.load();
-                    db.setDatabaseSpecNames(s, random);
-            }
+//            for (String random : randomnames) {
+//                clover.db = new SQLite(clover);
+//                clover.db.load();
+//                db.setDatabaseSpecNames(s, random);
+//            }
 
             config.addDefault("classes." + s + ".maxhp", "");
             config.addDefault("classes." + s + ".hpregen", "");
@@ -99,7 +101,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("classes." + s + ".bowdamage", "");
             config.addDefault("classes." + s + ".sworddamage", "");
             config.addDefault("classes." + s + ".axedamage", "");
-
 
             config.addDefault("classes." + s + ".spec.maxhp", "");
             config.addDefault("classes." + s + ".spec.hpregen", "");

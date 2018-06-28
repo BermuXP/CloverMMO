@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -46,9 +47,10 @@ public class ClassCommand implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("spec") || args[0].equalsIgnoreCase("subclass")) {
                 boolean match = false;
-
-                for (String s : dclasses) {
-                    List<String> spec = db.getDatabaseSpecNames(s);
+                Player player = (Player) sender;
+                String clas = this.db.getClasses(player);
+                if (clas != null) {
+                    List<String> spec = clover.getConfig().getStringList("classes." + clas + ".spec.name");
                     for (String specs : spec) {
                         if (args[1].equalsIgnoreCase(specs)) {
                             subclass.ClassSpecSubcommand(sender, args, specs);
@@ -57,12 +59,16 @@ public class ClassCommand implements CommandExecutor {
                     }
                 }
                 if (!match) {
-                    sender.sendMessage(clover.cloverprefix + "No such spec exists, select one of the follow specs:");
-                    for (String s : dclasses) {
-                        List<String> spec = db.getDatabaseSpecNames(s);
+                    if (clas == null || clas.equalsIgnoreCase("No spec selected")) {
+                        sender.sendMessage(clover.cloverprefix + "You haven't selected a class yet, first select a class with /class select then try again!");
+                    } else {
+                        List<String> spec = clover.getConfig().getStringList("classes." + clas + ".spec.name");
+
+                        sender.sendMessage(clover.cloverprefix + "No such spec exists, select one of the follow specs:");
                         for (String specs : spec) {
                             sender.sendMessage("» " + ChatColor.GOLD + specs);
                         }
+
                     }
                 }
             }

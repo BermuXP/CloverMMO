@@ -40,4 +40,21 @@ public abstract class ClassAbilities {
     public void hpregen() {
 
     }
+
+    public void walkspeed() {
+
+    }
+
+    public void waterbreathing() {
+
+    }
+
+    public void fireresistance() {
+
+    }
+
+    public void nightvision() {
+
+    }
+
 }

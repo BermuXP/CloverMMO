@@ -1,9 +1,14 @@
 package github.bermuda.clovermmo.abilities;
 
 import github.bermuda.clovermmo.CloverMMO;
+import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class ClassAbilities {
 
@@ -13,17 +18,21 @@ public abstract class ClassAbilities {
         this.plugin = cmmo;
     }
 
-    public void hp(Player player) {
+    public void hp(Player player, int mhp) {
         //number must be replaceable in config.
-        player.setMaxHealth(20);
+        player.setMaxHealth(mhp);
 //        player.setHealth(player.getMaxHealth());
+    }
+
+    public void hpregen() {
+
     }
 
     public void bowdmg(EntityDamageByEntityEvent player) {
         if (player.getDamager() instanceof Arrow) {
             Arrow arrow = (Arrow) player.getDamager();
             if (arrow.getShooter() instanceof Player) {
-                player.setDamage(player.getDamage() + 2);
+                player.setDamage(player.getDamage() + 3);
                 // +3 needs to be replacedable in config
             }
         }
@@ -34,10 +43,6 @@ public abstract class ClassAbilities {
     }
 
     public void axedmg() {
-
-    }
-
-    public void hpregen() {
 
     }
 
@@ -56,5 +61,28 @@ public abstract class ClassAbilities {
     public void nightvision() {
 
     }
+
+    public void jumphight() {
+
+    }
+
+    public void fireballdamage() {
+
+    }
+
+    @EventHandler
+    public void damageEvent(EntityDamageByEntityEvent event) { // just the eventhandler im using to listen for the event
+        Player player = (Player) event.getEntity(); // the one not being hit
+        Player cause = (Player) event.getDamager(); // the one hitting
+        ItemStack stonesword = cause.getInventory().getItemInMainHand(); // dont worry i check below if its a stone sword
+
+        if(cause.getInventory().getItemInMainHand().getType().equals(Material.STONE_SWORD)) { // wooooooooo
+            if(stonesword.containsEnchantment(Enchantment.DAMAGE_ALL)) { // here you can do different levels like if its level 1 - so much damage if level 2 - so much damage etc
+                event.setDamage(event.getDamage() - 40);
+
+            }
+        }
+    }
+
 
 }

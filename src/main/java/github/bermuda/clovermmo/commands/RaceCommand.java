@@ -1,6 +1,8 @@
 package github.bermuda.clovermmo.commands;
 
 import github.bermuda.clovermmo.CloverMMO;
+import github.bermuda.clovermmo.database.Database;
+import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,16 +12,19 @@ import java.util.List;
 
 public class RaceCommand implements CommandExecutor {
     private CloverMMO clover;
+    private Database db;
     private SubCommands subrace;
 
     public RaceCommand(CloverMMO cmmo) {
         subrace = new SubCommands(cmmo);
         this.clover = cmmo;
+        db = new SQLite(clover);
+        db.load();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        List<String> races = clover.getConfig().getStringList("races");
+        List<String> races = db.getDatabaseRaces();
         if (args.length == 1) {
             boolean match = false;
             for (String s : races) {
@@ -31,7 +36,7 @@ public class RaceCommand implements CommandExecutor {
             if (!match) {
                 sender.sendMessage(clover.cloverprefix + "No such race exists, select one of the follow races:");
                 for (String s : races) {
-                    sender.sendMessage("» " + ChatColor.GOLD  + s);
+                    sender.sendMessage("» " + ChatColor.GOLD + s);
                 }
             }
         } else {

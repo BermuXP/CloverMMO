@@ -22,9 +22,12 @@ public class SQLite extends Database{
             "`player` varchar(32) NOT NULL," + // This creates the different colums you will save data too. varchar(32) Is a string, int = integer
             "`race` varchar(32) NULL," +
             "`pclass` varchar(32) NULL," +
-            "`spec` varchar(32) NULL," +
+            "`spec` varchar(32) NULL,"+
+            "`point` int(11) NULL,"+
             "PRIMARY KEY (`player`));" +  // This is creating 3 colums Player, Kills, Total. Primary key is what you are going to use as your indexer. Here we want to use player so
-            "CREATE TABLE IF NOT EXISTS table_classes(`_id` integer PRIMARY KEY NOT NULL, `mclass` varchar(32) NOT NULL);";
+            "CREATE TABLE IF NOT EXISTS table_classes(`_id` integer PRIMARY KEY NOT NULL, `mclass` varchar(32) NOT NULL);" +
+            "CREATE TABLE IF NOT EXISTS table_races(`_id` integer PRIMARY KEY NOT NULL, `mrace` varchar(32) NOT NULL);";
+
     public Connection getSQLConnection() {
         File dataFolder = new File(plugin.getDataFolder(), dbname + ".db");
         if (!dataFolder.exists()){

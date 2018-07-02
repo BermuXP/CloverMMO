@@ -14,6 +14,7 @@ import github.bermuda.clovermmo.database.errors.Errors;
 import org.bukkit.entity.Player;
 
 import github.bermuda.clovermmo.CloverMMO;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import static org.bukkit.Bukkit.getLogger;
 
@@ -289,7 +290,139 @@ public abstract class Database {
             ps = conn.prepareStatement("SELECT * FROM table_classes");
             rs = ps.executeQuery();
             while (rs.next()) {
-                    strin.add(rs.getString("mclass"));
+                strin.add(rs.getString("mclass"));
+            }
+            return strin;
+        } catch (SQLException ex) {
+            logger.log(Level.INFO, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return strin;
+    }
+
+    public void addpoints(int point, String player) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.toLowerCase());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                plugin.getLogger().log(Level.WARNING, "eehm you're not supposed to see this message something went wrong contact the plugin developer");
+            } else {
+                ps = conn.prepareStatement("INSERT INTO " + table + " (point,player) VALUES (?,?)");
+            }
+            ps.setInt(1, point);
+            ps.setString(2, player.toLowerCase());
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public int getpoints(Player player) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
+                    return rs.getInt("point"); // Return the players ammount of kills. If you wanted to get total (just a random number for an example for you guys) You would change this to total!
+                }
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return 0;
+    }
+
+    public void setDatabaseRaces(String mrace) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_races WHERE mrace = ?");
+
+            ps.setString(1, mrace);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE table_races SET mrace = ? WHERE _id = ?");
+                ps.setInt(2, rs.getInt("_id"));
+            } else {
+                ps = conn.prepareStatement("INSERT INTO table_races (mrace) VALUES (?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, mrace);   // YOU MUST put these into this line!! And depending on how man
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public List<String> getDatabaseRaces() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<String> strin = new ArrayList<String>();
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_races");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                strin.add(rs.getString("mrace"));
             }
             return strin;
         } catch (SQLException ex) {

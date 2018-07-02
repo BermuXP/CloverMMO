@@ -10,10 +10,16 @@ import github.bermuda.clovermmo.commands.RaceCommand;
 
 import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -73,19 +79,20 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("races." + r + ".armor", "");
             config.addDefault("races." + r + ".armorpenetration", "");
             config.addDefault("races." + r + ".handdamage", "");
-            config.addDefault("races." + r + ".bowdamage", 10);
+            config.addDefault("races." + r + ".bowdamage",  "");
             config.addDefault("races." + r + ".sworddamage", "");
             config.addDefault("races." + r + ".axedamage", "");
-            config.addDefault("races", races);
+//            config.addDefault("races", races);
+
+            clover.db = new SQLite(clover);
+            clover.db.load();
+            db.setDatabaseRaces(r);
         }
 
         List<String> classes = Arrays.asList("Paladin", "Druid", "Priest", "Hunter", "Mage", "Necromancer", "Warrior", "Thief");
 
-
         for (String s : classes) {
-
             List<String> randomnames = Arrays.asList("wowaspecname", "wowasecondspecname", "evenathirdspecname");
-
             config.addDefault("classes." + s + ".spec.name", randomnames);
 //            for (String random : randomnames) {
 //                clover.db = new SQLite(clover);
@@ -93,7 +100,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
 //                db.setDatabaseSpecNames(s, random);
 //            }
 
-            config.addDefault("classes." + s + ".maxhp", "");
+            config.addDefault("classes." + s + ".maxhp", 20);
             config.addDefault("classes." + s + ".hpregen", "");
             config.addDefault("classes." + s + ".armor", "");
             config.addDefault("classes." + s + ".armorpenetration", "");
@@ -125,7 +132,10 @@ public class CloverMMO extends JavaPlugin implements Listener {
         config.addDefault("profile.exp", true);
         config.addDefault("profile.maxhp", true);
         config.addDefault("profile.spec", true);
-        config.addDefault("Onjoin.enable", true);
+        config.addDefault("profile.point", true);
+        config.addDefault("Onjoin.OnFirstJoinMessageEnable", true);
+        config.addDefault("Onjoin.OnReturningJoinMessageEnable", true);
+        config.addDefault("Onjoin.AddPointsOnJoin", 6);
         config.options().copyDefaults(true);
         saveConfig();
     }
@@ -148,12 +158,16 @@ public class CloverMMO extends JavaPlugin implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         String playername = event.getPlayer().getName();
         if (event.getPlayer().hasPlayedBefore()) {
-            event.getPlayer().sendMessage("Welcome back " + playername);
+            if(clover.config.get("Onjoin.OnFirstJoinMessage").equals(true)) {
+                event.getPlayer().sendMessage("Welcome back " + playername);
+            }
         } else {
-            event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");
+            db.addpoints(clover.config.getInt("Onjoin.AddPointsOnJoin"), playername);
+            if (clover.config.get("Onjoin.OnFirstJoinMessage").equals(true)) {
+                event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");
+            }
         }
     }
-
 
     @Override
     public void onDisable() {

@@ -10,6 +10,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.List;
@@ -24,10 +26,6 @@ public class ProfileCommand implements CommandExecutor {
 
     public ProfileCommand(CloverMMO cmmo) {
         ability = new ClassAbilities(cmmo) {
-            @Override
-            public void hp(Player player) {
-                super.hp(player);
-            }
         };
     }
 
@@ -47,6 +45,7 @@ public class ProfileCommand implements CommandExecutor {
         Boolean exp = clover.getConfig().getBoolean(pf + "exp");
         Boolean maxhp = clover.getConfig().getBoolean(pf + "maxhp");
         Boolean spec = clover.getConfig().getBoolean(pf + "spec");
+        Boolean points = clover.getConfig().getBoolean(pf + "point");
 
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Profile");
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
@@ -93,20 +92,36 @@ public class ProfileCommand implements CommandExecutor {
         if (maxhp == true) {
             sender.sendMessage("» " + ChatColor.GOLD + "Max Health: " + ChatColor.WHITE + String.valueOf(player.getHealthScale()));
         }
-        sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
+        if (points == true) {
+            int p = this.db.getpoints(player);
+            sender.sendMessage("» " + ChatColor.GOLD + "Points: " + ChatColor.WHITE + p);
+        }
 //        checkclass(player);
+        sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
         return false;
+    }
+
+    @EventHandler
+    public void test(EntityDamageByEntityEvent event) {
+        this.ability.damageEvent(event);
     }
 
     public void checkclass(Player player) {
         db = new SQLite(clover);
         db.load();
-        List<String> clas = clover.getConfig().getStringList("classes");
+//        List<String> clas = clover.getConfig().getStringList("classes");
+        List<String> clas = this.db.getDatabaseClasses();
 
         for (String s : clas) {
             String classes = this.db.getClasses(player);
             if (s.equalsIgnoreCase(classes)) {
-                this.ability.hp(player);
+                int classmhp = clover.getConfig().getInt("classes." + classes + ".maxhp");
+                int racemhp = clover.getConfig().getInt("classes." + classes + ".maxhp");
+                int specmhp = clover.getConfig().getInt("classes." + classes + ".maxhp");
+
+                int calcmhp = classmhp + racemhp + specmhp;
+
+                this.ability.hp(player, calcmhp);
             }
         }
         if (clas.isEmpty()) {

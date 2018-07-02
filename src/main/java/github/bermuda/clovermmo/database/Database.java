@@ -442,6 +442,84 @@ public abstract class Database {
         return strin;
     }
 
+    public List<String> getUserCharacteristics(Player player) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<String> strin = new ArrayList<String>();
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
+                    strin.add(rs.getString("strength"));
+                    strin.add(rs.getString("constitution"));
+                    strin.add(rs.getString("wisdom"));
+                    strin.add(rs.getString("charisma"));
+                    strin.add(rs.getString("intelligence"));
+                    strin.add(rs.getString("luck"));
+                }
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return strin;
+    }
+
+    public void setUserCharacteristics(String player, int strength, int constitution, int wisdom, int charisma, int intelligence, int dexterity, int luck) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM "+ table +"  WHERE player = ?");
+            ps.setString(1, player);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE "+ table +" SET strength = ?, constitution = ?, wisdom = ?, charisma = ?, intelligence = ?, dexterity = ?, luck = ? WHERE player = ?");
+                ps.setString(8, rs.getString("player"));
+            } else {
+                ps = conn.prepareStatement("INSERT INTO "+ table +" (strength, constitution, wisdom, charisma, intelligence, dexterity, luck) VALUES (?,?,?,?,?,?,?) WHERE player = ?"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps.setString(8, rs.getString("player"));
+            }
+            ps.setInt(1, strength);   // YOU MUST put these into this line!! And depending on how man
+            ps.setInt(2, constitution);
+            ps.setInt(3, wisdom);
+            ps.setInt(4, charisma);
+            ps.setInt(5, intelligence);
+            ps.setInt(6, dexterity);
+            ps.setInt(7, luck);
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
 
     public void close(PreparedStatement ps, ResultSet rs) {
         try {

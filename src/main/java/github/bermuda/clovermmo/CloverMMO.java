@@ -173,24 +173,16 @@ public class CloverMMO extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player playername = event.getPlayer();
-        int strength = 1;
-        int dexterity = 1;
-        int constitution = 1;
-        int intelligence = 1;
-        int wisdom = 1;
-        int charisma = 1;
-        int luck = 1;
+
         clover.db = new SQLite(clover);
         clover.db.load();
-        db.setUserCharacteristics(playername, strength, dexterity, constitution, intelligence, wisdom, charisma, luck);
+        db.setUserCharacteristics(playername, 1, 1, 1, 1, 1, 1, 1);
 
         if (event.getPlayer().hasPlayedBefore()) {
             if(clover.config.get("Onjoin.OnFirstJoinMessageEnable").equals(true)) {
                 event.getPlayer().sendMessage("Welcome back " + playername.getName().toLowerCase());
             }
         } else {
-            clover.db = new SQLite(clover);
-            clover.db.load();
             db.addpoints(clover.config.getInt("Onjoin.AddPointsOnJoin"), playername.getName().toLowerCase());
             if (clover.config.get("Onjoin.OnReturningJoinMessageEnable").equals(true)) {
                 event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");

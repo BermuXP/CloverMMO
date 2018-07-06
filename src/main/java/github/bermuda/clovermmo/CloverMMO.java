@@ -72,7 +72,8 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     private void configbasic() {
         List<String> races = Arrays.asList("Asatha", "Aasimar", "Tiefling", "Ifrit", "Halfling", "Human", "Oread", "Sylph", "Undine", "Halfling", "Half-elf", "Elf", "Dwarf", "Orc", "Half-orc", "Tengu");
-
+        clover.db = new SQLite(clover);
+        clover.db.load();
         for (String r : races) {
             config.addDefault("races." + r + ".maxhp", "");
             config.addDefault("races." + r + ".hpregen", "");
@@ -83,9 +84,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("races." + r + ".sworddamage", "");
             config.addDefault("races." + r + ".axedamage", "");
 //            config.addDefault("races", races);
-
-            clover.db = new SQLite(clover);
-            clover.db.load();
             db.setDatabaseRaces(r);
         }
 
@@ -99,7 +97,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
 //                clover.db.load();
 //                db.setDatabaseSpecNames(s, random);
 //            }
-
             config.addDefault("classes." + s + ".maxhp", 20);
             config.addDefault("classes." + s + ".hpregen", "");
             config.addDefault("classes." + s + ".armor", "");
@@ -108,7 +105,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("classes." + s + ".bowdamage", "");
             config.addDefault("classes." + s + ".sworddamage", "");
             config.addDefault("classes." + s + ".axedamage", "");
-
             config.addDefault("classes." + s + ".spec.maxhp", "");
             config.addDefault("classes." + s + ".spec.hpregen", "");
             config.addDefault("classes." + s + ".spec.armor", "");
@@ -117,9 +113,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("classes." + s + ".spec.bowdamage", "");
             config.addDefault("classes." + s + ".spec.sworddamage", "");
             config.addDefault("classes." + s + ".spec.axedamage", "");
-
-            clover.db = new SQLite(clover);
-            clover.db.load();
             db.setDatabaseClasses(s);
         }
 
@@ -133,6 +126,23 @@ public class CloverMMO extends JavaPlugin implements Listener {
         config.addDefault("profile.maxhp", true);
         config.addDefault("profile.spec", true);
         config.addDefault("profile.point", true);
+        config.addDefault("profile.strenght", true);
+        config.addDefault("profile.dexterity", true);
+        config.addDefault("profile.constitution", true);
+        config.addDefault("profile.intelligense", true);
+        config.addDefault("profile.wisdom", true);
+        config.addDefault("profile.luck", true);
+        config.addDefault("profile.charisma", true);
+        config.addDefault("profile.charactaristics", true);
+
+        config.addDefault("characteristics.strenght", 1);
+        config.addDefault("characteristics.dexterity", 1);
+        config.addDefault("characteristics.constitution", 1);
+        config.addDefault("characteristics.intelligence", 1);
+        config.addDefault("characteristics.wisdom", 1);
+        config.addDefault("characteristics.charisma", 1);
+        config.addDefault("characteristics.luck", 1);
+
         config.addDefault("Onjoin.OnFirstJoinMessageEnable", true);
         config.addDefault("Onjoin.OnReturningJoinMessageEnable", true);
         config.addDefault("Onjoin.AddPointsOnJoin", 6);
@@ -157,6 +167,15 @@ public class CloverMMO extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         String playername = event.getPlayer().getName();
+        int strength = 1;
+        int dexterity = 1;
+        int constitution = 1;
+        int intelligence = 1;
+        int wisdom = 1;
+        int charisma = 1;
+        int luck = 1;
+        db.setUserCharacteristics(playername, strength, dexterity, constitution, intelligence, wisdom, charisma, luck);
+
         if (event.getPlayer().hasPlayedBefore()) {
             if(clover.config.get("Onjoin.OnFirstJoinMessage").equals(true)) {
                 event.getPlayer().sendMessage("Welcome back " + playername);

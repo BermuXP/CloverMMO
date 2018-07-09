@@ -49,13 +49,13 @@ public class ProfileCommand implements CommandExecutor {
         Boolean points = clover.getConfig().getBoolean(pf + "point");
 
         Boolean charactaristics = clover.getConfig().getBoolean(pf + "charactaristics");
-        Boolean strength = clover.getConfig().getBoolean(pf + "point");
-        Boolean dexterity = clover.getConfig().getBoolean(pf + "point");
-        Boolean constitution = clover.getConfig().getBoolean(pf + "point");
-        Boolean intelligence = clover.getConfig().getBoolean(pf + "point");
-        Boolean wisdom = clover.getConfig().getBoolean(pf + "point");
-        Boolean charisma = clover.getConfig().getBoolean(pf + "point");
-        Boolean luck = clover.getConfig().getBoolean(pf + "point");
+        Boolean strength = clover.getConfig().getBoolean(pf + "strength");
+        Boolean dexterity = clover.getConfig().getBoolean(pf + "dexterity");
+        Boolean constitution = clover.getConfig().getBoolean(pf + "constitution");
+        Boolean intelligence = clover.getConfig().getBoolean(pf + "intelligence");
+        Boolean wisdom = clover.getConfig().getBoolean(pf + "wisdom");
+        Boolean charisma = clover.getConfig().getBoolean(pf + "charisma");
+        Boolean luck = clover.getConfig().getBoolean(pf + "luck");
 
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Profile");
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
@@ -86,66 +86,66 @@ public class ProfileCommand implements CommandExecutor {
             }
         }
         if (charactaristics == true) {
-
             List<String> chara = this.db.getUserCharacteristics(player);
-
             if (strength == true) {
                 List<String> stg = this.db.getUserCharacteristics(player);
-                if (stg != null) {
-
+                if (chara != null) {
                     sender.sendMessage("» " + ChatColor.GOLD + "Strength: " + ChatColor.WHITE + stg);
                 } else {
                     sender.sendMessage("» " + ChatColor.GOLD + "Strength: " + ChatColor.WHITE + "0");
                 }
             }
+
 //            if (dexterity == true) {
-//                String Dex = this.db.getUserCharacteristics(player);
-//                if (Dex != null) {
-//
+//                List<String> stg = this.db.getUserCharacteristics(player);
+//                if (stg != null) {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Dexterity: " + ChatColor.WHITE + stg);
 //                } else {
-//
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Dexterity: " + ChatColor.WHITE + "0");
 //                }
 //            }
 //            if (constitution == true) {
-//                String con = this.db.getUserCharacteristics(player);
-//                if (con != null) {
-//
+//                List<String> stg = this.db.getUserCharacteristics(player);
+//                if (stg != null) {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Constitution: " + ChatColor.WHITE + stg);
 //                } else {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Constitution: " + ChatColor.WHITE + "0");
+//                }
+//            }
 //
+//            if (wisdom == true) {
+//                List<String> stg = this.db.getUserCharacteristics(player);
+//                if (stg != null) {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Wisdom: " + ChatColor.WHITE + stg);
+//                } else {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Wisdom: " + ChatColor.WHITE + "0");
 //                }
 //            }
 //            if (intelligence == true) {
-//                String intel = this.db.getUserCharacteristics(player);
-//                if (intel != null) {
-//
+//                List<String> stg = this.db.getUserCharacteristics(player);
+//                if (stg != null) {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Intelligence: " + ChatColor.WHITE + stg);
 //                } else {
-//
-//                }
-//            }
-//            if (wisdom == true) {
-//                String wis = this.db.getUserCharacteristics(player);
-//                if (wis != null) {
-//
-//                } else {
-//
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Intelligence: " + ChatColor.WHITE + "0");
 //                }
 //            }
 //            if (charisma == true) {
-//                String chr = this.db.getUserCharacteristics(player);
-//                if (strength != null) {
-//
+//                List<String> stg = this.db.getUserCharacteristics(player);
+//                if (stg != null) {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Charisma: " + ChatColor.WHITE + stg);
 //                } else {
-//
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Charisma: " + ChatColor.WHITE + "0");
 //                }
 //            }
 //            if (luck == true) {
-//                String lck = this.db.getUserCharacteristics(player);
-//                if (lck != null) {
-//
+//                List<String> stg = this.db.getUserCharacteristics(player);
+//                if (stg != null) {
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Luck: " + ChatColor.WHITE + stg);
 //                } else {
-//
+//                    sender.sendMessage("» " + ChatColor.GOLD + "Luck: " + ChatColor.WHITE + "0");
 //                }
 //            }
+
         }
 
         if (spec == true) {

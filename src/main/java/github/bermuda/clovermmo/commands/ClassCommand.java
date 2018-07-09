@@ -28,7 +28,6 @@ public class ClassCommand implements CommandExecutor {
         if (args.length == 2) {
             List<String> dclasses = db.getDatabaseClasses();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
-//                List<String> dclasses = db.getDatabaseClasses();
                 this.clover.getLogger().info(dclasses.toString());
                 boolean match = false;
                 for (String s : dclasses) {
@@ -72,7 +71,6 @@ public class ClassCommand implements CommandExecutor {
                     }
                 }
             }
-
         } else {
             sender.sendMessage(clover.cloverprefix + ChatColor.RED + "Invalid input" + ChatColor.WHITE + " did you mean /class spec or /class select?");
         }

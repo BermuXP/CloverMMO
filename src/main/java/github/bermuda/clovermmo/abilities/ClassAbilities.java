@@ -8,6 +8,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class ClassAbilities {
@@ -24,26 +25,22 @@ public abstract class ClassAbilities {
 //        player.setHealth(player.getMaxHealth());
     }
 
-    public void hpregen() {
+    //todo finish, not done
+    public void basichpregen(EntityRegainHealthEvent event, int hpregen) {
+        Player player = (Player) event.getEntity();
 
+        player.setHealth(player.getHealth() + hpregen);
     }
 
-    public void bowdmg(EntityDamageByEntityEvent player) {
+    //todo competable with all items
+    public void bowdmg(EntityDamageByEntityEvent player, int damaged) {
         if (player.getDamager() instanceof Arrow) {
             Arrow arrow = (Arrow) player.getDamager();
             if (arrow.getShooter() instanceof Player) {
-                player.setDamage(player.getDamage() + 3);
+                player.setDamage(player.getDamage() + damaged);
                 // +3 needs to be replacedable in config
             }
         }
-    }
-
-    public void sworddmg() {
-
-    }
-
-    public void axedmg() {
-
     }
 
     public void walkspeed() {

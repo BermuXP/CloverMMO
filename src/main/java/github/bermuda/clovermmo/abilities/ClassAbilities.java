@@ -2,7 +2,6 @@ package github.bermuda.clovermmo.abilities;
 
 import github.bermuda.clovermmo.CloverMMO;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;

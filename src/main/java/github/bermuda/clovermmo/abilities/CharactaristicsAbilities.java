@@ -26,6 +26,12 @@ public abstract class CharactaristicsAbilities {
         
     }
 
+
+    public void damageincrease() {
+
+    }
+
+
     public void firedamageresistance() {
 
     }
@@ -58,6 +64,5 @@ public abstract class CharactaristicsAbilities {
             }
         }
     }
-
 
 }

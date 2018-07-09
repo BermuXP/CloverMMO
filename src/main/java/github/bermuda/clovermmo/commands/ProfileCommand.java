@@ -16,6 +16,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.List;
 
+import static github.bermuda.clovermmo.CloverMMO.cc;
 import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getServer;
 
@@ -32,6 +33,7 @@ public class ProfileCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
+
         this.db = new SQLite(clover);
         this.db.load();
         setupChat();
@@ -41,21 +43,19 @@ public class ProfileCommand implements CommandExecutor {
         Boolean rank = clover.getConfig().getBoolean(pf + "seperaterank");
         Boolean username = clover.getConfig().getBoolean(pf + "seperateusername");
         Boolean usernamerank = clover.getConfig().getBoolean(pf + "rankandusername");
-//        Boolean level = clover.getConfig().getBoolean(pf + "level");
+        Boolean level = clover.getConfig().getBoolean(pf + "level");
         Boolean exp = clover.getConfig().getBoolean(pf + "exp");
-//        Boolean maxhp = clover.getConfig().getBoolean(pf + "maxhp");
         Boolean spec = clover.getConfig().getBoolean(pf + "spec");
-
         Boolean points = clover.getConfig().getBoolean(pf + "point");
 
-        Boolean charactaristics = clover.getConfig().getBoolean(pf + "charactaristics");
-        Boolean strength = clover.getConfig().getBoolean(pf + "strength");
-        Boolean dexterity = clover.getConfig().getBoolean(pf + "dexterity");
-        Boolean constitution = clover.getConfig().getBoolean(pf + "constitution");
-        Boolean intelligence = clover.getConfig().getBoolean(pf + "intelligence");
-        Boolean wisdom = clover.getConfig().getBoolean(pf + "wisdom");
-        Boolean charisma = clover.getConfig().getBoolean(pf + "charisma");
-        Boolean luck = clover.getConfig().getBoolean(pf + "luck");
+        Boolean charactaristics = clover.getConfig().getBoolean(pf + "charactaristics.enable");
+        Boolean strength = clover.getConfig().getBoolean(pf + "charactaristics.strength");
+        Boolean dexterity = clover.getConfig().getBoolean(pf + "charactaristics.dexterity");
+        Boolean constitution = clover.getConfig().getBoolean(pf + "charactaristics.constitution");
+        Boolean intelligence = clover.getConfig().getBoolean(pf + "charactaristics.intelligence");
+        Boolean wisdom = clover.getConfig().getBoolean(pf + "charactaristics.wisdom");
+        Boolean charisma = clover.getConfig().getBoolean(pf + "charactaristics.charisma");
+        Boolean luck = clover.getConfig().getBoolean(pf + "charactaristics.luck");
 
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Profile");
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
@@ -68,6 +68,9 @@ public class ProfileCommand implements CommandExecutor {
         }
         if (usernamerank == true) {
             sender.sendMessage("» " + ChatColor.GOLD + "Player: " + chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§") + " " + player.getDisplayName());
+        }
+        if (level == true) {
+            sender.sendMessage("» " + ChatColor.GOLD + "Level: " + ChatColor.WHITE + player.getLevel());
         }
         if (races == true) {
             String race = this.db.getRace(player);
@@ -86,66 +89,41 @@ public class ProfileCommand implements CommandExecutor {
             }
         }
         if (charactaristics == true) {
-            List<String> chara = this.db.getUserCharacteristics(player);
+            this.db.getUserCharacteristics(player);
             if (strength == true) {
-                List<String> stg = this.db.getUserCharacteristics(player);
-                if (chara != null) {
-                    sender.sendMessage("» " + ChatColor.GOLD + "Strength: " + ChatColor.WHITE + stg);
-                } else {
-                    sender.sendMessage("» " + ChatColor.GOLD + "Strength: " + ChatColor.WHITE + "0");
-                }
+                int stg = cc.getStrength();
+                sender.sendMessage("» " + ChatColor.GOLD + "Strength: " + ChatColor.WHITE + stg);
             }
 
-//            if (dexterity == true) {
-//                List<String> stg = this.db.getUserCharacteristics(player);
-//                if (stg != null) {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Dexterity: " + ChatColor.WHITE + stg);
-//                } else {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Dexterity: " + ChatColor.WHITE + "0");
-//                }
-//            }
-//            if (constitution == true) {
-//                List<String> stg = this.db.getUserCharacteristics(player);
-//                if (stg != null) {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Constitution: " + ChatColor.WHITE + stg);
-//                } else {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Constitution: " + ChatColor.WHITE + "0");
-//                }
-//            }
-//
-//            if (wisdom == true) {
-//                List<String> stg = this.db.getUserCharacteristics(player);
-//                if (stg != null) {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Wisdom: " + ChatColor.WHITE + stg);
-//                } else {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Wisdom: " + ChatColor.WHITE + "0");
-//                }
-//            }
-//            if (intelligence == true) {
-//                List<String> stg = this.db.getUserCharacteristics(player);
-//                if (stg != null) {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Intelligence: " + ChatColor.WHITE + stg);
-//                } else {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Intelligence: " + ChatColor.WHITE + "0");
-//                }
-//            }
-//            if (charisma == true) {
-//                List<String> stg = this.db.getUserCharacteristics(player);
-//                if (stg != null) {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Charisma: " + ChatColor.WHITE + stg);
-//                } else {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Charisma: " + ChatColor.WHITE + "0");
-//                }
-//            }
-//            if (luck == true) {
-//                List<String> stg = this.db.getUserCharacteristics(player);
-//                if (stg != null) {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Luck: " + ChatColor.WHITE + stg);
-//                } else {
-//                    sender.sendMessage("» " + ChatColor.GOLD + "Luck: " + ChatColor.WHITE + "0");
-//                }
-//            }
+            if (dexterity == true) {
+                int dex = cc.getDexterity();
+                sender.sendMessage("» " + ChatColor.GOLD + "Dexterity: " + ChatColor.WHITE + dex);
+            }
 
+            if (constitution == true) {
+                int con = cc.getConstitution();
+                sender.sendMessage("» " + ChatColor.GOLD + "Constitution: " + ChatColor.WHITE + con);
+            }
+
+            if (wisdom == true) {
+                int wis = cc.getWisdom();
+                sender.sendMessage("» " + ChatColor.GOLD + "Wisdom: " + ChatColor.WHITE + wis);
+            }
+
+            if (intelligence == true) {
+                int intell = cc.getIntelligence();
+                sender.sendMessage("» " + ChatColor.GOLD + "Intelligence: " + ChatColor.WHITE + intell);
+            }
+
+            if (charisma == true) {
+                int cha = cc.getCharisma();
+                sender.sendMessage("» " + ChatColor.GOLD + "Charisma: " + ChatColor.WHITE + cha);
+            }
+
+            if (luck == true) {
+                int lu = cc.getLuck();
+                sender.sendMessage("» " + ChatColor.GOLD + "Luck: " + ChatColor.WHITE + lu);
+            }
         }
 
         if (spec == true) {
@@ -157,10 +135,6 @@ public class ProfileCommand implements CommandExecutor {
             }
         }
 
-
-//        if (level == true) {
-//            sender.sendMessage("» " + ChatColor.GOLD + "Level: " + ChatColor.WHITE + player.getLevel());
-//        }
         if (exp == true) {
             sender.sendMessage("» " + ChatColor.GOLD + "Exp: " + ChatColor.WHITE + player.getExp() + "/" + player.getExpToLevel());
         }

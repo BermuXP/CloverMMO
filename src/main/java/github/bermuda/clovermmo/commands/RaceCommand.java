@@ -24,28 +24,6 @@ public class RaceCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-//        List<String> races = db.getDatabaseRaces();
-//        if (args.length == 1) {
-//            boolean match = false;
-//            for (String s : races) {
-//                if (args[0].equalsIgnoreCase(s)) {
-//                    subrace.RaceSubcommand(sender, args, s);
-//                    match = true;
-//                }
-//            }
-//            if (!match) {
-//                sender.sendMessage(clover.cloverprefix + "No such race exists, select one of the follow races:");
-//                for (String s : races) {
-//                    sender.sendMessage("» " + ChatColor.GOLD + s);
-//                }
-//            }
-//        } else {
-//            sender.sendMessage(clover.cloverprefix + "Use /race [racename] and pick one of the following races:");
-//            for (String s : races) {
-//                sender.sendMessage("» " + ChatColor.GOLD + s);
-//            }
-//        }
-
         if (args.length == 2) {
             List<String> races = db.getDatabaseRaces();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
@@ -67,6 +45,6 @@ public class RaceCommand implements CommandExecutor {
         } else {
             sender.sendMessage(clover.cloverprefix + ChatColor.RED + "Invalid input" + ChatColor.WHITE + " did you mean /race select?");
         }
-        return false;
+        return true;
     }
 }

@@ -14,16 +14,14 @@ import github.bermuda.clovermmo.database.errors.Errors;
 import org.bukkit.entity.Player;
 
 import github.bermuda.clovermmo.CloverMMO;
-import org.bukkit.event.player.PlayerJoinEvent;
 
+import static github.bermuda.clovermmo.CloverMMO.cc;
 import static org.bukkit.Bukkit.getLogger;
 
 public abstract class Database {
     Logger logger = getLogger();
     CloverMMO plugin;
     Connection connection;
-    // The name of the table we created back in SQLite class.
-    public String table = "CloverDB";
 
     public Database(CloverMMO instance) {
         plugin = instance;
@@ -36,7 +34,7 @@ public abstract class Database {
     public void initialize() {
         connection = getSQLConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM " + table);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM useraccount");
             ResultSet rs = ps.executeQuery();
             close(ps, rs);
         } catch (SQLException ex) {
@@ -50,7 +48,7 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -81,7 +79,7 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -112,7 +110,7 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -144,13 +142,13 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE " + table + " SET race = ? WHERE player = ?");
+                ps = conn.prepareStatement("UPDATE useraccount SET race = ? WHERE player = ?");
             } else {
-                ps = conn.prepareStatement("INSERT INTO " + table + " (race,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps = conn.prepareStatement("INSERT INTO useraccount (race,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
             }
             ps.setString(1, race);   // YOU MUST put these into this line!! And depending on how man
             ps.setString(2, player.getName().toLowerCase());
@@ -179,14 +177,14 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE " + table + " SET pclass = ? WHERE player = ?");
+                ps = conn.prepareStatement("UPDATE useraccount SET pclass = ? WHERE player = ?");
 
             } else {
-                ps = conn.prepareStatement("INSERT INTO " + table + " (pclass,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps = conn.prepareStatement("INSERT INTO useraccount (pclass,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
             }
             ps.setString(1, classes);   // YOU MUST put these into this line!! And depending on how man
             ps.setString(2, player.getName().toLowerCase());
@@ -215,13 +213,13 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE " + table + " SET spec = ? WHERE player = ?");
+                ps = conn.prepareStatement("UPDATE useraccount SET spec = ? WHERE player = ?");
             } else {
-                ps = conn.prepareStatement("INSERT INTO " + table + " (spec,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps = conn.prepareStatement("INSERT INTO useraccount (spec,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
             }
             ps.setString(1, spec);   // YOU MUST put these into this line!! And depending on how man
             ps.setString(2, player.getName().toLowerCase());
@@ -315,13 +313,13 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.toLowerCase());
             rs = ps.executeQuery();
             if (rs.next()) {
                 plugin.getLogger().log(Level.WARNING, "eehm you're not supposed to see this message something went wrong contact the plugin developer");
             } else {
-                ps = conn.prepareStatement("INSERT INTO " + table + " (point,player) VALUES (?,?)");
+                ps = conn.prepareStatement("INSERT INTO useraccount (point,player) VALUES (?,?)");
             }
             ps.setInt(1, point);
             ps.setString(2, player.toLowerCase());
@@ -350,7 +348,7 @@ public abstract class Database {
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -441,25 +439,24 @@ public abstract class Database {
         return strin;
     }
 
-    public List<String> getUserCharacteristics(Player player) {
+    public String getUserCharacteristics(Player player) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<String> strin = new ArrayList<String>();
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + " WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
             while (rs.next()) {
-                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
-                    strin.add(rs.getString("strength"));
-                    strin.add(rs.getString("dexterity"));
-                    strin.add(rs.getString("constitution"));
-                    strin.add(rs.getString("wisdom"));
-                    strin.add(rs.getString("charisma"));
-                    strin.add(rs.getString("intelligence"));
-                    strin.add(rs.getString("luck"));
+                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) {
+                    cc.setStrength(rs.getInt("strength"));
+                    cc.setDexterity(rs.getInt("dexterity"));
+                    cc.setConstitution(rs.getInt("constitution"));
+                    cc.setWisdom(rs.getInt("wisdom"));
+                    cc.setCharisma(rs.getInt("charisma"));
+                    cc.setIntelligence(rs.getInt("intelligence"));
+                    cc.setLuck(rs.getInt("luck"));
                 }
             }
         } catch (SQLException ex) {
@@ -476,7 +473,7 @@ public abstract class Database {
                 logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
             }
         }
-        return strin;
+        return "empty";
     }
 
     public void setUserCharacteristics(Player player, int strength, int constitution, int wisdom, int charisma, int intelligence, int dexterity, int luck) {
@@ -486,15 +483,15 @@ public abstract class Database {
 
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM " + table + "  WHERE player = ?");
+            ps = conn.prepareStatement("SELECT * FROM useraccount  WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
 
 
             if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE " + table + " SET strength = ?, constitution = ?, wisdom = ?, charisma = ?, intelligence = ?, dexterity = ?, luck = ? WHERE player = ?");
+                ps = conn.prepareStatement("UPDATE useraccount SET strength = ?, constitution = ?, wisdom = ?, charisma = ?, intelligence = ?, dexterity = ?, luck = ? WHERE player = ?");
             } else {
-                ps = conn.prepareStatement("INSERT INTO " + table + " (strength, constitution, wisdom, charisma, intelligence, dexterity, luck, player) VALUES (?,?,?,?,?,?,?,?)");
+                ps = conn.prepareStatement("INSERT INTO useraccount (strength, constitution, wisdom, charisma, intelligence, dexterity, luck, player) VALUES (?,?,?,?,?,?,?,?)");
             }
 
             ps.setInt(1, strength);

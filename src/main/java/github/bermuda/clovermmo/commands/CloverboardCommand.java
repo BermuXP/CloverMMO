@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.scoreboard.*;
 
-import java.util.logging.Logger;
-
 import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getServer;
 

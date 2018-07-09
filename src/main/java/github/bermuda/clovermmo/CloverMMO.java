@@ -5,21 +5,16 @@ import github.bermuda.clovermmo.commands.*;
 import github.bermuda.clovermmo.config.classConfig;
 import github.bermuda.clovermmo.config.raceConfig;
 import github.bermuda.clovermmo.config.scoreboardConfig;
+import github.bermuda.clovermmo.database.CharacterClass;
 import github.bermuda.clovermmo.database.Database;
-import github.bermuda.clovermmo.commands.RaceCommand;
 
 import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +25,7 @@ import java.util.logging.Logger;
 public class CloverMMO extends JavaPlugin implements Listener {
 
     public static CloverMMO clover;
+    public static CharacterClass cc;
     public boolean noErrorsInConfigFiles = true;
     FileConfiguration config = getConfig();
     private Database db;
@@ -48,14 +44,15 @@ public class CloverMMO extends JavaPlugin implements Listener {
         clover.saveDefaultConfig();
         clover.db = new SQLite(clover);
         clover.db.load();
+        cc = new CharacterClass();
         configbasic();
         PluginDescriptionFile pdFile = getDescription();
         loadConfigFiles();
-        //logs startup in the console.
+        // logs startup in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v." + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(clover, clover);
-        //gets the commands from the commands folder.
+        // gets the commands from the commands folder.
         commands();
     }
 
@@ -70,7 +67,15 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void configbasic() {
-        List<String> races = Arrays.asList("Asatha", "Aasimar", "Tiefling", "Ifrit", "Halfling", "Human", "Oread", "Sylph", "Undine", "Halfling", "Half-elf", "Elf", "Dwarf", "Orc", "Half-orc", "Tengu");
+
+        List<String> factions = Arrays.asList("Alliance", "Horde");
+
+        for(String f : factions) {
+            config.addDefault("factions", f);
+            config.addDefault("factions." + f + "races", "");
+        }
+
+        List<String> races = Arrays.asList("Elf", "Dwarf", "Human");
 
         for (String r : races) {
             config.addDefault("races." + r + ".maxhp", "");
@@ -82,7 +87,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("races." + r + ".sworddamage", "");
             config.addDefault("races." + r + ".axedamage", "");
 //            config.addDefault("races", races);
-
             clover.db = new SQLite(clover);
             clover.db.load();
             db.setDatabaseRaces(r);
@@ -98,7 +102,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
 //                clover.db.load();
 //                db.setDatabaseSpecNames(s, random);
 //            }
-
             config.addDefault("classes." + s + ".maxhp", 20);
             config.addDefault("classes." + s + ".hpregen", "");
             config.addDefault("classes." + s + ".armor", "");
@@ -107,7 +110,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
             config.addDefault("classes." + s + ".bowdamage", "");
             config.addDefault("classes." + s + ".sworddamage", "");
             config.addDefault("classes." + s + ".axedamage", "");
-
             config.addDefault("classes." + s + ".spec.maxhp", "");
             config.addDefault("classes." + s + ".spec.hpregen", "");
             config.addDefault("classes." + s + ".spec.armor", "");
@@ -132,14 +134,14 @@ public class CloverMMO extends JavaPlugin implements Listener {
         config.addDefault("profile.maxhp", true);
         config.addDefault("profile.spec", true);
         config.addDefault("profile.point", true);
-        config.addDefault("profile.strength", true);
-        config.addDefault("profile.dexterity", true);
-        config.addDefault("profile.constitution", true);
-        config.addDefault("profile.intelligense", true);
-        config.addDefault("profile.wisdom", true);
-        config.addDefault("profile.luck", true);
-        config.addDefault("profile.charisma", true);
-        config.addDefault("profile.charactaristics", true);
+        config.addDefault("profile.charactaristics.strength", true);
+        config.addDefault("profile.charactaristics.dexterity", true);
+        config.addDefault("profile.charactaristics.constitution", true);
+        config.addDefault("profile.charactaristics.intelligence", true);
+        config.addDefault("profile.charactaristics.wisdom", true);
+        config.addDefault("profile.charactaristics.luck", true);
+        config.addDefault("profile.charactaristics.charisma", true);
+        config.addDefault("profile.charactaristics.enable", true);
 
         config.addDefault("characteristics.strenght", 1);
         config.addDefault("characteristics.dexterity", 1);
@@ -170,14 +172,17 @@ public class CloverMMO extends JavaPlugin implements Listener {
         getLogger().info("Debug >> " + message);
     }
 
-    @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        Player playername = event.getPlayer();
+    public void InsertUserCharacteristics(Player player){
+        Player playername = player.getPlayer();
 
         clover.db = new SQLite(clover);
         clover.db.load();
         db.setUserCharacteristics(playername, 1, 1, 1, 1, 1, 1, 1);
+    }
 
+    @EventHandler
+    public void onPlayerJoinEvent(PlayerJoinEvent event) {
+        Player playername = event.getPlayer();
         if (event.getPlayer().hasPlayedBefore()) {
             if(clover.config.get("Onjoin.OnFirstJoinMessageEnable").equals(true)) {
                 event.getPlayer().sendMessage("Welcome back " + playername.getName().toLowerCase());

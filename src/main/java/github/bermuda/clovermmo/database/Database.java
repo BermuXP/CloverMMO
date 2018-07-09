@@ -251,7 +251,6 @@ public abstract class Database {
         try {
             conn = getSQLConnection();
             ps = conn.prepareStatement("SELECT * FROM table_classes WHERE mclass = ?");
-
             ps.setString(1, mclass);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -506,7 +505,6 @@ public abstract class Database {
             ps.setInt(6, dexterity);
             ps.setInt(7, luck);
             ps.setString(8, rs.getString("player"));
-
             ps.executeUpdate();
             return;
         } catch (SQLException ex) {

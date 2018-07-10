@@ -10,13 +10,13 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class RaceCommand implements CommandExecutor {
+public class FactionCMD implements CommandExecutor {
     private CloverMMO clover;
     private Database db;
-    private SubCommands subrace;
+    private SubCMD subfac;
 
-    public RaceCommand(CloverMMO cmmo) {
-        subrace = new SubCommands(cmmo);
+    public FactionCMD(CloverMMO cmmo) {
+        subfac = new SubCMD(cmmo);
         this.clover = cmmo;
         db = new SQLite(clover);
         db.load();
@@ -25,25 +25,25 @@ public class RaceCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 2) {
-            List<String> races = db.getDatabaseRaces();
+            List<String> factions = db.getDatabaseFactions();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
-                this.clover.getLogger().info(races.toString());
+                this.clover.getLogger().info(factions.toString());
                 boolean match = false;
-                for (String s : races) {
+                for (String s : factions) {
                     if (args[1].equalsIgnoreCase(s)) {
-                        subrace.RaceSubcommand(sender, args, s);
+                        subfac.SubFactioncommand(sender, args, s);
                         match = true;
                     }
                 }
                 if (!match) {
-                    sender.sendMessage(clover.cloverprefix + "Use /race select [racename] and pick one of the following races:");
-                    for (String s : races) {
+                    sender.sendMessage(clover.cloverprefix + "Use /faction select [faction name] and pick one of the following races:");
+                    for (String s : factions) {
                         sender.sendMessage("» " + ChatColor.GOLD + s);
                     }
                 }
             }
         } else {
-            sender.sendMessage(clover.cloverprefix + ChatColor.RED + "Invalid input" + ChatColor.WHITE + " did you mean /race select?");
+            sender.sendMessage(clover.cloverprefix + ChatColor.RED + "Invalid input" + ChatColor.WHITE + " did you mean /faction select?");
         }
         return true;
     }

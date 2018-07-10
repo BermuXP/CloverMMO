@@ -15,29 +15,10 @@ public abstract class CharactaristicsAbilities {
         this.plugin = cmmo;
     }
 
-    //todo Strength
     public void maxhp(Player player, int mhp) {
-        //number must be replaceable in config.
-        player.setMaxHealth(mhp);
+        //number must be replaceable in DefaultConfig.
+//        player.setMaxHealth(mhp);
 //        player.setHealth(player.getMaxHealth());
-    }
-
-    public void knockbackresistance() {
-        
-    }
-
-
-    public void damageincrease() {
-
-    }
-
-
-    public void firedamageresistance() {
-
-    }
-
-    public void waterdamageresistance() {
-
     }
 
     public void damageEvent(EntityDamageByEntityEvent event) { // just the eventhandler im using to listen for the event

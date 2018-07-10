@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 
 import static github.bermuda.clovermmo.CloverMMO.clover;
 
-public class SubCommands {
+public class SubCMD {
     private CloverMMO plugin;
     private Database db;
 
-    public SubCommands(CloverMMO cmmo) {
+    public SubCMD(CloverMMO cmmo) {
         this.plugin = cmmo;
     }
 
@@ -37,6 +37,14 @@ public class SubCommands {
         dbloader();
         db.setSpec(player, spec);
     }
+
+    public void SubFactioncommand(CommandSender sender, String[] args, String faction) {
+        Player player = (Player) sender;
+        player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + faction + ChatColor.WHITE + " as faction!");
+        dbloader();
+        db.setFaction(player, faction);
+    }
+
     private void dbloader() {
         db = new SQLite(clover);
         db.load();

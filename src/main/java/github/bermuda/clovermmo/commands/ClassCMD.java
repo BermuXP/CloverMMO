@@ -11,13 +11,13 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ClassCommand implements CommandExecutor {
+public class ClassCMD implements CommandExecutor {
     private CloverMMO clover;
     private Database db;
-    private SubCommands subclass;
+    private SubCMD subclass;
 
-    public ClassCommand(CloverMMO cmmo) {
-        subclass = new SubCommands(cmmo);
+    public ClassCMD(CloverMMO cmmo) {
+        subclass = new SubCMD(cmmo);
         this.clover = cmmo;
         db = new SQLite(clover);
         db.load();

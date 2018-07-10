@@ -4,6 +4,7 @@ import github.bermuda.clovermmo.CloverMMO;
 import github.bermuda.clovermmo.abilities.ClassAbilities;
 import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.database.SQLite;
+import github.bermuda.clovermmo.database.UseraccountDB;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,24 +19,25 @@ import java.util.List;
 
 import static github.bermuda.clovermmo.CloverMMO.cc;
 import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.phapi;
 import static org.bukkit.Bukkit.getServer;
 
-public class ProfileCommand implements CommandExecutor {
+public class ProfileCMD implements CommandExecutor {
     private Database db;
     private ClassAbilities ability;
+
     public static Chat chat = null;
 
-    public ProfileCommand(CloverMMO cmmo) {
-        ability = new ClassAbilities(cmmo) {
-        };
+    public ProfileCMD(CloverMMO cmmo) {
+        ability = new ClassAbilities(cmmo) {};
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
-
         this.db = new SQLite(clover);
         this.db.load();
+        db.getUserData(player);
         setupChat();
         String pf = "profile.";
         Boolean races = clover.getConfig().getBoolean(pf + "race");
@@ -56,97 +58,115 @@ public class ProfileCommand implements CommandExecutor {
         Boolean wisdom = clover.getConfig().getBoolean(pf + "charactaristics.wisdom");
         Boolean charisma = clover.getConfig().getBoolean(pf + "charactaristics.charisma");
         Boolean luck = clover.getConfig().getBoolean(pf + "charactaristics.luck");
+        Boolean faction = clover.getConfig().getBoolean(pf + "charactaristics.factions");
+
+        String text = clover.getConfig().getString("profile.message");
+        sender.sendMessage(text);
 
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Profile");
         sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
 
         if (rank == true) {
-            sender.sendMessage("» " + ChatColor.GOLD + "Rank: " + chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§"));
+            player.sendMessage("» " + ChatColor.GOLD + "Rank: " + chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§"));
         }
         if (username == true) {
-            sender.sendMessage("» " + ChatColor.GOLD + "Name: " + player.getDisplayName());
+            player.sendMessage("» " + ChatColor.GOLD + "Name: " + player.getDisplayName());
         }
         if (usernamerank == true) {
-            sender.sendMessage("» " + ChatColor.GOLD + "Player: " + chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§") + " " + player.getDisplayName());
+            //chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player.getName(), player.getPlayer())).replace("&", "§") + " " + player.getDisplayName()
+            player.sendMessage("» " + ChatColor.GOLD + "Player: " + phapi.onPlaceholderRequest(player, "displayname"));
         }
         if (level == true) {
-            sender.sendMessage("» " + ChatColor.GOLD + "Level: " + ChatColor.WHITE + player.getLevel());
+            player.sendMessage("» " + ChatColor.GOLD + "Level: " + ChatColor.WHITE + player.getLevel());
+        }
+        if (faction == true) {
+            String factions = cc.getFaction();
+            if (factions != null) {
+                player.sendMessage("» " + ChatColor.GOLD + "Faction: " + ChatColor.WHITE + factions);
+            } else {
+                player.sendMessage("» " + ChatColor.GOLD + "Faction: " + ChatColor.WHITE + "No faction selected");
+            }
         }
         if (races == true) {
-            String race = this.db.getRace(player);
+//            String race = this.db.getRace(player);
+            String race = cc.getRace();
             if (race != null) {
-                sender.sendMessage("» " + ChatColor.GOLD + "Race: " + ChatColor.WHITE + race);
+                String wowie = clover.getConfig().getString("test");
+                player.sendMessage(wowie);
+                player.sendMessage("» " + ChatColor.GOLD + "Race: " + ChatColor.WHITE + race);
             } else {
-                sender.sendMessage("» " + ChatColor.GOLD + "Race: " + ChatColor.WHITE + "No race selected");
+                player.sendMessage("» " + ChatColor.GOLD + "Race: " + ChatColor.WHITE + "No race selected");
             }
         }
         if (classes == true) {
-            String clas = this.db.getClasses(player);
-            if (clas != null) {
-                sender.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + clas);
+//            String mclass = this.db.getClasses(player);
+            String mclass = cc.getPclass();
+            if (mclass != null) {
+                player.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + mclass);
             } else {
-                sender.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + "No class selected");
+                player.sendMessage("» " + ChatColor.GOLD + "Class: " + ChatColor.WHITE + "No class selected");
             }
         }
         if (charactaristics == true) {
-            this.db.getUserCharacteristics(player);
             if (strength == true) {
                 int stg = cc.getStrength();
-                sender.sendMessage("» " + ChatColor.GOLD + "Strength: " + ChatColor.WHITE + stg);
+                player.sendMessage("» " + ChatColor.GOLD + "Strength: " + ChatColor.WHITE + stg);
             }
 
             if (dexterity == true) {
                 int dex = cc.getDexterity();
-                sender.sendMessage("» " + ChatColor.GOLD + "Dexterity: " + ChatColor.WHITE + dex);
+                player.sendMessage("» " + ChatColor.GOLD + "Dexterity: " + ChatColor.WHITE + dex);
             }
 
             if (constitution == true) {
                 int con = cc.getConstitution();
-                sender.sendMessage("» " + ChatColor.GOLD + "Constitution: " + ChatColor.WHITE + con);
+                player.sendMessage("» " + ChatColor.GOLD + "Constitution: " + ChatColor.WHITE + con);
             }
 
             if (wisdom == true) {
                 int wis = cc.getWisdom();
-                sender.sendMessage("» " + ChatColor.GOLD + "Wisdom: " + ChatColor.WHITE + wis);
+                player.sendMessage("» " + ChatColor.GOLD + "Wisdom: " + ChatColor.WHITE + wis);
             }
 
             if (intelligence == true) {
                 int intell = cc.getIntelligence();
-                sender.sendMessage("» " + ChatColor.GOLD + "Intelligence: " + ChatColor.WHITE + intell);
+                player.sendMessage("» " + ChatColor.GOLD + "Intelligence: " + ChatColor.WHITE + intell);
             }
 
             if (charisma == true) {
                 int cha = cc.getCharisma();
-                sender.sendMessage("» " + ChatColor.GOLD + "Charisma: " + ChatColor.WHITE + cha);
+                player.sendMessage("» " + ChatColor.GOLD + "Charisma: " + ChatColor.WHITE + cha);
             }
 
             if (luck == true) {
                 int lu = cc.getLuck();
-                sender.sendMessage("» " + ChatColor.GOLD + "Luck: " + ChatColor.WHITE + lu);
+                player.sendMessage("» " + ChatColor.GOLD + "Luck: " + ChatColor.WHITE + lu);
             }
         }
 
         if (spec == true) {
-            String specs = this.db.getSpec(player);
+//            String specs = this.db.getSpec(player);
+            String specs = cc.getSpec();
             if (specs != null) {
-                sender.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + specs);
+                player.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + specs);
             } else {
-                sender.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + "No spec selected");
+                player.sendMessage("» " + ChatColor.GOLD + "Spec: " + ChatColor.WHITE + "No spec selected");
             }
         }
 
         if (exp == true) {
-            sender.sendMessage("» " + ChatColor.GOLD + "Exp: " + ChatColor.WHITE + player.getExp() + "/" + player.getExpToLevel());
+            player.sendMessage("» " + ChatColor.GOLD + "Exp: " + ChatColor.WHITE + player.getExp() + "/" + player.getExpToLevel());
         }
 //        if (maxhp == true) {
 //            sender.sendMessage("» " + ChatColor.GOLD + "Max Health: " + ChatColor.WHITE + String.valueOf(player.getHealthScale()));
 //        }
         if (points == true) {
-            int p = this.db.getpoints(player);
-            sender.sendMessage("» " + ChatColor.GOLD + "Points: " + ChatColor.WHITE + p);
+//            int p = this.db.getpoints(player);
+            int p = cc.getPoint();
+            player.sendMessage("» " + ChatColor.GOLD + "Points: " + ChatColor.WHITE + p);
         }
 //        checkclass(player);
-        sender.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
+        player.sendMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + "+-------------------------------+");
         return false;
     }
 

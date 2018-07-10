@@ -439,7 +439,42 @@ public abstract class Database {
         return strin;
     }
 
-    public String getUserCharacteristics(Player player) {
+    public void setFaction(Player player, String faction) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE useraccount SET faction = ? WHERE player = ?");
+            } else {
+                ps = conn.prepareStatement("INSERT INTO useraccount (faction,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, faction);   // YOU MUST put these into this line!! And depending on how man
+            ps.setString(2, player.getName().toLowerCase());
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public String getUserData(Player player) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -450,6 +485,11 @@ public abstract class Database {
             rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) {
+                    cc.setRace(rs.getString("race"));
+                    cc.setPclass(rs.getString("pclass"));
+                    cc.setSpec(rs.getString("spec"));
+                    cc.setFaction(rs.getString("faction"));
+                    cc.setPoint(rs.getInt("point"));
                     cc.setStrength(rs.getInt("strength"));
                     cc.setDexterity(rs.getInt("dexterity"));
                     cc.setConstitution(rs.getInt("constitution"));
@@ -486,14 +526,11 @@ public abstract class Database {
             ps = conn.prepareStatement("SELECT * FROM useraccount  WHERE player = ?");
             ps.setString(1, player.getName().toLowerCase());
             rs = ps.executeQuery();
-
-
             if (rs.next()) {
                 ps = conn.prepareStatement("UPDATE useraccount SET strength = ?, constitution = ?, wisdom = ?, charisma = ?, intelligence = ?, dexterity = ?, luck = ? WHERE player = ?");
             } else {
                 ps = conn.prepareStatement("INSERT INTO useraccount (strength, constitution, wisdom, charisma, intelligence, dexterity, luck, player) VALUES (?,?,?,?,?,?,?,?)");
             }
-
             ps.setInt(1, strength);
             ps.setInt(2, constitution);
             ps.setInt(3, wisdom);
@@ -519,6 +556,71 @@ public abstract class Database {
             }
         }
         return;
+    }
+
+    public void setDatabaseFactions(String factions) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_factions WHERE mfaction = ?");
+            ps.setString(1, factions);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE table_factions SET mfaction = ? WHERE _id = ?");
+                ps.setInt(2, rs.getInt("_id"));
+            } else {
+                ps = conn.prepareStatement("INSERT INTO table_factions (mfaction) VALUES (?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setString(1, factions);   // YOU MUST put these into this line!! And depending on how man
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public List<String> getDatabaseFactions() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<String> strin = new ArrayList<String>();
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM table_factions");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                strin.add(rs.getString("mfaction"));
+            }
+            return strin;
+        } catch (SQLException ex) {
+            logger.log(Level.INFO, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return strin;
     }
 
     public void close(PreparedStatement ps, ResultSet rs) {

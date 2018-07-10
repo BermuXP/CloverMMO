@@ -15,7 +15,7 @@ import org.bukkit.scoreboard.*;
 import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getServer;
 
-public class CloverboardCommand implements CommandExecutor {
+public class CloverboardCMD implements CommandExecutor {
 
     public static Chat chat = null;
     private Database db;

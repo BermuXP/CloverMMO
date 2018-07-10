@@ -12,22 +12,21 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class ClassAbilities {
 
-    private CloverMMO plugin;
+    private CloverMMO clovermmo;
 
     public ClassAbilities(CloverMMO cmmo) {
-        this.plugin = cmmo;
+        this.clovermmo = cmmo;
     }
 
     public void hp(Player player, int mhp) {
-        //number must be replaceable in config.
-        player.setMaxHealth(mhp);
+        //number must be replaceable in DefaultConfig.
+//        player.setMaxHealth(mhp);
 //        player.setHealth(player.getMaxHealth());
     }
 
     //todo finish, not done
     public void basichpregen(EntityRegainHealthEvent event, int hpregen) {
         Player player = (Player) event.getEntity();
-
         player.setHealth(player.getHealth() + hpregen);
     }
 
@@ -37,33 +36,9 @@ public abstract class ClassAbilities {
             Arrow arrow = (Arrow) player.getDamager();
             if (arrow.getShooter() instanceof Player) {
                 player.setDamage(player.getDamage() + damaged);
-                // +3 needs to be replacedable in config
+                // +3 needs to be replacedable in DefaultConfig
             }
         }
-    }
-
-    public void walkspeed() {
-
-    }
-
-    public void waterbreathing() {
-
-    }
-
-    public void fireresistance() {
-
-    }
-
-    public void nightvision() {
-
-    }
-
-    public void jumphight() {
-
-    }
-
-    public void fireballdamage() {
-
     }
 
     @EventHandler

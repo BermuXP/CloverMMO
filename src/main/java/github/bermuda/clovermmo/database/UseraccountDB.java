@@ -1,6 +1,11 @@
 package github.bermuda.clovermmo.database;
 
-public class CharacterClass {
+public class UseraccountDB {
+    public String race;
+    public String pclass;
+    public String spec;
+    public String faction;
+    public int point;
     public int strength;
     public int dexterity;
     public int constitution;
@@ -9,11 +14,15 @@ public class CharacterClass {
     public int intelligence;
     public int luck;
 
-    public CharacterClass() {
-
+    public UseraccountDB() {
     }
 
-    public void initialize(int gstrength, int gdexterity, int gconstitution, int gwisdom, int gcharisma, int gintelligence, int gluck) {
+    public void initialize(String grace, String gpclass, String gspec, String gfaction, int gpoint, int gstrength, int gdexterity, int gconstitution, int gwisdom, int gcharisma, int gintelligence, int gluck) {
+        this.race = grace;
+        this.pclass = gpclass;
+        this.spec = gspec;
+        this.faction = gfaction;
+        this.point = gpoint;
         this.strength = gstrength;
         this.dexterity = gdexterity;
         this.constitution = gconstitution;
@@ -24,6 +33,26 @@ public class CharacterClass {
     }
 
     //Setters
+    public void setRace(String race) {
+        this.race = race;
+    }
+
+    public void setPclass(String pclass) {
+        this.pclass = pclass;
+    }
+
+    public void setSpec(String spec) {
+        this.spec = spec;
+    }
+
+    public void setFaction(String faction) {
+        this.faction = faction;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
     public void setStrength(int strength) {
         this.strength = strength;
     }
@@ -53,6 +82,26 @@ public class CharacterClass {
     }
 
     //getters
+    public String getRace() {
+        return race;
+    }
+
+    public String getPclass() {
+        return pclass;
+    }
+
+    public String getFaction() {
+        return faction;
+    }
+
+    public String getSpec() {
+        return spec;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
     public int getStrength() {
         return strength;
     }

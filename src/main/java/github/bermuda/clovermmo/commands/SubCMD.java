@@ -8,10 +8,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class SubCMD {
     private CloverMMO plugin;
-    private Database db;
 
     public SubCMD(CloverMMO cmmo) {
         this.plugin = cmmo;

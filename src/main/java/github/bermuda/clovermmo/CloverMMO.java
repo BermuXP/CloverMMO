@@ -15,9 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,11 +25,11 @@ public class CloverMMO extends JavaPlugin implements Listener {
     private DefaultConfig dc;
     public static CloverMMO clover;
     public static UseraccountDB cc;
-    public static PlaceholderAPI phapi;
+    public PlaceholderAPI phapi;
     public PluginDescriptionFile pdFile = getDescription();
     public boolean noErrorsInConfigFiles = true;
-    FileConfiguration config = getConfig();
-    private Database db;
+    public FileConfiguration config = getConfig();
+    public static Database db;
     public String cloverprefix = ChatColor.BOLD + "" + ChatColor.GREEN + "CloverMMO " + ChatColor.BLUE + "» " + ChatColor.WHITE;
 
     public class ConfigListener implements Listener {
@@ -46,19 +44,22 @@ public class CloverMMO extends JavaPlugin implements Listener {
     public void onEnable() {
         clover = this;
         clover.saveDefaultConfig();
-        clover.db = new SQLite(clover);
-        clover.db.load();
+        db = new SQLite(clover);
+        db.load();
         cc = new UseraccountDB();
         dc = new DefaultConfig();
-//        PluginDescriptionFile pdFile = getDescription();
         loadConfigFiles();
         // logs startup in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v." + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(clover, clover);
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            new PlaceholderAPI().register();
-        }
+//        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+//            new PlaceholderAPI().register();
+//            phapi = new PlaceholderAPI();
+//            logger.info("PlaceHolderAPI found, using PlaceholderAPI. ");
+//        } else {
+//            logger.info("PlaceHolderAPI not found, using default Placeholders");
+//        }
         // gets the commands from the commands folder.
         commands();
     }
@@ -74,6 +75,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
         getCommand("faction").setExecutor(new FactionCMD(clover));
     }
 
+    public static String color(String Colors) {
+        if (Colors == null) {
+            return "";
+        }
+        return ChatColor.translateAlternateColorCodes('&', Colors);
+    }
+
     private void loadConfigFiles() {
         scoreboardConfig.getInstance();
         raceConfig.getInstance();
@@ -81,29 +89,12 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     public void debug(String message) {
-        getLogger().info("CloverMMO debug>> " + message);
+        getLogger().info(message);
     }
 
     public void InsertUserCharacteristics(Player player) {
         Player playername = player.getPlayer();
-        db = new SQLite(clover);
-        db.load();
         db.setUserCharacteristics(playername, 1, 1, 1, 1, 1, 1, 1);
-    }
-
-    @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        Player playername = event.getPlayer();
-        if (event.getPlayer().hasPlayedBefore()) {
-            if (clover.config.get("Onjoin.OnFirstJoinMessageEnable").equals(true)) {
-                event.getPlayer().sendMessage("Welcome back " + playername.getName().toLowerCase());
-            }
-        } else {
-            db.addpoints(clover.config.getInt("Onjoin.AddPointsOnJoin"), playername.getName().toLowerCase());
-            if (clover.config.get("Onjoin.OnReturningJoinMessageEnable").equals(true)) {
-                event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");
-            }
-        }
     }
 
     @Override

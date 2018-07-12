@@ -29,7 +29,7 @@ public class DefaultConfig {
             db.setDatabaseFactions(f);
         }
 
-        List<String> races = Arrays.asList("Furfag", "Hooman", "Dwurf");
+        List<String> races = Arrays.asList("Werewolf", "Human", "Dwarf");
 
         for (String r : races) {
             clover.getConfig().addDefault("races." + r + ".maxhp", "");

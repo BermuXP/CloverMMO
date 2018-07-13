@@ -4,8 +4,7 @@ import github.bermuda.clovermmo.CloverMMO;
 
 import github.bermuda.clovermmo.abilities.ClassAbilities;
 import github.bermuda.clovermmo.database.SQLite;
-import github.bermuda.clovermmo.placeholder.Placeholder;
-import net.milkbowl.vault.chat.Chat;
+import github.bermuda.clovermmo.API.placeholder.Placeholder;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

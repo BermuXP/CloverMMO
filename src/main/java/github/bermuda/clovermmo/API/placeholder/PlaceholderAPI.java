@@ -1,4 +1,4 @@
-package github.bermuda.clovermmo.API;
+package github.bermuda.clovermmo.API.placeholder;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 

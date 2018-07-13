@@ -8,19 +8,19 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import github.bermuda.clovermmo.CloverMMO;
 
-public abstract class configLoader {
+public abstract class ConfigLoader {
     protected static final CloverMMO plugin = CloverMMO.clover;
     protected String fileName;
     private File configFile;
     protected FileConfiguration config;
 
-    public configLoader(String relativePath, String fileName) {
+    public ConfigLoader(String relativePath, String fileName) {
         this.fileName = fileName;
         configFile = new File(plugin.getDataFolder(), relativePath + File.separator + fileName);
         loadFile();
     }
 
-    public configLoader(String fileName) {
+    public ConfigLoader(String fileName) {
         this.fileName = fileName;
         configFile = new File(plugin.getDataFolder(), fileName);
         loadFile();
@@ -28,7 +28,7 @@ public abstract class configLoader {
 
     protected void loadFile() {
         if (!configFile.exists()) {
-            plugin.debug("Creating CloverMMO " + fileName + " File...");
+            plugin.debug("Creating " + fileName + " File...");
 
             try {
                 plugin.saveResource(fileName, false); // Normal files

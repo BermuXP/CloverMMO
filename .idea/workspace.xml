@@ -10,23 +10,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16049846-9876-42b3-bc5d-ea79b9d986cf" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/events/OnJoinEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/events/OnQuitEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/placeholder/Placeholder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/vault/vaultAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/ClassConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/FactionConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/ProfileConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/RaceConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/races.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/PlaceholderAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/PlaceholderAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/CloverMMO_jar/CloverMMO.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/PlaceholderAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/placeholder/PlaceholderAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/ClassAbilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/ClassAbilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/SubCMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/SubCMD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/DefaultConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/DefaultConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/UtilListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/API/PlaceholderAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/API/PlaceholderAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/DefaultConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/DefaultConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/classConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/configLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/ConfigLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/raceConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/scoreboardConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/placeholder/Placeholder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/placeholder/Placeholder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/race.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/factions.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scoreboard.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/profile.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/API/PlaceholderAPI.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/CloverMMO$ConfigListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/CloverMMO$ConfigListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/CloverMMO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/CloverMMO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/commands/ProfileCMD$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/commands/ProfileCMD$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/commands/ProfileCMD.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/commands/ProfileCMD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/commands/SubCMD.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/commands/SubCMD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/DefaultConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/DefaultConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/DefaultConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/classConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/configLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/configLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/raceConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/config/scoreboardConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/database/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/database/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/github/bermuda/clovermmo/placeholder/Placeholder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/race.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scoreboard.yml" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -39,11 +59,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ClassAbilities.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClassAbilities.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/ClassAbilities.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="22" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="35" />
+            <state relative-caret-position="435">
+              <caret line="40" column="134" selection-start-line="40" selection-start-column="134" selection-end-line="40" selection-end-column="134" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,35 +71,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FactionCMD.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/FactionCMD.java">
+      <file leaf-file-name="Attributable.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.12.1-R0.1-SNAPSHOT/bukkit-1.12.1-R0.1-20170914.114217-28.jar!/org/bukkit/attribute/Attributable.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="119">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Placeholder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/placeholder/Placeholder.java">
+      <file leaf-file-name="Arrow.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.12.1-R0.1-SNAPSHOT/bukkit-1.12.1-R0.1-20170914.114217-28.jar!/org/bukkit/entity/Arrow.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="40" column="70" lean-forward="true" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="DefaultConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/DefaultConfig.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/DefaultConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+            <state relative-caret-position="476">
+              <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -87,22 +101,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClassCMD.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ClassCMD.java">
+      <file leaf-file-name="util.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/util.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="42" lean-forward="true" selection-start-column="42" selection-end-column="42" />
+            <state relative-caret-position="68">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProfileCMD.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCMD.java">
+      <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+            <state relative-caret-position="1214">
+              <caret line="129" column="60" lean-forward="true" selection-start-line="129" selection-start-column="60" selection-end-line="129" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="races.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/races.yml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="ClassConfig.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/ClassConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+              <folding>
+                <element signature="e#223#224#0" expanded="true" />
+                <element signature="e#259#260#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -111,27 +143,10 @@
       <file leaf-file-name="CloverMMO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="713">
-              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="714">
+              <caret line="44" column="26" lean-forward="true" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1537#1538#0" expanded="true" />
-                <element signature="e#1578#1579#0" expanded="true" />
-                <element signature="e#3223#3224#0" expanded="true" />
-                <element signature="e#3264#3265#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SubCMD.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/SubCMD.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
-              <folding>
-                <element signature="e#461#462#0" expanded="true" />
-                <element signature="e#495#496#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,6 +169,7 @@
       <find>save</find>
       <find>db</find>
       <find>onjo</find>
+      <find>race</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,30 +182,40 @@
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/CharacterClass.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/RaceCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/util.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/UtilListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/config.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/SubCommands.java" />
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/UseraccountDB.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/FactionCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/SQLite.java" />
-        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ClassCMD.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/ClassAbilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/CharactaristicsAbilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/events.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/events/OnJoinEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/PlaceholderAPI.java" />
-        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/DefaultConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCMD.java" />
-        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/scoreboardConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/placeholder/Placeholder.java" />
         <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/SubCMD.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/RaceConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/configLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/raceConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/PlaceholderAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/vault.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/DefaultConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/race.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/RaceConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/FactionConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/ProfileConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/DefaultConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/resources/races.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/util.java" />
+        <option value="$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/ClassAbilities.java" />
       </list>
     </option>
   </component>
@@ -215,7 +241,6 @@
     <panes>
       <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -281,15 +306,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="clovermmo" type="462c0819:PsiDirectoryNode" />
-              <item name="API" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CloverMMO" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="clovermmo" type="462c0819:PsiDirectoryNode" />
               <item name="commands" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -300,6 +316,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="clovermmo" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CloverMMO" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="clovermmo" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="setconfig" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
@@ -335,15 +361,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="clovermmo" type="462c0819:PsiDirectoryNode" />
-              <item name="placeholder" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CloverMMO" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="clovermmo" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -364,10 +381,49 @@
               <item name="CloverMMO" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.bukkit:bukkit:1.12.1-R0.1-SNAPSHOT" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.bukkit:bukkit:1.12.1-R0.1-SNAPSHOT" type="70bed36:NamedLibraryElementNode" />
+              <item name="bukkit-1.12.1-R0.1-20170914.114217-28.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.bukkit:bukkit:1.12.1-R0.1-SNAPSHOT" type="70bed36:NamedLibraryElementNode" />
+              <item name="bukkit-1.12.1-R0.1-20170914.114217-28.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="bukkit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.bukkit:bukkit:1.12.1-R0.1-SNAPSHOT" type="70bed36:NamedLibraryElementNode" />
+              <item name="bukkit-1.12.1-R0.1-20170914.114217-28.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="bukkit" type="462c0819:PsiDirectoryNode" />
+              <item name="attribute" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CloverMMO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.bukkit:bukkit:1.12.1-R0.1-SNAPSHOT" type="70bed36:NamedLibraryElementNode" />
+              <item name="bukkit-1.12.1-R0.1-20170914.114217-28.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="bukkit" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -459,11 +515,12 @@
       <workItem from="1531206594932" duration="256000" />
       <workItem from="1531206880970" duration="25215000" />
       <workItem from="1531297612085" duration="20000000" />
+      <workItem from="1531469591594" duration="18796000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="150284000" />
+    <option name="totallyTimeSpent" value="169080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1696" height="1026" extended-state="6" />
@@ -483,9 +540,9 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25611246" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2591687" />
       <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.32930845" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32882884" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="3" />
@@ -518,17 +575,17 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.33745363" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32882884" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2567237" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2567237" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32930845" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
     </layout-to-restore>
@@ -545,109 +602,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/SQLite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="92" lean-forward="true" selection-start-line="28" selection-start-column="92" selection-end-line="28" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/MySQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ClassCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="15" selection-start-line="15" selection-end-line="15" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1802">
-          <caret line="125" column="9" lean-forward="true" selection-start-line="125" selection-start-column="9" selection-end-line="125" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="91" column="128" selection-start-line="91" selection-start-column="128" selection-end-line="91" selection-end-column="128" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/RaceCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="27" column="31" lean-forward="true" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/SQLite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ClassCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="64" lean-forward="true" selection-start-line="47" selection-start-column="64" selection-end-line="47" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/SubCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="31" column="5" lean-forward="true" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/RaceCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/CloverboardCMD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/LevelCMD.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -697,13 +651,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/classConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.9-R0.1-SNAPSHOT/bukkit-1.9-R0.1-20160330.160319-146.jar!/org/bukkit/event/player/PlayerEvent.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -739,79 +686,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="95" selection-start-line="18" selection-start-column="95" selection-end-line="18" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/UseraccountDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="886">
-          <caret line="79" column="33" selection-start-line="79" selection-start-column="33" selection-end-line="79" selection-end-column="33" />
-          <folding>
-            <element signature="e#1077#1078#0" expanded="true" />
-            <element signature="e#1109#1110#0" expanded="true" />
-            <element signature="e#1153#1154#0" expanded="true" />
-            <element signature="e#1189#1190#0" expanded="true" />
-            <element signature="e#1229#1230#0" expanded="true" />
-            <element signature="e#1261#1262#0" expanded="true" />
-            <element signature="e#1307#1308#0" expanded="true" />
-            <element signature="e#1345#1346#0" expanded="true" />
-            <element signature="e#1385#1386#0" expanded="true" />
-            <element signature="e#1419#1420#0" expanded="true" />
-            <element signature="e#1464#1465#0" expanded="true" />
-            <element signature="e#1504#1505#0" expanded="true" />
-            <element signature="e#1551#1552#0" expanded="true" />
-            <element signature="e#1593#1594#0" expanded="true" />
-            <element signature="e#1646#1647#0" expanded="true" />
-            <element signature="e#1694#1695#0" expanded="true" />
-            <element signature="e#1735#1736#0" expanded="true" />
-            <element signature="e#1771#1772#0" expanded="true" />
-            <element signature="e#1816#1817#0" expanded="true" />
-            <element signature="e#1856#1857#0" expanded="true" />
-            <element signature="e#1909#1910#0" expanded="true" />
-            <element signature="e#1957#1958#0" expanded="true" />
-            <element signature="e#1994#1995#0" expanded="true" />
-            <element signature="e#2026#2027#0" expanded="true" />
-            <element signature="e#2071#2072#0" expanded="true" />
-            <element signature="e#2098#2099#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="69" lean-forward="true" selection-start-column="69" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="549" column="17" lean-forward="true" selection-start-line="560" selection-start-column="16" selection-end-line="560" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/SQLite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="37" column="100" selection-start-line="37" selection-start-column="100" selection-end-line="37" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/CharactaristicsAbilities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -826,13 +700,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/events.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/events.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/events/OnQuitEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -859,38 +727,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/FactionCMD.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
+        <state relative-caret-position="255">
           <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/PlaceholderAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/ClassAbilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="22" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/DefaultConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -900,17 +738,11 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ClassCMD.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="42" lean-forward="true" selection-start-column="42" selection-end-column="42" />
+          <caret column="42" selection-start-column="42" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/UtilListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="829">
-          <caret line="112" column="2" lean-forward="true" selection-start-line="112" selection-start-column="2" selection-end-line="112" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/UtilListener.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/objects/objects.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -920,18 +752,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/ProfileCMD.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
+        <state relative-caret-position="408">
           <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/placeholder/Placeholder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="40" column="70" lean-forward="true" selection-start-line="40" selection-start-column="70" selection-end-line="40" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -949,27 +771,225 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/UseraccountDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="316">
+          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+          <folding>
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1109#1110#0" expanded="true" />
+            <element signature="e#1153#1154#0" expanded="true" />
+            <element signature="e#1189#1190#0" expanded="true" />
+            <element signature="e#1229#1230#0" expanded="true" />
+            <element signature="e#1261#1262#0" expanded="true" />
+            <element signature="e#1307#1308#0" expanded="true" />
+            <element signature="e#1345#1346#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/vault.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/placeholder/PlaceholderAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1537#1538#0" expanded="true" />
-            <element signature="e#1578#1579#0" expanded="true" />
-            <element signature="e#3223#3224#0" expanded="true" />
-            <element signature="e#3264#3265#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/vault/vaultAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/API/placeholder/Placeholder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/SQLite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="26" column="16" lean-forward="true" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/commands/SubCMD.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+        <state relative-caret-position="-9">
+          <caret line="4" column="48" lean-forward="true" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/RaceConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="50" selection-end-column="50" />
           <folding>
-            <element signature="e#461#462#0" expanded="true" />
-            <element signature="e#495#496#0" expanded="true" />
+            <element signature="e#156#157#0" expanded="true" />
+            <element signature="e#189#190#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/ConfigLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="75" column="16" selection-start-line="75" selection-start-column="16" selection-end-line="75" selection-end-column="16" />
+          <folding>
+            <element signature="e#1527#1528#0" expanded="true" />
+            <element signature="e#1554#1555#0" expanded="true" />
+            <element signature="e#2180#2181#0" expanded="true" />
+            <element signature="e#2213#2214#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/FactionConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="50" lean-forward="true" selection-start-column="50" selection-end-column="50" />
+          <folding>
+            <element signature="e#318#319#0" expanded="true" />
+            <element signature="e#354#355#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/ProfileConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/profile.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/factions.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/classes.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="69" selection-start-column="69" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="95" selection-start-line="18" selection-start-column="95" selection-end-line="18" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/database/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1214">
+          <caret line="129" column="60" lean-forward="true" selection-start-line="129" selection-start-column="60" selection-end-line="129" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/DefaultConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/util/util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/config/setconfig/ClassConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding>
+            <element signature="e#223#224#0" expanded="true" />
+            <element signature="e#259#260#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/races.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/CloverMMO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="44" column="26" lean-forward="true" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.12.1-R0.1-SNAPSHOT/bukkit-1.12.1-R0.1-20170914.114217-28.jar!/org/bukkit/entity/Arrow.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.12.1-R0.1-SNAPSHOT/bukkit-1.12.1-R0.1-20170914.114217-28.jar!/org/bukkit/entity/Projectile.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.12.1-R0.1-SNAPSHOT/bukkit-1.12.1-R0.1-20170914.114217-28.jar!/org/bukkit/attribute/Attribute.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.12.1-R0.1-SNAPSHOT/bukkit-1.12.1-R0.1-20170914.114217-28.jar!/org/bukkit/attribute/Attributable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/github/bermuda/clovermmo/abilities/ClassAbilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="40" column="134" selection-start-line="40" selection-start-column="134" selection-end-line="40" selection-end-column="134" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -1,4 +1,4 @@
-package github.bermuda.clovermmo.placeholder;
+package github.bermuda.clovermmo.API.placeholder;
 
 import github.bermuda.clovermmo.database.SQLite;
 import org.apache.commons.lang.StringUtils;

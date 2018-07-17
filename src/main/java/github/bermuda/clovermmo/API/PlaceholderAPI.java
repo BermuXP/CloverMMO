@@ -1,12 +1,18 @@
 package github.bermuda.clovermmo.API;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import static github.bermuda.clovermmo.CloverMMO.clover;
 
 public class PlaceholderAPI extends PlaceholderExpansion {
+
+    @Override
+    public boolean canRegister() {
+        return true;
+    }
 
     @Override
     public String getIdentifier() {
@@ -31,23 +37,23 @@ public class PlaceholderAPI extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, String s) {
 
-        if(player == null){
-            return "";
+        if (player == null) {
+            return "No player";
         }
 
-        if(s.equalsIgnoreCase("onlines")){
-            return String.valueOf(Bukkit.getOnlinePlayers().size());
+        if (s.contains("online")) {
+            s=s.replace("online", String.valueOf(Bukkit.getOnlinePlayers().size()));
         }
 
+        if (s.contains("displayname")) {
+            s = s.replace("displayname", String.valueOf(player.getDisplayName()));
 
-        if(s.equalsIgnoreCase("displayname")){
-            return String.valueOf(player.getDisplayName());
         }
 
-        if(s.equalsIgnoreCase("playername")){
-            return player.getName();
+        if (s.contains("playername")) {
+            s=s.replace("playername", player.getName());
         }
 
-        return null;
+        return s;
     }
 }

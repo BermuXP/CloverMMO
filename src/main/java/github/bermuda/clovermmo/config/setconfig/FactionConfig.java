@@ -20,7 +20,6 @@ public class FactionConfig extends ConfigLoader {
     @Override
     protected void loadKeys() {
         if (config.getConfigurationSection("FactionConfig") != null) {
-            backup();
             return;
         }
     }

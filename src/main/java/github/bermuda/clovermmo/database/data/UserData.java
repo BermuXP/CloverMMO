@@ -1,6 +1,6 @@
-package github.bermuda.clovermmo.database;
+package github.bermuda.clovermmo.database.data;
 
-public class UseraccountDB {
+public class UserData {
     public String race;
     public String pclass;
     public String spec;
@@ -13,11 +13,13 @@ public class UseraccountDB {
     public int charisma;
     public int intelligence;
     public int luck;
+    public int level;
+    public int exp;
 
-    public UseraccountDB() {
+    public UserData() {
     }
 
-    public void initialize(String grace, String gpclass, String gspec, String gfaction, int gpoint, int gstrength, int gdexterity, int gconstitution, int gwisdom, int gcharisma, int gintelligence, int gluck) {
+    public void initialize(String grace, String gpclass, String gspec, String gfaction, int gpoint, int gstrength, int gdexterity, int gconstitution, int gwisdom, int gcharisma, int gintelligence, int gluck, int glevel, int gexp) {
         this.race = grace;
         this.pclass = gpclass;
         this.spec = gspec;
@@ -30,6 +32,8 @@ public class UseraccountDB {
         this.charisma = gcharisma;
         this.intelligence = gintelligence;
         this.luck = gluck;
+        this.level = glevel;
+        this.exp = gexp;
     }
 
     //Setters
@@ -81,6 +85,14 @@ public class UseraccountDB {
         this.luck = luck;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
     //getters
     public String getRace() {
         return race;
@@ -128,6 +140,14 @@ public class UseraccountDB {
 
     public int getLuck() {
         return luck;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getExp() {
+        return exp;
     }
 }
 

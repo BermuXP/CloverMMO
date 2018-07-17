@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -24,6 +25,11 @@ public class RaceCMD implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(clover.cloverprefix + "you must be a player to perform this command!");
+            return false;
+        }
+
         if (args.length == 2) {
             List<String> races = db.getDatabaseRaces();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
@@ -45,6 +51,6 @@ public class RaceCMD implements CommandExecutor {
         } else {
             sender.sendMessage(clover.cloverprefix + ChatColor.RED + "Invalid input" + ChatColor.WHITE + " did you mean /race select?");
         }
-        return true;
+        return false;
     }
 }

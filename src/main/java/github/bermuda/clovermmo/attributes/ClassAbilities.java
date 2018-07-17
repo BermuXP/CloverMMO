@@ -1,4 +1,4 @@
-package github.bermuda.clovermmo.abilities;
+package github.bermuda.clovermmo.attributes;
 
 import github.bermuda.clovermmo.CloverMMO;
 import org.bukkit.Material;
@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.inventory.ItemStack;
 
-public abstract class ClassAbilities {
+public class ClassAbilities {
 
     private CloverMMO clovermmo;
 
@@ -38,16 +38,18 @@ public abstract class ClassAbilities {
             }
         }
     }
-//todo remove arrow dmg and rewrite to all sword damage, if that does not work write a few other functions for all djkind of sword dmg
-    public void SwordDamageEvent(EntityDamageByEntityEvent player, int sworddamage) {
-        if (player.getDamager() instanceof Arrow) {
 
-            Player cause = (Player) player.getDamager(); // the one hitting
-            ItemStack stonesword = cause.getInventory().getItemInMainHand();
+    public void IncreaseOrLowerDamage(EntityDamageByEntityEvent event, Material m, int damageamount, String plusorminus) { // just the eventhandler im using to listen for the event
+//        Player player = (Player) event.getEntity(); // the one not being hit
+        Player cause = (Player) event.getDamager(); // the one hitting
 
-            Arrow arrow = (Arrow) player.getDamager();
-            if (arrow.getShooter() instanceof Player) {
-                player.setDamage(player.getDamage() + sworddamage);
+        if (cause.getInventory().getItemInMainHand().getType().equals(m)) {
+            if(plusorminus.equals("+")) {
+                event.setDamage(event.getDamage() + damageamount);
+            } else if(plusorminus.equals("-")){
+                event.setDamage(event.getDamage() - damageamount);
+            } else {
+//                Log.debug("An unknown error accrued please contact the server owner or the Plugin developer if this keeps happening");
             }
         }
     }
@@ -61,10 +63,23 @@ public abstract class ClassAbilities {
         if (cause.getInventory().getItemInMainHand().getType().equals(Material.STONE_SWORD)) { // wooooooooo
             if (stonesword.containsEnchantment(Enchantment.DAMAGE_ALL)) { // here you can do different levels like if its level 1 - so much damage if level 2 - so much damage etc
                 event.setDamage(event.getDamage() - 40);
-
             }
         }
     }
+
+//    @EventHandler
+//    public void damageEvent(EntityDamageByEntityEvent event) { // just the eventhandler im using to listen for the event
+//        Player player = (Player) event.getEntity(); // the one not being hit
+//        Player cause = (Player) event.getDamager(); // the one hitting
+//        ItemStack stonesword = cause.getInventory().getItemInMainHand(); // dont worry i check below if its a stone sword
+//
+//        if (cause.getInventory().getItemInMainHand().getType().equals(Material.STONE_SWORD)) { // wooooooooo
+//            if (stonesword.containsEnchantment(Enchantment.DAMAGE_ALL)) { // here you can do different levels like if its level 1 - so much damage if level 2 - so much damage etc
+//                event.setDamage(event.getDamage() - 40);
+//
+//            }
+//        }
+//    }
 
 
 }

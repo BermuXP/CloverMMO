@@ -20,7 +20,6 @@ public class RaceConfig extends ConfigLoader {
     @Override
     protected void loadKeys() {
         if (config.getConfigurationSection("RaceConfig") != null) {
-            backup();
             return;
         }
     }

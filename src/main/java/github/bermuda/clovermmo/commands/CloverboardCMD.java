@@ -24,7 +24,7 @@ public class CloverboardCMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("you must be a player to perform this command!");
+            sender.sendMessage(clover.cloverprefix + "you must be a player to perform this command!");
             return false;
         }
 

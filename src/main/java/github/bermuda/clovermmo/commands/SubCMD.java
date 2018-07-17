@@ -22,6 +22,7 @@ public class SubCMD {
         player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + race + ChatColor.WHITE + " as race!");
         dbloader();
         db.setRace(player, race);
+        db.addpoints(clover.config.getInt("Onjoin.AddPointsOnJoin"), player.getName().toLowerCase());
     }
 
     public void ClassSelSubcommand(CommandSender sender, String[] args, String classes) {

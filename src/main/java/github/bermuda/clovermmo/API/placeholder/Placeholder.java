@@ -25,7 +25,7 @@ public class Placeholder {
         token.put("playername", player.getName());
         token.put("faction", cc.getFaction());
         token.put("race", cc.getRace());
-        token.put("level", String.valueOf(player.getLevel()));
+        token.put("level", String.valueOf(cc.getLevel()));
         token.put("class", cc.getPclass());
         token.put("spec", cc.getSpec());
         token.put("strength", String.valueOf(cc.getStrength()));
@@ -35,7 +35,7 @@ public class Placeholder {
         token.put("intelligence", String.valueOf(cc.getIntelligence()));
         token.put("charisma", String.valueOf(cc.getCharisma()));
         token.put("luck", String.valueOf(cc.getLuck()));
-        token.put("experience", "Experience is in development");
+        token.put("experience", String.valueOf(cc.getExp()));
         token.put("points", String.valueOf(cc.getPoint()));
 
         String patternString = "%(" + StringUtils.join(token.keySet(), "|") + ")%";

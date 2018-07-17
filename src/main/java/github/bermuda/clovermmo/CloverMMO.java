@@ -1,17 +1,20 @@
 package github.bermuda.clovermmo;
 
-import github.bermuda.clovermmo.API.placeholder.PlaceholderAPI;
 import github.bermuda.clovermmo.commands.*;
 
 import github.bermuda.clovermmo.config.setconfig.*;
-import github.bermuda.clovermmo.database.UseraccountDB;
+import github.bermuda.clovermmo.database.data.UserData;
 import github.bermuda.clovermmo.database.Database;
 
 import github.bermuda.clovermmo.database.SQLite;
+import github.bermuda.clovermmo.events.OnJoinEvent;
+import github.bermuda.clovermmo.experience.Exp;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,8 +22,8 @@ import java.util.logging.Logger;
 
 public class CloverMMO extends JavaPlugin implements Listener {
     public static CloverMMO clover;
-    public static UseraccountDB cc;
-//    public PlaceholderAPI phapi;
+    public static UserData cc;
+    //    public PlaceholderAPI phapi;
     public PluginDescriptionFile pdFile = getDescription();
     public boolean noErrorsInConfigFiles = true;
     public FileConfiguration config = getConfig();
@@ -40,10 +43,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
         clover.saveDefaultConfig();
         db = new SQLite(clover);
         db.load();
-        cc = new UseraccountDB();
+        cc = new UserData();
         new DefaultConfig();
-        loadConfigFiles();
+        new Exp();
+//
+//        onjoin.onPlayerJoinEvent();
 
+        loadConfigFiles();
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v." + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(clover, clover);
@@ -54,15 +60,17 @@ public class CloverMMO extends JavaPlugin implements Listener {
 //        } else {
 //            logger.info("PlaceHolderAPI not found, using default Placeholders");
 //        }
-
-
         commands();
+    }
+
+    @EventHandler
+    private void EntityDeathCaller(EntityDeathEvent e) {
+        new Exp().onEntityDeath(e);
     }
 
     private void commands() {
 //        String cmmo = "cmmo";
         getCommand("clovermmo").setExecutor(new ClovermmoCMD());
-        getCommand("level").setExecutor(new LevelCMD());
         getCommand("cloverboard").setExecutor(new CloverboardCMD());
         getCommand("race").setExecutor(new RaceCMD(clover));
         getCommand("class").setExecutor(new ClassCMD(clover));
@@ -94,7 +102,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
         int c = config.getInt("characteristics.constitution");
         int w = config.getInt("characteristics.wisdom");
         int ch = config.getInt("characteristics.charisma");
-        int i =config.getInt("characteristics.intelligence");
+        int i = config.getInt("characteristics.intelligence");
         int d = config.getInt("characteristics.dexterity");
         int l = config.getInt("characteristics.luck");
         db.setUserCharacteristics(playername, s, c, w, ch, i, d, l);

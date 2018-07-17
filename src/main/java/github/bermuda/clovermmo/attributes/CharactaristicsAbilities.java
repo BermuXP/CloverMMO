@@ -1,4 +1,4 @@
-package github.bermuda.clovermmo.abilities;
+package github.bermuda.clovermmo.attributes;
 
 import github.bermuda.clovermmo.CloverMMO;
 import org.bukkit.Material;
@@ -29,7 +29,6 @@ public abstract class CharactaristicsAbilities {
         if(cause.getInventory().getItemInMainHand().getType().equals(Material.STONE_SWORD)) { // wooooooooo
             if(stonesword.containsEnchantment(Enchantment.DAMAGE_ALL)) { // here you can do different levels like if its level 1 - so much damage if level 2 - so much damage etc
                 event.setDamage(event.getDamage() - 40);
-
             }
         }
     }

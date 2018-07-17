@@ -25,6 +25,11 @@ public class ClassCMD implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(clover.cloverprefix + "you must be a player to perform this command!");
+            return false;
+        }
+
         if (args.length == 2) {
             List<String> dclasses = db.getDatabaseClasses();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
@@ -58,11 +63,10 @@ public class ClassCMD implements CommandExecutor {
                     }
                 }
                 if (!match) {
-                    if (clas == null || clas.equalsIgnoreCase("No spec selected")) {
+                    if (clas == null) {
                         sender.sendMessage(clover.cloverprefix + "You haven't selected a class yet, first select a class with /class select then try again!");
                     } else {
                         List<String> spec = clover.getConfig().getStringList("classes." + clas + ".spec.name");
-
                         sender.sendMessage(clover.cloverprefix + "No such spec exists, select one of the follow specs:");
                         for (String specs : spec) {
                             sender.sendMessage("» " + ChatColor.GOLD + specs);

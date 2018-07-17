@@ -453,6 +453,8 @@ public abstract class Database {
                     cc.setCharisma(rs.getInt("charisma"));
                     cc.setIntelligence(rs.getInt("intelligence"));
                     cc.setLuck(rs.getInt("luck"));
+                    cc.setLevel(rs.getInt("level"));
+                    cc.setExp(rs.getInt("exp"));
                 }
             }
         } catch (SQLException ex) {

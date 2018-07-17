@@ -2,7 +2,7 @@ package github.bermuda.clovermmo.commands;
 
 import github.bermuda.clovermmo.CloverMMO;
 
-import github.bermuda.clovermmo.abilities.ClassAbilities;
+import github.bermuda.clovermmo.attributes.ClassAbilities;
 import github.bermuda.clovermmo.database.SQLite;
 import github.bermuda.clovermmo.API.placeholder.Placeholder;
 
@@ -28,6 +28,11 @@ public class ProfileCMD implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(clover.cloverprefix + "you must be a player to perform this command!");
+            return false;
+        }
+
         Player player = (Player) sender;
         db = new SQLite(clover);
         db.load();

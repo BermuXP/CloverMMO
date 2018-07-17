@@ -20,7 +20,6 @@ public class ProfileConfig extends ConfigLoader {
     @Override
     protected void loadKeys() {
         if (config.getConfigurationSection("ProfileConfig") != null) {
-            backup();
             return;
         }
     }

@@ -20,7 +20,6 @@ public class ClassConfig extends ConfigLoader {
     @Override
     protected void loadKeys() {
         if (config.getConfigurationSection("ClassConfig") != null) {
-            backup();
             return;
         }
     }

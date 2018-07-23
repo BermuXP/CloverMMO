@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import github.bermuda.clovermmo.database.errors.Error;
 import github.bermuda.clovermmo.database.errors.Errors;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 
 import github.bermuda.clovermmo.CloverMMO;
@@ -410,6 +411,41 @@ public abstract class Database {
                 ps = conn.prepareStatement("INSERT INTO useraccount (faction,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
             }
             ps.setString(1, faction);   // YOU MUST put these into this line!! And depending on how man
+            ps.setString(2, player.getName().toLowerCase());
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
+    public void setExp(Player player, int exp) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE useraccount SET exp = ? WHERE player = ?");
+            } else {
+                ps = conn.prepareStatement("INSERT INTO useraccount (exp,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setInt(1, exp);   // YOU MUST put these into this line!! And depending on how man
             ps.setString(2, player.getName().toLowerCase());
             ps.executeUpdate();
             return;

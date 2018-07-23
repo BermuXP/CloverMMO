@@ -42,7 +42,7 @@ public class FactionCMD implements CommandExecutor {
                     }
                 }
                 if (!match) {
-                    sender.sendMessage(clover.cloverprefix + "Use /faction select [faction name] and pick one of the following races:");
+                    sender.sendMessage(clover.cloverprefix + "Use /faction select [faction name] and pick one of the following factions:");
                     for (String s : factions) {
                         sender.sendMessage("» " + ChatColor.GOLD + s);
                     }

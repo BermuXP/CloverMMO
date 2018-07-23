@@ -1,6 +1,7 @@
 package github.bermuda.clovermmo.config;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,12 +29,12 @@ public abstract class ConfigLoader {
         if (!configFile.exists()) {
             clover.debug("Creating " + fileName + " File...");
             try {
-                clover.saveResource(fileName, false); // Normal files
+                clover.saveResource(fileName, false);
             } catch (IllegalArgumentException ex) {
                 clover.saveResource(configFile.getParentFile().getName() + File.separator + fileName, false); // Mod files
             }
         } else {
-            clover.debug("Loading CloverMMO " + fileName + " File...");
+            clover.debug("Loading " + fileName + " File...");
         }
         config = YamlConfiguration.loadConfiguration(configFile);
     }
@@ -44,13 +45,13 @@ public abstract class ConfigLoader {
         return true;
     }
 
-//    protected boolean noErrorsInConfig(List<String> issues) {
-//        for (String issue : issues) {
-//            plugin.getLogger().warning(issue);
-//        }
-//
-//        return issues.isEmpty();
-//    }
+    protected boolean noErrorsInConfig(List<String> issues) {
+        for (String issue : issues) {
+            clover.getLogger().warning(issue);
+        }
+        return issues.isEmpty();
+    }
+
 
     protected void validate() {
         if (validateKeys()) {
@@ -66,17 +67,4 @@ public abstract class ConfigLoader {
         return configFile;
     }
 
-    public void backup() {
-        clover.getLogger().warning("You are using an old version of the " + fileName + " file.");
-        clover.getLogger().warning("Your old file has been renamed to " + fileName + ".old and has been replaced by an updated version.");
-        configFile.renameTo(new File(configFile.getPath() + ".old"));
-
-        if (clover.getResource(fileName) != null) {
-            clover.saveResource(fileName, true);
-        }
-
-        clover.getLogger().warning("Reloading " + fileName + " with new values...");
-        loadFile();
-        loadKeys();
-    }
 }

@@ -4,17 +4,17 @@ import github.bermuda.clovermmo.config.ConfigLoader;
 
 public class FactionConfig extends ConfigLoader {
 
-    private static FactionConfig instance;
+    private static FactionConfig Fconfig;
 
     private FactionConfig() {
         super("factions.yml");
     }
 
     public static FactionConfig getInstance() {
-        if (instance == null) {
-            instance = new FactionConfig();
+        if (Fconfig == null) {
+            Fconfig = new FactionConfig();
         }
-        return instance;
+        return Fconfig;
     }
 
     @Override

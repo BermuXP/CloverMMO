@@ -4,17 +4,17 @@ import github.bermuda.clovermmo.config.ConfigLoader;
 
 public class ClassConfig extends ConfigLoader {
 
-    private static ClassConfig instance;
+    private static ClassConfig Cconfig;
 
     private ClassConfig() {
         super("classes.yml");
     }
 
     public static ClassConfig getInstance() {
-        if (instance == null) {
-            instance = new ClassConfig();
+        if (Cconfig == null) {
+            Cconfig = new ClassConfig();
         }
-        return instance;
+        return Cconfig;
     }
 
     @Override

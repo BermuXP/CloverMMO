@@ -1,0 +1,39 @@
+#Races -> DO NOT CHANGE THIS NAME
+#races name (Human:) -> The name of your (new) race!
+#Displayname -> The name displayed in-game for the race
+#Strength ->
+#Dexterity ->
+#Constitution ->
+#Intelligence ->
+#Wisdom ->
+#Charisma ->
+#Luck -> Chances to get more: Exp.
+
+Races:
+  Elf:
+    displayname: "Elf"
+    strength:
+    dexterity:
+    constitution:
+    intelligence:
+    wisdom:
+    charisma:
+    luck:
+  Human:
+    displayname: "Human"
+    strength:
+    dexterity:
+    constitution:
+    intelligence:
+    wisdom:
+    charisma:
+    luck:
+  Dwarf:
+    displayname: "Dwarf"
+    strength:
+    dexterity:
+    constitution:
+    intelligence:
+    wisdom:
+    charisma:
+    luck:

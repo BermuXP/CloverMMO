@@ -2,19 +2,22 @@ package github.bermuda.clovermmo.config.setconfig;
 
 import github.bermuda.clovermmo.config.ConfigLoader;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class RaceConfig extends ConfigLoader {
 
-    private static RaceConfig instance;
+    private static RaceConfig Rconfig;
 
     private RaceConfig() {
         super("races.yml");
     }
 
     public static RaceConfig getInstance() {
-        if (instance == null) {
-            instance = new RaceConfig();
+        if (Rconfig == null) {
+            Rconfig = new RaceConfig();
         }
-        return instance;
+        return Rconfig;
     }
 
     @Override
@@ -22,5 +25,37 @@ public class RaceConfig extends ConfigLoader {
         if (config.getConfigurationSection("RaceConfig") != null) {
             return;
         }
+    }
+
+    public List<String> getRaceName() {
+        return Arrays.asList((new String[]{config.getString("Races.")}));
+    }
+
+    public int getRaceStrength(String race) {
+        return config.getInt("Races."+ race +".strength");
+    }
+
+    public int getRaceDexterity(String race) {
+        return config.getInt("Races."+ race +".dexterity");
+    }
+
+    public int getRaceConstitution(String race) {
+        return config.getInt("Races."+ race +".constitution");
+    }
+
+    public int getRaceIntelligence(String race) {
+        return config.getInt("Races."+ race +".intelligence");
+    }
+
+    public int getRaceWisdom(String race) {
+        return config.getInt("Races."+ race +".wisdom");
+    }
+
+    public int getRaceCharisma(String race) {
+        return config.getInt("Races."+ race +".charisma");
+    }
+
+    public int getRaceLuck(String race) {
+        return config.getInt("Races."+ race +".luck");
     }
 }

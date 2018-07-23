@@ -2,6 +2,7 @@ package github.bermuda.clovermmo.config.setconfig;
 
 import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.database.SQLite;
+import org.bukkit.entity.Entity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,20 +46,20 @@ public class DefaultConfig {
             db.setDatabaseFactions(f);
         }
 
-        List<String> races = Arrays.asList("W", "Human", "Dwarf");
-        for (String r : races) {
-            clover.getConfig().addDefault("races." + r + ".strength", "");
-            clover.getConfig().addDefault("races." + r + ".dexterity", "");
-            clover.getConfig().addDefault("races." + r + ".constitution", "");
-            clover.getConfig().addDefault("races." + r + ".intelligence", "");
-            clover.getConfig().addDefault("races." + r + ".wisdom", "");
-            clover.getConfig().addDefault("races." + r + ".charisma", "");
-            clover.getConfig().addDefault("races." + r + ".luck", "");
-//            DefaultConfig.addDefault("races", races);
-            this.db = new SQLite(clover);
-            this.db.load();
-            db.setDatabaseRaces(r);
-        }
+//        List<String> races = Arrays.asList("W", "Human", "Dwarf");
+//        for (String r : races) {
+//            clover.getConfig().addDefault("races." + r + ".strength", "");
+//            clover.getConfig().addDefault("races." + r + ".dexterity", "");
+//            clover.getConfig().addDefault("races." + r + ".constitution", "");
+//            clover.getConfig().addDefault("races." + r + ".intelligence", "");
+//            clover.getConfig().addDefault("races." + r + ".wisdom", "");
+//            clover.getConfig().addDefault("races." + r + ".charisma", "");
+//            clover.getConfig().addDefault("races." + r + ".luck", "");
+////            DefaultConfig.addDefault("races", races);
+//            this.db = new SQLite(clover);
+//            this.db.load();
+//            db.setDatabaseRaces(r);
+//        }
 
         List<String> classes = Arrays.asList("Paladin", "Druid", "Priest", "Hunter", "Mage", "Necromancer", "Warrior", "Thief");
 
@@ -97,8 +98,9 @@ public class DefaultConfig {
         clover.getConfig().addDefault("onjoin.OnFirstJoinMessageEnable", true);
         clover.getConfig().addDefault("onjoin.OnReturningJoinMessageEnable", true);
         clover.getConfig().addDefault("onjoin.AddPointsOnJoin", 6);
-        clover.getConfig().options().copyDefaults(true);
 
+
+        clover.getConfig().options().copyDefaults(true);
         clover.saveConfig();
 
     }

@@ -18,6 +18,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class CloverMMO extends JavaPlugin implements Listener {
@@ -43,6 +44,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
         clover.saveDefaultConfig();
         db = new SQLite(clover);
         db.load();
+
         cc = new UserData();
         new DefaultConfig();
         new Exp();
@@ -76,6 +78,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
         getCommand("class").setExecutor(new ClassCMD(clover));
         getCommand("profile").setExecutor(new ProfileCMD(clover));
         getCommand("faction").setExecutor(new FactionCMD(clover));
+        getCommand("cloverreload").setExecutor(new ReloadCMD());
     }
 
     public static String color(String Colors) {
@@ -89,7 +92,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
         ProfileConfig.getInstance();
         FactionConfig.getInstance();
         RaceConfig.getInstance();
+//        List<String> race = RaceConfig.getInstance().getRaceName();
+//        for(String r : race) {
+//            db.setDatabaseRaces(r);
+//        }
+
         ClassConfig.getInstance();
+        AdvancedConfig.advanced();
     }
 
     public void debug(String message) {

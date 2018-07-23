@@ -4,17 +4,17 @@ import github.bermuda.clovermmo.config.ConfigLoader;
 
 public class ProfileConfig extends ConfigLoader {
 
-    private static ProfileConfig instance;
+    private static ProfileConfig Pconfig;
 
     private ProfileConfig() {
         super("profile.yml");
     }
 
     public static ProfileConfig getInstance() {
-        if (instance == null) {
-            instance = new ProfileConfig();
+        if (Pconfig == null) {
+            Pconfig = new ProfileConfig();
         }
-        return instance;
+        return Pconfig;
     }
 
     @Override

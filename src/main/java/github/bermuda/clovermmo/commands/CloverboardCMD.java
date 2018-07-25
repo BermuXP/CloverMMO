@@ -79,10 +79,9 @@ public class CloverboardCMD implements CommandExecutor {
         return true;
     }
 
-    private boolean setupChat() {
+    private void setupChat() {
         RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
         chat = rsp.getProvider();
-        return chat != null;
     }
 
     public static Chat getChat() {

@@ -10,11 +10,10 @@ public class ProfileConfig extends ConfigLoader {
         super("profile.yml");
     }
 
-    public static ProfileConfig getInstance() {
+    public static void getInstance() {
         if (Pconfig == null) {
             Pconfig = new ProfileConfig();
         }
-        return Pconfig;
     }
 
     @Override

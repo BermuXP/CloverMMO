@@ -11,14 +11,13 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class FactionCMD implements CommandExecutor {
-    private CloverMMO clover;
-    private Database db;
-    private SubCMD subfac;
+import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.db;
 
-    public FactionCMD(CloverMMO cmmo) {
-        subfac = new SubCMD(cmmo);
-        this.clover = cmmo;
+public class FactionCMD implements CommandExecutor {
+    private SubCMD subfac = new SubCMD();
+
+    public FactionCMD() {
         db = new SQLite(clover);
         db.load();
     }
@@ -33,7 +32,7 @@ public class FactionCMD implements CommandExecutor {
         if (args.length == 2) {
             List<String> factions = db.getDatabaseFactions();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
-                this.clover.getLogger().info(factions.toString());
+                clover.getLogger().info(factions.toString());
                 boolean match = false;
                 for (String s : factions) {
                     if (args[1].equalsIgnoreCase(s)) {

@@ -10,11 +10,10 @@ public class FactionConfig extends ConfigLoader {
         super("factions.yml");
     }
 
-    public static FactionConfig getInstance() {
+    public static void getInstance() {
         if (Fconfig == null) {
             Fconfig = new FactionConfig();
         }
-        return Fconfig;
     }
 
     @Override

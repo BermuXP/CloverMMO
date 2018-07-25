@@ -1,7 +1,5 @@
 package github.bermuda.clovermmo.commands;
 
-import github.bermuda.clovermmo.CloverMMO;
-import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -11,18 +9,12 @@ import static github.bermuda.clovermmo.CloverMMO.clover;
 import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class SubCMD {
-    private CloverMMO plugin;
-
-    public SubCMD(CloverMMO cmmo) {
-        this.plugin = cmmo;
-    }
 
     public void RaceSubcommand(CommandSender sender, String[] args, String race) {
         Player player = (Player) sender;
         player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + race + ChatColor.WHITE + " as race!");
         dbloader();
         db.setRace(player, race);
-        db.addpoints(clover.config.getInt("Onjoin.AddPointsOnJoin"), player.getName().toLowerCase());
     }
 
     public void ClassSelSubcommand(CommandSender sender, String[] args, String classes) {

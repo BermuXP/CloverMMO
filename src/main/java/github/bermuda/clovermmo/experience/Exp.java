@@ -2,7 +2,6 @@ package github.bermuda.clovermmo.experience;
 
 import github.bermuda.clovermmo.config.setconfig.AdvancedConfig;
 import github.bermuda.clovermmo.database.SQLite;
-import github.bermuda.clovermmo.database.data.UserData;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;

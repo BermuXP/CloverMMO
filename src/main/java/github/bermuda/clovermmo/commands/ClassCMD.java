@@ -1,6 +1,7 @@
 package github.bermuda.clovermmo.commands;
 
 import github.bermuda.clovermmo.CloverMMO;
+import github.bermuda.clovermmo.config.setconfig.ClassConfig;
 import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
@@ -10,15 +11,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Set;
+
+import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class ClassCMD implements CommandExecutor {
-    private CloverMMO clover;
-    private Database db;
-    private SubCMD subclass;
+    private SubCMD subclass = new SubCMD();
 
-    public ClassCMD(CloverMMO cmmo) {
-        subclass = new SubCMD(cmmo);
-        this.clover = cmmo;
+    public ClassCMD() {
         db = new SQLite(clover);
         db.load();
     }
@@ -33,7 +34,7 @@ public class ClassCMD implements CommandExecutor {
         if (args.length == 2) {
             List<String> dclasses = db.getDatabaseClasses();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
-                this.clover.getLogger().info(dclasses.toString());
+                clover.getLogger().info(dclasses.toString());
                 boolean match = false;
                 for (String s : dclasses) {
                     if (args[1].equalsIgnoreCase(s)) {
@@ -52,9 +53,10 @@ public class ClassCMD implements CommandExecutor {
             if (args[0].equalsIgnoreCase("spec") || args[0].equalsIgnoreCase("subclass")) {
                 boolean match = false;
                 Player player = (Player) sender;
-                String clas = this.db.getClasses(player);
-                if (clas != null) {
-                    List<String> spec = clover.getConfig().getStringList("classes." + clas + ".spec.name");
+                String clas = db.getClasses(player);
+                if (clas.equals(null) || clas.equalsIgnoreCase("no class selected")) {
+                } else {
+                    Set<String> spec = ClassConfig.getInstance().getSpecName(clas);
                     for (String specs : spec) {
                         if (args[1].equalsIgnoreCase(specs)) {
                             subclass.ClassSpecSubcommand(sender, args, specs);
@@ -63,15 +65,14 @@ public class ClassCMD implements CommandExecutor {
                     }
                 }
                 if (!match) {
-                    if (clas == null) {
+                    if (clas == null || clas.equalsIgnoreCase("no class selected")) {
                         sender.sendMessage(clover.cloverprefix + "You haven't selected a class yet, first select a class with /class select then try again!");
                     } else {
-                        List<String> spec = clover.getConfig().getStringList("classes." + clas + ".spec.name");
+                        Set<String> spec = ClassConfig.getInstance().getSpecName(clas);
                         sender.sendMessage(clover.cloverprefix + "No such spec exists, select one of the follow specs:");
                         for (String specs : spec) {
                             sender.sendMessage("» " + ChatColor.GOLD + specs);
                         }
-
                     }
                 }
             }

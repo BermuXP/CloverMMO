@@ -1,6 +1,5 @@
 #Races -> DO NOT CHANGE THIS NAME
-#races name (Human:) -> The name of your (new) race!
-#Displayname -> The name displayed in-game for the race
+#races name (Human:) -> The name of your (new) race, remember this is also the displayed name!!
 #Strength ->
 #Dexterity ->
 #Constitution ->
@@ -11,8 +10,7 @@
 
 Races:
   Elf:
-    displayname: "Elf"
-    strength:
+    strength: 6
     dexterity:
     constitution:
     intelligence:
@@ -20,7 +18,6 @@ Races:
     charisma:
     luck:
   Human:
-    displayname: "Human"
     strength:
     dexterity:
     constitution:
@@ -29,7 +26,6 @@ Races:
     charisma:
     luck:
   Dwarf:
-    displayname: "Dwarf"
     strength:
     dexterity:
     constitution:

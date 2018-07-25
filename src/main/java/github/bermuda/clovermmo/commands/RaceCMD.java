@@ -11,14 +11,13 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class RaceCMD implements CommandExecutor {
-    private CloverMMO clover;
-    private Database db;
-    private SubCMD subrace;
+import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.db;
 
-    public RaceCMD(CloverMMO cmmo) {
-        subrace = new SubCMD(cmmo);
-        this.clover = cmmo;
+public class RaceCMD implements CommandExecutor {
+    private SubCMD subrace = new SubCMD();
+
+    public RaceCMD() {
         db = new SQLite(clover);
         db.load();
     }
@@ -33,7 +32,7 @@ public class RaceCMD implements CommandExecutor {
         if (args.length == 2) {
             List<String> races = db.getDatabaseRaces();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
-                this.clover.getLogger().info(races.toString());
+                clover.getLogger().info(races.toString());
                 boolean match = false;
                 for (String s : races) {
                     if (args[1].equalsIgnoreCase(s)) {
@@ -42,7 +41,7 @@ public class RaceCMD implements CommandExecutor {
                     }
                 }
                 if (!match) {
-                    sender.sendMessage(clover.cloverprefix + "Use /race select [racename] and pick one of the following races:");
+                    sender.sendMessage(clover.cloverprefix + "Use /race select [race name] and pick one of the following races:");
                     for (String s : races) {
                         sender.sendMessage("» " + ChatColor.GOLD + s);
                     }

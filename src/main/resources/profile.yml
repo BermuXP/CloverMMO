@@ -1,0 +1,19 @@
+# profile
+# level
+# Level number: this is one of the levels a player can be.
+# nextRankExp: the amount of exp a player needs to get the next level
+# Points: the amount of spendable points a player gets for leveling up.
+Profile:
+  level:
+    0:
+      NextRankExp: 10
+      points: 1
+    1:
+      NextRankExp: 50
+      points: 1
+    2:
+      NextRankExp: 150
+      points: 1
+    3:
+      NextRankExp: 450
+      points: 1

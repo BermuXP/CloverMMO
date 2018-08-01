@@ -1,95 +1,76 @@
 package github.bermuda.clovermmo.commands.gui;
 
-import github.bermuda.clovermmo.commands.ProfileCMD;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static github.bermuda.clovermmo.CloverMMO.cc;
-import static org.bukkit.Material.DIAMOND_SWORD;
+import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.db;
 
-public class ProfileGuiCMD implements Listener, CommandExecutor {
-
-    // Create a new inventory, with no owner, a size of nine, called example
-    public static Inventory inv = Bukkit.createInventory(null, 9, "Profile");
+public class ProfileGuiCMD implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-        Player player = (Player) sender;
-        player.openInventory(inv);
-        initializeItems(player);
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
+        if (sender instanceof Player) {
+            Player p = (Player) sender;
+            p.sendMessage(clover.cloverprefix + "Profile GUI loaded.");
+            db.getUserData(p);
+
+            Inventory inv = Bukkit.createInventory(null, 9, "Profile");
+
+            List<String> lore = Arrays.asList("Level: " + cc.getLevel(), "Exp: " + cc.getExp(), "Faction: " + cc.getFaction(), "Class: " + cc.getPclass(), "Spec: " + cc.getSpec());
+            items(inv, p.getDisplayName(), Material.SKULL_ITEM, 0, ChatColor.GOLD, lore);
+
+            List<String> lore2 = Arrays.asList(String.valueOf(cc.getStrength()));
+            items(inv, "Strength", Material.DIAMOND_AXE, 1, ChatColor.GOLD, lore2);
+
+            List<String> lore3 = Arrays.asList(String.valueOf(cc.getDexterity()));
+            items(inv, "Dexterity", Material.SHIELD, 2, ChatColor.GOLD, lore3);
+
+            List<String> lore4 = Arrays.asList(String.valueOf(cc.getConstitution()));
+            items(inv, "Constitution", Material.BOW, 3, ChatColor.GOLD, lore4);
+
+            List<String> lore5 = Arrays.asList(String.valueOf(cc.getWisdom()));
+            items(inv, "Wisdom", Material.BOOK_AND_QUILL, 4, ChatColor.GOLD, lore5);
+
+            List<String> lore6 = Arrays.asList(String.valueOf(cc.getIntelligence()));
+            items(inv, "Intelligence", Material.BOOKSHELF, 5, ChatColor.GOLD, lore6);
+
+            List<String> lore7 = Arrays.asList(String.valueOf(cc.getCharisma()));
+            items(inv, "Charisma", Material.ARROW, 6, ChatColor.GOLD, lore7);
+
+            List<String> lore8 = Arrays.asList(String.valueOf(cc.getLuck()));
+            items(inv, "Luck", Material.EMERALD, 7, ChatColor.GOLD, lore8);
+
+            List<String> lore9 = Arrays.asList(String.valueOf(cc.getPoint()));
+            items(inv, "Points", Material.GOLD_NUGGET, 8, ChatColor.GOLD, lore9);
+
+            p.openInventory(inv);
+            return true;
+        }
         return false;
     }
 
-    // You can call this whenever you want to put the items in
-    public void initializeItems(Player player) {
-//        inv.addItem(createGuiItem(player.getDisplayName(), new ArrayList<String>(Arrays.asList(cc.getPclass(), String.valueOf(cc.getLevel()), String.valueOf(cc.getExp()))), Material.SKULL_ITEM));
-        inv.addItem(createGuiItem("Strength", new ArrayList<String>(Arrays.asList(player.getDisplayName())), DIAMOND_SWORD));
-//        inv.addItem(createGuiItem("Dexterity", new ArrayList<String>(Arrays.asList(String.valueOf(cc.getDexterity()))), Material.SHIELD));
-//        inv.addItem(createGuiItem("Constitution", new ArrayList<String>(Arrays.asList(String.valueOf(cc.getConstitution()))), Material.TOTEM));
-//        inv.addItem(createGuiItem("Wisdom", new ArrayList<String>(Arrays.asList(String.valueOf(cc.getWisdom()))), Material.BOOK));
-//        inv.addItem(createGuiItem("Intelligence", new ArrayList<String>(Arrays.asList(String.valueOf(cc.getIntelligence()))), Material.EMPTY_MAP));
-//        inv.addItem(createGuiItem("Charisma", new ArrayList<String>(Arrays.asList(String.valueOf(cc.getCharisma()))), Material.ARROW));
-//        inv.addItem(createGuiItem("Luck", new ArrayList<String>(Arrays.asList(String.valueOf(cc.getLuck()))), Material.DIAMOND));
-    }
+    public void items(Inventory inv, String dn, Material mat, int number, ChatColor displaycolor, List<String> lore) {
+        ItemStack item = new ItemStack(mat);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(displaycolor + dn);
+        meta.setLore(lore);
 
-    public ItemStack createGuiItem(String name, ArrayList<String> desc, Material mat) {
-        ItemStack i = new ItemStack(mat, 1);
-        ItemMeta iMeta = i.getItemMeta();
-        iMeta.setDisplayName(name);
-        iMeta.setLore(desc);
-        i.setItemMeta(iMeta);
-        return i;
-    }
-
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-
-        if (!(e.getWhoClicked() instanceof Player)) {
-            return;
-        }
-
-        String invName = e.getInventory().getName();
-        if (!invName.equals(inv.getName())) {
-            return;
-        }
-
-        e.setCancelled(true);
-
-        Player p = (Player) e.getWhoClicked();
-        ItemStack clickedItem = e.getCurrentItem();
-
-
-        if (clickedItem == null) {
-            return;
-        }
-
-        if (!clickedItem.hasItemMeta()) {
-            return;
-        }
-
-        ItemMeta meta = clickedItem.getItemMeta();
-
-        if (!meta.hasDisplayName()) {
-            return;
-        }
-
-        if (meta.getDisplayName().equals("Strength")) {
-            p.sendMessage("you clicked strength");
-            return;
-        }
+        item.setItemMeta(meta);
+        inv.addItem(item);
+        inv.setItem(number, item);
     }
 }

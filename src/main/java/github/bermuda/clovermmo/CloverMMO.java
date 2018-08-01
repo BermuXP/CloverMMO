@@ -2,19 +2,22 @@ package github.bermuda.clovermmo;
 
 import github.bermuda.clovermmo.commands.*;
 
+import github.bermuda.clovermmo.commands.gui.InventoryListener;
 import github.bermuda.clovermmo.commands.gui.ProfileGuiCMD;
 import github.bermuda.clovermmo.config.setconfig.*;
 import github.bermuda.clovermmo.database.data.UserData;
 import github.bermuda.clovermmo.database.Database;
 
 import github.bermuda.clovermmo.database.SQLite;
-import github.bermuda.clovermmo.experience.Exp;
+import github.bermuda.clovermmo.events.DamageEvent;
+import github.bermuda.clovermmo.events.ExperienceEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -40,7 +43,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
         cc = new UserData();
         new DefaultConfig();
-        new Exp();
+        new ExperienceEvent();
 //
 //        onjoin.onPlayerJoinEvent();
 
@@ -59,8 +62,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     @EventHandler
+    public void onPlayerClickInventory(InventoryClickEvent e){
+        new InventoryListener().ProfileInventory(e);
+    }
+
+    @EventHandler
     private void EntityDeathCaller(EntityDeathEvent e) {
-        new Exp().onEntityDeath(e);
+        new DamageEvent().onEntityDeath(e);
     }
 
     private void commands() {
@@ -69,6 +77,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
         getCommand("cloverboard").setExecutor(new CloverboardCMD());
         getCommand("race").setExecutor(new RaceCMD());
         getCommand("class").setExecutor(new ClassCMD());
+
         if (config.get("profile.GuiOrChat").equals("gui")) {
             getCommand("profile").setExecutor(new ProfileGuiCMD());
         } else {

@@ -1,5 +1,6 @@
 package github.bermuda.clovermmo.API.placeholder;
 
+import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
 import github.bermuda.clovermmo.database.SQLite;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
@@ -10,22 +11,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static github.bermuda.clovermmo.CloverMMO.cc;
-import static github.bermuda.clovermmo.CloverMMO.clover;
 import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class Placeholder {
 
     public static StringBuffer onPlaceholderRequest(Player player, String s) {
-        db = new SQLite(clover);
-        db.load();
         db.getUserData(player);
 
-        Map<String,String> token = new HashMap<>();
+        Map<String, String> token = new HashMap<>();
         token.put("displayname", player.getDisplayName());
         token.put("playername", player.getName());
         token.put("faction", cc.getFaction());
         token.put("race", cc.getRace());
         token.put("level", String.valueOf(cc.getLevel()));
+        token.put("nextlevel", String.valueOf(ProfileConfig.profile().getExp(cc.getLevel())));
         token.put("class", cc.getPclass());
         token.put("spec", cc.getSpec());
         token.put("strength", String.valueOf(cc.getStrength()));
@@ -43,15 +42,14 @@ public class Placeholder {
         Matcher matcher = pattern.matcher(s);
 
         StringBuffer sb = new StringBuffer();
-        while(matcher.find()) {
-            if(token.get(matcher.group(1)) == null) {
+        while (matcher.find()) {
+            if (token.get(matcher.group(1)) == null) {
                 matcher.appendReplacement(sb, "Not selected");
             } else {
                 matcher.appendReplacement(sb, token.get(matcher.group(1)));
             }
         }
         matcher.appendTail(sb);
-        System.out.println(sb.toString());
         return sb;
     }
 }

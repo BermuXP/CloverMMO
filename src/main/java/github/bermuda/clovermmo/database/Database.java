@@ -60,16 +60,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return "No race selected";
     }
@@ -92,16 +83,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return "no class selected";
     }
@@ -144,16 +126,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }
@@ -180,16 +153,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }
@@ -215,16 +179,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }
@@ -280,16 +235,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             logger.log(Level.INFO, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return strin;
     }
@@ -316,16 +262,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }
@@ -346,16 +283,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             logger.log(Level.INFO, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return strin;
     }
@@ -381,16 +309,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }
@@ -416,16 +335,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }
@@ -460,72 +370,28 @@ public abstract class Database {
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
     }
 
-    public void setLevel(Player player, int level) {
+    public void LevelUp(Player player, int level, int point) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
+            ps = conn.prepareStatement("SELECT lvl, point FROM useraccount WHERE player = ?");
             ps.setString(1, String.valueOf(player.getUniqueId()));
             rs = ps.executeQuery();
             if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE useraccount SET lvl = ? WHERE player = ?");
+                ps = conn.prepareStatement("UPDATE useraccount SET lvl = ?, point = ? WHERE player = ?");
 
             } else {
-                ps = conn.prepareStatement("INSERT INTO useraccount (lvl,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps = conn.prepareStatement("INSERT INTO useraccount (lvl,point,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
             }
-            ps.setInt(1, level);   // YOU MUST put these into this line!! And depending on how man
-            ps.setString(2, String.valueOf(player.getUniqueId()));
-            ps.executeUpdate();
-            return;
-        } catch (SQLException ex) {
-            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
-        }
-        return;
-    }
-
-    public void setPoints(Player player, int points) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
-            ps.setString(1, String.valueOf(player.getUniqueId()));
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                ps = conn.prepareStatement("UPDATE useraccount SET point = ? WHERE player = ?");
-
-            } else {
-                ps = conn.prepareStatement("INSERT INTO useraccount (point,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
-            }
-            ps.setInt(1, points);   // YOU MUST put these into this line!! And depending on how man
-            ps.setString(2, String.valueOf(player.getUniqueId()));
+            ps.setInt(1, level);
+            ps.setInt(2, point);
+            ps.setString(3, String.valueOf(player.getUniqueId()));
             ps.executeUpdate();
             return;
         } catch (SQLException ex) {
@@ -564,16 +430,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }
@@ -599,16 +456,7 @@ public abstract class Database {
         } catch (SQLException ex) {
             plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
         } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
+            close(ps, rs);
         }
         return;
     }

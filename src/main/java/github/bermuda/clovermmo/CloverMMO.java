@@ -11,6 +11,8 @@ import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.database.SQLite;
 import github.bermuda.clovermmo.events.DamageEvent;
 import github.bermuda.clovermmo.events.ExperienceEvent;
+import github.bermuda.clovermmo.events.OnJoinEvent;
+import github.bermuda.clovermmo.events.OnQuitEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -18,6 +20,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -62,6 +66,17 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        new OnJoinEvent().onPlayerJoinEvent(event);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        new OnQuitEvent().onPlayerQuitEvent(event);
+    }
+
+
+    @EventHandler
     public void onPlayerClickInventory(InventoryClickEvent e){
         new InventoryListener().ProfileInventory(e);
     }
@@ -72,16 +87,15 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void commands() {
-//        String cmmo = "cmmo";
         getCommand("clovermmo").setExecutor(new ClovermmoCMD());
+        getCommand("cmmo").setExecutor(new ClovermmoCMD());
         getCommand("cloverboard").setExecutor(new CloverboardCMD());
         getCommand("race").setExecutor(new RaceCMD());
         getCommand("class").setExecutor(new ClassCMD());
-
-        if (config.get("profile.GuiOrChat").equals("gui")) {
+        if (ProfileConfig.profile().getGuiOrChat().equalsIgnoreCase("gui")) {
             getCommand("profile").setExecutor(new ProfileGuiCMD());
         } else {
-            getCommand("profile").setExecutor(new ProfileCMD(clover));
+            getCommand("profile").setExecutor(new ProfileCMD());
         }
 
         getCommand("faction").setExecutor(new FactionCMD());
@@ -96,7 +110,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void loadConfigFiles() {
-        ProfileConfig.getInstance();
+        ProfileConfig.profile();
         FactionConfig.getInstance();
         RaceConfig.getInstance();
         Set<String> race = RaceConfig.getInstance().getRaceNames();

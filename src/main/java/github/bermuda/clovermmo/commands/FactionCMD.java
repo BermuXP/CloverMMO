@@ -1,7 +1,5 @@
 package github.bermuda.clovermmo.commands;
 
-import github.bermuda.clovermmo.CloverMMO;
-import github.bermuda.clovermmo.database.Database;
 import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

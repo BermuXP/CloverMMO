@@ -4,6 +4,91 @@
 # nextRankExp: the amount of exp a player needs to get the next level
 # Points: the amount of spendable points a player gets for leveling up.
 Profile:
+  GuiOrChat: 'gui'
+
+  chat:
+  - '&a&lProfile %displayname%'
+  - '&a&m+-------------------------------+'
+  - '» &6Player: &f %displayname%'
+  - '» &6Faction: &f %faction%'
+  - '» &6Race: &f %race%'
+  - '» &6Level: &f %level%'
+  - '» &6Class: &f %class%'
+  - '» &6Spec: &f %spec%'
+  - '» &6Strength: &f %strength%'
+  - '» &6Dexterity: &f %dexterity%'
+  - '» &6Constitution: &f %constitution%'
+  - '» &6Wisdom: &f %wisdom%'
+  - '» &6Intelligence: &f %intelligence%'
+  - '» &6Charisma: &f %charisma%'
+  - '» &6Luck: &f %luck%'
+  - '» &6EXP: &f %experience%/%nextlevel%'
+  - '» &6Points: &f %points%'
+  - '&a&m+-------------------------------+'
+
+  gui:
+    title: 'Profile'
+    rows: 9
+    content:
+      1:
+        item: 'SKULL_ITEM'
+        displayname: '%displayname%'
+        spot: 0
+        description:
+        - 'Level: %level%'
+        - 'Exp: %experience%/%nextlevel%'
+        - 'Faction: %faction%'
+        - 'Class: %class%'
+        - 'Spec: %spec%'
+      2:
+        item: 'DIAMOND_AXE'
+        displayname: 'Strength'
+        spot: 1
+        description:
+        - '%strength%'
+      3:
+        item: 'SHIELD'
+        displayname: 'Dexterity'
+        spot: 2
+        description:
+        - '%dexterity%'
+      4:
+        item: 'GRASS'
+        displayname: 'Constitution'
+        spot: 3
+        description:
+        - '%constitution%'
+      5:
+        item: 'BOOK_AND_QUILL'
+        displayname: 'Wisdom'
+        spot: 4
+        description:
+        - '%wisdom%'
+      6:
+        item: 'BOOKSHELF'
+        displayname: 'Intelligence'
+        spot: 5
+        description:
+          - '%intelligence%'
+      7:
+        item: 'ARROW'
+        displayname: 'Charisma'
+        spot: 6
+        description:
+          - '%charisma%'
+      8:
+        item: 'EMERALD'
+        displayname: 'Luck'
+        spot: 7
+        description:
+          - '%luck%'
+      9:
+        item: 'GOLD_NUGGET'
+        displayname: 'Points'
+        spot: 8
+        description:
+          - '%points%'
+
   level:
     0:
       NextRankExp: 10
@@ -17,3 +102,12 @@ Profile:
     3:
       NextRankExp: 450
       points: 1
+    4:
+      NextRankExp: 500
+      points: 1
+    5:
+      NextRankExp: 600
+      points: 1
+    6:
+      NextRankExp: 0
+      points: 0

@@ -2,6 +2,7 @@ package github.bermuda.clovermmo.config.setconfig;
 
 import github.bermuda.clovermmo.config.ConfigLoader;
 
+import java.util.List;
 import java.util.Set;
 
 public class ProfileConfig extends ConfigLoader {
@@ -12,7 +13,7 @@ public class ProfileConfig extends ConfigLoader {
         super("profile.yml");
     }
 
-    public static ProfileConfig getInstance() {
+    public static ProfileConfig profile() {
         if (Pconfig == null) {
             Pconfig = new ProfileConfig();
         }
@@ -26,10 +27,6 @@ public class ProfileConfig extends ConfigLoader {
         }
     }
 
-//    public Set<String> getLevels() {
-//        return config.getConfigurationSection("Profile.level").getKeys(false);
-//    }
-
     public int getExp(int lvl) {
         return config.getInt("Profile.level." + lvl + ".NextRankExp");
     }
@@ -38,7 +35,35 @@ public class ProfileConfig extends ConfigLoader {
         return config.getInt("Profile.level." + lvl + ".points");
     }
 
-    public int getLevels(int lvl) {
-        return config.getInt("Profile.level." + lvl);
+    public String getGuiOrChat() {
+        return config.getString("Profile.GuiOrChat");
+    }
+
+    public List<String> getProfileChatDisplay() {
+        return config.getStringList("Profile.chat");
+    }
+
+    public Set<String> getGUIKeys() {
+        return config.getConfigurationSection("Profile.gui.content.").getKeys(false);
+    }
+
+    public String getGUIName() {
+        return config.getString("Profile.gui.title");
+    }
+
+    public String getGUIItem(String number) {
+        return config.getString("Profile.gui.content." + number + ".item");
+    }
+
+    public String getGUIDisplayname(String number) {
+        return config.getString("Profile.gui.content." + number + ".displayname");
+    }
+
+    public List<String> getGUILore(String number) {
+        return config.getStringList("Profile.gui.content." + number + ".description");
+    }
+
+    public int getGUISpot(String number) {
+        return config.getInt("Profile.gui.content." + number + ".spot");
     }
 }

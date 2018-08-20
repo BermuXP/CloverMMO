@@ -8,7 +8,6 @@ import static github.bermuda.clovermmo.CloverMMO.clover;
 import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class LevelupEvent {
-
     public static void levelup(int safety, Player p) {
         if (ProfileConfig.profile().getExp(cc.getLevel()) != 0) {
             if (cc.getExp() >= ProfileConfig.profile().getExp(cc.getLevel())) {

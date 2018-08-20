@@ -1,10 +1,8 @@
 package github.bermuda.clovermmo.commands.gui;
 
 import github.bermuda.clovermmo.API.placeholder.Placeholder;
-import github.bermuda.clovermmo.config.setconfig.ClassConfig;
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.*;
 
@@ -30,29 +29,39 @@ public class ProfileGuiCMD implements CommandExecutor {
             Player p = (Player) sender;
             p.sendMessage(clover.cloverprefix + "Profile GUI loaded.");
             db.getUserData(p);
-
-            Inventory inv = Bukkit.createInventory(null, 9, profile().getGUIName());
-
+            Inventory inv = Bukkit.createInventory(null, 9, String.valueOf(Placeholder.onPlaceholderRequest(p, color(profile().getGUIName()))));
             Set<String> amount = ProfileConfig.profile().getGUIKeys();
 
             for (String m : amount) {
                 Material mat = Material.getMaterial(ProfileConfig.profile().getGUIItem(m));
                 String dn = String.valueOf(Placeholder.onPlaceholderRequest(p, color(ProfileConfig.profile().getGUIDisplayname(m))));
-
                 List<String> lore = new ArrayList<String>();
+
                 for (String s : ProfileConfig.profile().getGUILore(m)) {
                     lore.add(String.valueOf(Placeholder.onPlaceholderRequest(p, color(s))));
                 }
 
                 int number = ProfileConfig.profile().getGUISpot(m);
-                ItemStack item = new ItemStack(mat);
-                ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(dn);
-                meta.setLore(lore);
-                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-                item.setItemMeta(meta);
-                inv.addItem(item);
-                inv.setItem(number, item);
+
+                if (ProfileConfig.profile().getGUIItem(m).equalsIgnoreCase("%playerhead%")) {
+                    ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+                    SkullMeta skull = (SkullMeta) item.getItemMeta();
+                    skull.setDisplayName(dn);
+                    skull.setLore(lore);
+                    skull.setOwningPlayer(p);
+                    item.setItemMeta(skull);
+                    inv.addItem(item);
+                    inv.setItem(number, item);
+                } else {
+                    ItemStack item = new ItemStack(mat);
+                    ItemMeta meta = item.getItemMeta();
+                    meta.setDisplayName(dn);
+                    meta.setLore(lore);
+                    meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                    item.setItemMeta(meta);
+                    inv.addItem(item);
+                    inv.setItem(number, item);
+                }
             }
             p.openInventory(inv);
             return true;

@@ -1,9 +1,11 @@
 package github.bermuda.clovermmo.API.placeholder;
 
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
-import github.bermuda.clovermmo.database.SQLite;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,13 +20,21 @@ public class Placeholder {
     public static StringBuffer onPlaceholderRequest(Player player, String s) {
         db.getUserData(player);
 
+        String nextlevel = String.valueOf(ProfileConfig.profile().getExp(cc.getLevel()));
+
         Map<String, String> token = new HashMap<>();
         token.put("displayname", player.getDisplayName());
         token.put("playername", player.getName());
         token.put("faction", cc.getFaction());
         token.put("race", cc.getRace());
         token.put("level", String.valueOf(cc.getLevel()));
-        token.put("nextlevel", String.valueOf(ProfileConfig.profile().getExp(cc.getLevel())));
+
+        if (nextlevel.equals("0")) {
+            token.put("nextlevel", "Max");
+        } else {
+            token.put("nextlevel", nextlevel);
+        }
+//        token.put("nextlevel", String.valueOf(ProfileConfig.profile().getExp(cc.getLevel())));
         token.put("class", cc.getPclass());
         token.put("spec", cc.getSpec());
         token.put("strength", String.valueOf(cc.getStrength()));

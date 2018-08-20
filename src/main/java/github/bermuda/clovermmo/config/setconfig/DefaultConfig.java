@@ -1,42 +1,43 @@
 package github.bermuda.clovermmo.config.setconfig;
 
-import github.bermuda.clovermmo.database.Database;
-import github.bermuda.clovermmo.database.SQLite;
+import github.bermuda.clovermmo.config.ConfigLoader;
 
-import java.util.Arrays;
-import java.util.List;
+public class DefaultConfig extends ConfigLoader {
 
-import static github.bermuda.clovermmo.CloverMMO.clover;
+    private static DefaultConfig Dconfig;
 
-public class DefaultConfig {
+    private DefaultConfig() {
+        super("config.yml");
+    }
 
-    private Database db;
-
-    public DefaultConfig() {
-
-        List<String> factions = Arrays.asList("Alliance", "Horde");
-        for (String f : factions) {
-            clover.getConfig().addDefault("factions." + f, "");
-//            clover.getConfig().addDefault("factions." + f + "races", "");
-            this.db = new SQLite(clover);
-            this.db.load();
-            db.setDatabaseFactions(f);
+    public static DefaultConfig config() {
+        if (Dconfig == null) {
+            Dconfig = new DefaultConfig();
         }
+        return Dconfig;
+    }
 
-        clover.getConfig().addDefault("characteristics.strength", 1);
-        clover.getConfig().addDefault("characteristics.dexterity", 1);
-        clover.getConfig().addDefault("characteristics.constitution", 1);
-        clover.getConfig().addDefault("characteristics.intelligence", 1);
-        clover.getConfig().addDefault("characteristics.wisdom", 1);
-        clover.getConfig().addDefault("characteristics.charisma", 1);
-        clover.getConfig().addDefault("characteristics.luck", 1);
+    @Override
+    protected void loadKeys() { }
 
-        clover.getConfig().addDefault("onjoin.OnFirstJoinMessageEnable", true);
-        clover.getConfig().addDefault("onjoin.OnReturningJoinMessageEnable", true);
-        clover.getConfig().addDefault("onjoin.AddPointsOnRaceSelect", 6);
+    public boolean getOnFirstJoin() {
+        return config.getBoolean("onjoin.OnFirstJoinMessageEnable");
+    }
 
-        clover.getConfig().options().copyDefaults(true);
-        clover.saveConfig();
+    public boolean getOnReturnJoin() {
+        return config.getBoolean("onjoin.OnReturningJoinMessageEnable");
+    }
 
+    public String getGuiOrChatProfile() {
+        return config.getString("GuiOrChat.Profile");
+    }
+
+    public String getGuiOrChatClass() {
+        return config.getString("GuiOrChat.Class");
+    }
+
+    public String getGuiOrChatRace() {
+        return config.getString("GuiOrChat.Race");
     }
 }
+

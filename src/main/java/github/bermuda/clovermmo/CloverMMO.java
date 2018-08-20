@@ -41,15 +41,11 @@ public class CloverMMO extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         clover = this;
-        clover.saveDefaultConfig();
-        db = new SQLite(clover);
-        db.load();
+//        clover.saveDefaultConfig();
+
 
         cc = new UserData();
-        new DefaultConfig();
         new ExperienceEvent();
-//
-//        onjoin.onPlayerJoinEvent();
 
         loadConfigFiles();
         Logger logger = getLogger();
@@ -75,9 +71,8 @@ public class CloverMMO extends JavaPlugin implements Listener {
         new OnQuitEvent().onPlayerQuitEvent(event);
     }
 
-
     @EventHandler
-    public void onPlayerClickInventory(InventoryClickEvent e){
+    public void onPlayerClickInventory(InventoryClickEvent e) {
         new InventoryListener().ProfileInventory(e);
     }
 
@@ -87,12 +82,14 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void commands() {
+//        getCommand("sync").setExecutor(new SyncCMD());
         getCommand("clovermmo").setExecutor(new ClovermmoCMD());
         getCommand("cmmo").setExecutor(new ClovermmoCMD());
         getCommand("cloverboard").setExecutor(new CloverboardCMD());
         getCommand("race").setExecutor(new RaceCMD());
         getCommand("class").setExecutor(new ClassCMD());
-        if (ProfileConfig.profile().getGuiOrChat().equalsIgnoreCase("gui")) {
+
+        if (DefaultConfig.config().getGuiOrChatProfile().equalsIgnoreCase("gui")) {
             getCommand("profile").setExecutor(new ProfileGuiCMD());
         } else {
             getCommand("profile").setExecutor(new ProfileCMD());
@@ -111,8 +108,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     private void loadConfigFiles() {
         ProfileConfig.profile();
+        DefaultConfig.config();
         FactionConfig.getInstance();
         RaceConfig.getInstance();
+
+        db = new SQLite(clover);
+        db.load();
+
         Set<String> race = RaceConfig.getInstance().getRaceNames();
         for (String r : race) {
             db.setDatabaseRaces(r);
@@ -130,24 +132,11 @@ public class CloverMMO extends JavaPlugin implements Listener {
         getLogger().info(message);
     }
 
-    public void InsertUserCharacteristics(Player player) {
-        Player playername = player.getPlayer();
-        int s = config.getInt("characteristics.strength");
-        int c = config.getInt("characteristics.constitution");
-        int w = config.getInt("characteristics.wisdom");
-        int ch = config.getInt("characteristics.charisma");
-        int i = config.getInt("characteristics.intelligence");
-        int d = config.getInt("characteristics.dexterity");
-        int l = config.getInt("characteristics.luck");
-        db.setUserCharacteristics(playername, s, c, w, ch, i, d, l);
-    }
-
     @Override
     public void onDisable() {
         PluginDescriptionFile pdFile = getDescription();
         //logs disable in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been disabled (v." + pdFile.getVersion() + ")");
-
     }
 }

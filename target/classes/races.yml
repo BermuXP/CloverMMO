@@ -10,6 +10,10 @@
 
 Races:
   Elf:
+    item: 'ELYTRA'
+    lore:
+    - 'put your lore here1'
+    - 'put lore on next line here1'
     strength: 1
     dexterity: 1
     constitution: 1
@@ -18,6 +22,10 @@ Races:
     charisma: 1
     luck: 1
   Human:
+    item: 'DIAMOND_SWORD'
+    lore:
+    - 'put your lore here2'
+    - 'put lore on next line here2'
     strength: 1
     dexterity: 1
     constitution: 1
@@ -26,6 +34,10 @@ Races:
     charisma: 1
     luck: 1
   Dwarf:
+    item: 'GOLD_NUGGET'
+    lore:
+    - 'put your lore here3'
+    - 'put lore on next line here3'
     strength: 1
     dexterity: 1
     constitution: 1

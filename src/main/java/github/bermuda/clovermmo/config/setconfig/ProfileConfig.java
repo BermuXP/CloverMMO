@@ -1,7 +1,6 @@
 package github.bermuda.clovermmo.config.setconfig;
 
 import github.bermuda.clovermmo.config.ConfigLoader;
-
 import java.util.List;
 import java.util.Set;
 
@@ -33,10 +32,6 @@ public class ProfileConfig extends ConfigLoader {
 
     public int getPoints(int lvl) {
         return config.getInt("Profile.level." + lvl + ".points");
-    }
-
-    public String getGuiOrChat() {
-        return config.getString("Profile.GuiOrChat");
     }
 
     public List<String> getProfileChatDisplay() {

@@ -1,27 +1,31 @@
 package github.bermuda.clovermmo.events;
 
+import github.bermuda.clovermmo.commands.gui.RaceGuiCMD;
+import github.bermuda.clovermmo.config.setconfig.DefaultConfig;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import static github.bermuda.clovermmo.CloverMMO.clover;
 import static github.bermuda.clovermmo.CloverMMO.db;
 
-public class OnJoinEvent implements Listener {
+public class OnJoinEvent{
 
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        Player p = event.getPlayer();
-        db.getUserData(p);
+        final Player p = event.getPlayer();
+
         if (event.getPlayer().hasPlayedBefore()) {
-            if (clover.config.get("Onjoin.OnFirstJoinMessageEnable").equals(true)) {
-                p.sendMessage("Welcome back " + p.getName().toLowerCase());
+            if (DefaultConfig.config().getOnReturnJoin() == true) {
+                p.sendMessage("Welcome back " + p.getName());
+                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(clover, new Runnable() {
+                    public void run() {
+                        RaceGuiCMD.RaceGUI(p);
+                    }
+                }, 5);
             }
-        } else {
-            if (clover.config.get("Onjoin.OnReturningJoinMessageEnable").equals(true)) {
-                p.sendMessage("Welcome " + p + ", it's your first time here... to start you need to pick a race! what race are you?");
-            }
+        } else if (DefaultConfig.config().getOnFirstJoin() == true) {
+            p.sendMessage("Welcome " + p.getDisplayName() + ", it's your first time here... to start you need to pick a race! what race are you?");
         }
     }
-
 }

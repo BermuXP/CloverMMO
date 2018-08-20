@@ -1,6 +1,8 @@
 package github.bermuda.clovermmo.config.setconfig;
 
 import github.bermuda.clovermmo.config.ConfigLoader;
+
+import java.util.List;
 import java.util.Set;
 
 public class RaceConfig extends ConfigLoader {
@@ -55,5 +57,13 @@ public class RaceConfig extends ConfigLoader {
 
     public int getRaceLuck(String race) {
         return config.getInt("Races." + race + ".luck");
+    }
+
+    public String getRaceItem(String race) {
+        return config.getString("Races." + race + ".item");
+    }
+
+    public List<String> getRaceLore(String race) {
+        return config.getStringList("Races." + race + ".lore");
     }
 }

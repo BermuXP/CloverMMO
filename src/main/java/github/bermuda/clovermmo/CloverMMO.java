@@ -5,6 +5,7 @@ import github.bermuda.clovermmo.commands.*;
 import github.bermuda.clovermmo.commands.gui.InventoryListener;
 import github.bermuda.clovermmo.commands.gui.ProfileGuiCMD;
 import github.bermuda.clovermmo.config.setconfig.*;
+import github.bermuda.clovermmo.database.data.PlayerData;
 import github.bermuda.clovermmo.database.data.UserData;
 import github.bermuda.clovermmo.database.Database;
 
@@ -15,7 +16,6 @@ import github.bermuda.clovermmo.events.OnJoinEvent;
 import github.bermuda.clovermmo.events.OnQuitEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -41,13 +41,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         clover = this;
-//        clover.saveDefaultConfig();
-
-
-        cc = new UserData();
+        cc = new UserData(); //todo remove
         new ExperienceEvent();
+        new PlayerData();
 
         loadConfigFiles();
+
+
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v." + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(clover, clover);

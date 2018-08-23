@@ -35,6 +35,7 @@ Profile:
         description:
         - '&fLevel: %level%'
         - '&fExp: &e%experience%&f/&e%nextlevel%'
+        - '&fRace: &b%race%'
         - '&fFaction: &b%faction%'
         - '&fClass: &b%class%'
         - '&fSpec: &b%spec%'

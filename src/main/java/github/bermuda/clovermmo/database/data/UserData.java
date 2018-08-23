@@ -1,6 +1,7 @@
 package github.bermuda.clovermmo.database.data;
 
 public class UserData {
+    public String playername;
     public String race;
     public String pclass;
     public String spec;
@@ -16,27 +17,41 @@ public class UserData {
     public int level;
     public int exp;
 
-    public UserData() {
+    public void onRacePick(String gplayername, String grace, String gpoint, String gstrength, String gdexterity, String gconstitution, String gwisdom, String gcharisma, String gintelligence, String gluck) {
+        this.playername = gplayername;
+        this.race = grace;
+        this.strength = Integer.parseInt(gstrength);
+        this.dexterity = Integer.parseInt(gdexterity);
+        this.constitution = Integer.parseInt(gconstitution);
+        this.wisdom = Integer.parseInt(gwisdom);
+        this.charisma = Integer.parseInt(gcharisma);
+        this.intelligence = Integer.parseInt(gintelligence);
+        this.luck = Integer.parseInt(gluck);
     }
 
-    public void initialize(String grace, String gpclass, String gspec, String gfaction, int gpoint, int gstrength, int gdexterity, int gconstitution, int gwisdom, int gcharisma, int gintelligence, int gluck, int glevel, int gexp) {
-        this.race = grace;
-        this.pclass = gpclass;
-        this.spec = gspec;
-        this.faction = gfaction;
-        this.point = gpoint;
-        this.strength = gstrength;
-        this.dexterity = gdexterity;
-        this.constitution = gconstitution;
-        this.wisdom = gwisdom;
-        this.charisma = gcharisma;
-        this.intelligence = gintelligence;
-        this.luck = gluck;
-        this.level = glevel;
-        this.exp = gexp;
-    }
+//    public void initialize(String gplayername, String grace, String gpclass, String gspec, String gfaction, String gpoint, String gstrength, String gdexterity, String gconstitution, String gwisdom, String gcharisma, String gintelligence, String gluck, String glevel, String gexp) {
+//        this.playername = gplayername;
+//        this.race = grace;
+//        this.pclass = gpclass;
+//        this.spec = gspec;
+//        this.faction = gfaction;
+//        this.point = Integer.parseInt(gpoint);
+//        this.strength = Integer.parseInt(gstrength);
+//        this.dexterity = Integer.parseInt(gdexterity);
+//        this.constitution = Integer.parseInt(gconstitution);
+//        this.wisdom = Integer.parseInt(gwisdom);
+//        this.charisma = Integer.parseInt(gcharisma);
+//        this.intelligence = Integer.parseInt(gintelligence);
+//        this.luck = Integer.parseInt(gluck);
+//        this.level = Integer.parseInt(glevel);
+//        this.exp = Integer.parseInt(gexp);
+//    }
 
     //Setters
+    public void setPlayername(String playername) {
+        this.playername = playername;
+    }
+
     public void setRace(String race) {
         this.race = race;
     }
@@ -94,6 +109,10 @@ public class UserData {
     }
 
     //getters
+    public String getPlayername() {
+        return playername;
+    }
+
     public String getRace() {
         return race;
     }

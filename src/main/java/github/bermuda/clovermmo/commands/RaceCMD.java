@@ -1,13 +1,9 @@
 package github.bermuda.clovermmo.commands;
 
-import github.bermuda.clovermmo.API.placeholder.Placeholder;
 import github.bermuda.clovermmo.commands.gui.RaceGuiCMD;
 import github.bermuda.clovermmo.config.setconfig.DefaultConfig;
-import github.bermuda.clovermmo.config.setconfig.RaceConfig;
 import github.bermuda.clovermmo.database.SQLite;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -44,7 +40,7 @@ public class RaceCMD implements CommandExecutor {
                     boolean match = false;
                     for (String s : races) {
                         if (args[1].equalsIgnoreCase(s)) {
-                            subrace.RaceSubcommand(sender, args, s);
+                            subrace.RaceSubcommand(sender, s);
                             match = true;
                         }
                     }

@@ -10,28 +10,28 @@ import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class SubCMD {
 
-    public void RaceSubcommand(CommandSender sender, String[] args, String race) {
+    public void RaceSubcommand(CommandSender sender, String race) {
         Player player = (Player) sender;
         player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + race + ChatColor.WHITE + " as race!");
         dbloader();
         db.setRace(player, race);
     }
 
-    public void ClassSelSubcommand(CommandSender sender, String[] args, String classes) {
+    public void ClassSelSubcommand(CommandSender sender, String classes) {
         Player player = (Player) sender;
         player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + classes + ChatColor.WHITE + " as class!");
         dbloader();
         db.setClass(player, classes);
     }
 
-    public void ClassSpecSubcommand(CommandSender sender, String[] args, String spec) {
+    public void ClassSpecSubcommand(CommandSender sender, String spec) {
         Player player = (Player) sender;
         player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + spec + ChatColor.WHITE + " as spec!");
         dbloader();
         db.setSpec(player, spec);
     }
 
-    public void SubFactioncommand(CommandSender sender, String[] args, String faction) {
+    public void SubFactioncommand(CommandSender sender, String faction) {
         Player player = (Player) sender;
         player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + faction + ChatColor.WHITE + " as faction!");
         dbloader();

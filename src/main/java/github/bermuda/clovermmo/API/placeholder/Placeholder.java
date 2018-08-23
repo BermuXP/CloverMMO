@@ -1,11 +1,10 @@
 package github.bermuda.clovermmo.API.placeholder;
 
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
+import github.bermuda.clovermmo.config.setconfig.RaceConfig;
+import github.bermuda.clovermmo.database.data.UserData;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,12 +16,21 @@ import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class Placeholder {
 
-    public static StringBuffer onPlaceholderRequest(Player player, String s) {
-        db.getUserData(player);
+    public static StringBuffer onPlaceholderRequest(String m, Player player, String s) {
+        db.getUserData(player, new UserData());
 
         String nextlevel = String.valueOf(ProfileConfig.profile().getExp(cc.getLevel()));
 
         Map<String, String> token = new HashMap<>();
+
+        token.put("racestrength", String.valueOf(RaceConfig.getInstance().getRaceStrength(m)));
+        token.put("racedexterity", String.valueOf(RaceConfig.getInstance().getRaceDexterity(m)));
+        token.put("raceconstitution", String.valueOf(RaceConfig.getInstance().getRaceConstitution(m)));
+        token.put("raceintelligence", String.valueOf(RaceConfig.getInstance().getRaceIntelligence(m)));
+        token.put("racewisdom", String.valueOf(RaceConfig.getInstance().getRaceWisdom(m)));
+        token.put("racecharisma", String.valueOf(RaceConfig.getInstance().getRaceCharisma(m)));
+        token.put("raceluck", String.valueOf(RaceConfig.getInstance().getRaceLuck(m)));
+
         token.put("displayname", player.getDisplayName());
         token.put("playername", player.getName());
         token.put("faction", cc.getFaction());

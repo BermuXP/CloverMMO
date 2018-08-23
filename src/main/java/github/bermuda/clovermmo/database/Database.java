@@ -1,5 +1,6 @@
 package github.bermuda.clovermmo.database;
 
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,13 +10,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import github.bermuda.clovermmo.database.data.PlayerData;
+import github.bermuda.clovermmo.database.data.UserData;
 import github.bermuda.clovermmo.database.errors.Error;
 import github.bermuda.clovermmo.database.errors.Errors;
 import org.bukkit.entity.Player;
 
 import github.bermuda.clovermmo.CloverMMO;
-
-import static github.bermuda.clovermmo.CloverMMO.cc;
 import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getLogger;
 
@@ -340,7 +341,39 @@ public abstract class Database {
         return;
     }
 
-    public void getUserData(Player player) {
+    public void onRacePickDB(Player p) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
+            ps.setString(1, String.valueOf(p.getUniqueId()));
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("player").equalsIgnoreCase(String.valueOf(p.getUniqueId()))) {
+                    List<String> arg = new ArrayList<>();
+                    arg.add(rs.getString("playername"));
+                    arg.add(rs.getString("race"));
+                    arg.add(rs.getString("point"));
+                    arg.add(rs.getString("strength"));
+                    arg.add(rs.getString("dexterity"));
+                    arg.add(rs.getString("constitution"));
+                    arg.add(rs.getString("wisdom"));
+                    arg.add(rs.getString("charisma"));
+                    arg.add(rs.getString("intelligence"));
+                    arg.add(rs.getString("luck"));
+                    PlayerData.getVariable(p, "onRacePick", "UserData", arg);
+                }
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            close(ps, rs);
+        }
+    }
+
+    public void getUserData(Player player, UserData cc) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -351,20 +384,42 @@ public abstract class Database {
             rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getString("player").equalsIgnoreCase(String.valueOf(player.getUniqueId()))) {
-                    cc.setRace(rs.getString("race"));
-                    cc.setPclass(rs.getString("pclass"));
-                    cc.setSpec(rs.getString("spec"));
-                    cc.setFaction(rs.getString("faction"));
-                    cc.setPoint(rs.getInt("point"));
-                    cc.setStrength(rs.getInt("strength"));
-                    cc.setDexterity(rs.getInt("dexterity"));
-                    cc.setConstitution(rs.getInt("constitution"));
-                    cc.setWisdom(rs.getInt("wisdom"));
-                    cc.setCharisma(rs.getInt("charisma"));
-                    cc.setIntelligence(rs.getInt("intelligence"));
-                    cc.setLuck(rs.getInt("luck"));
-                    cc.setLevel(rs.getInt("lvl"));
-                    cc.setExp(rs.getInt("exp"));
+
+                    //todo fix
+                    List<String> arg = new ArrayList<>();
+                    arg.add(rs.getString("playername"));
+                    arg.add(rs.getString("race"));
+                    arg.add(rs.getString("pclass"));
+                    arg.add(rs.getString("spec"));
+                    arg.add(rs.getString("faction"));
+                    arg.add(rs.getString("point"));
+                    arg.add(rs.getString("strength"));
+                    arg.add(rs.getString("dexterity"));
+                    arg.add(rs.getString("constitution"));
+                    arg.add(rs.getString("wisdom"));
+                    arg.add(rs.getString("charisma"));
+                    arg.add(rs.getString("intelligence"));
+                    arg.add(rs.getString("luck"));
+                    arg.add(rs.getString("lvl"));
+                    arg.add(rs.getString("exp"));
+
+                    PlayerData.getVariable(player, "initialize", "UserData", arg);
+
+//                    cc.setPlayername(rs.getString("playername"));
+//                    cc.setRace(rs.getString("race"));
+//                    cc.setPclass(rs.getString("pclass"));
+//                    cc.setSpec(rs.getString("spec"));
+//                    cc.setFaction(rs.getString("faction"));
+//                    cc.setPoint(rs.getInt("point"));
+//                    cc.setStrength(rs.getInt("strength"));
+//                    cc.setDexterity(rs.getInt("dexterity"));
+//                    cc.setConstitution(rs.getInt("constitution"));
+//                    cc.setWisdom(rs.getInt("wisdom"));
+//                    cc.setCharisma(rs.getInt("charisma"));
+//                    cc.setIntelligence(rs.getInt("intelligence"));
+//                    cc.setLuck(rs.getInt("luck"));
+//                    cc.setLevel(rs.getInt("lvl"));
+//                    cc.setExp(rs.getInt("exp"));
                 }
             }
         } catch (SQLException ex) {

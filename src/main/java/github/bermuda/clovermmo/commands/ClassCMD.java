@@ -36,7 +36,7 @@ public class ClassCMD implements CommandExecutor {
                 boolean match = false;
                 for (String s : dclasses) {
                     if (args[1].equalsIgnoreCase(s)) {
-                        subclass.ClassSelSubcommand(sender, args, s);
+                        subclass.ClassSelSubcommand(sender, s);
                         match = true;
                     }
                 }
@@ -57,7 +57,7 @@ public class ClassCMD implements CommandExecutor {
                     Set<String> spec = ClassConfig.getInstance().getSpecName(clas);
                     for (String specs : spec) {
                         if (args[1].equalsIgnoreCase(specs)) {
-                            subclass.ClassSpecSubcommand(sender, args, specs);
+                            subclass.ClassSpecSubcommand(sender, specs);
                             match = true;
                         }
                     }

@@ -34,7 +34,7 @@ public class FactionCMD implements CommandExecutor {
                 boolean match = false;
                 for (String s : factions) {
                     if (args[1].equalsIgnoreCase(s)) {
-                        subfac.SubFactioncommand(sender, args, s);
+                        subfac.SubFactioncommand(sender, s);
                         match = true;
                     }
                 }

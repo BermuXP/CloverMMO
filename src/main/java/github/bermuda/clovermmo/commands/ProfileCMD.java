@@ -1,12 +1,9 @@
 package github.bermuda.clovermmo.commands;
 
-import github.bermuda.clovermmo.CloverMMO;
-
-import github.bermuda.clovermmo.attributes.ClassAbilities;
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
-import github.bermuda.clovermmo.database.SQLite;
 import github.bermuda.clovermmo.API.placeholder.Placeholder;
 
+import github.bermuda.clovermmo.database.data.UserData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,11 +26,11 @@ public class ProfileCMD implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        db.getUserData(player);
+        db.getUserData(player, new UserData());
         List<String> text = ProfileConfig.profile().getProfileChatDisplay();
 
         for (String t : text) {
-            String d = String.valueOf(Placeholder.onPlaceholderRequest(player, t));
+            String d = String.valueOf(Placeholder.onPlaceholderRequest(t, player, t));
             player.sendMessage(color(d));
         }
         return true;

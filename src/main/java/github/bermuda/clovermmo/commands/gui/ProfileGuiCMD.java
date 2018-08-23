@@ -2,6 +2,7 @@ package github.bermuda.clovermmo.commands.gui;
 
 import github.bermuda.clovermmo.API.placeholder.Placeholder;
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
+import github.bermuda.clovermmo.database.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -28,17 +29,18 @@ public class ProfileGuiCMD implements CommandExecutor {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             p.sendMessage(clover.cloverprefix + "Profile GUI loaded.");
-            db.getUserData(p);
-            Inventory inv = Bukkit.createInventory(null, 9, String.valueOf(Placeholder.onPlaceholderRequest(p, color(profile().getGUIName()))));
+            db.getUserData(p, new UserData());
+            String ms = "";
+            Inventory inv = Bukkit.createInventory(null, 9, String.valueOf(Placeholder.onPlaceholderRequest(ms, p, color(profile().getGUIName()))));
             Set<String> amount = ProfileConfig.profile().getGUIKeys();
 
             for (String m : amount) {
                 Material mat = Material.getMaterial(ProfileConfig.profile().getGUIItem(m));
-                String dn = String.valueOf(Placeholder.onPlaceholderRequest(p, color(ProfileConfig.profile().getGUIDisplayname(m))));
+                String dn = String.valueOf(Placeholder.onPlaceholderRequest(m, p, color(ProfileConfig.profile().getGUIDisplayname(m))));
                 List<String> lore = new ArrayList<String>();
 
                 for (String s : ProfileConfig.profile().getGUILore(m)) {
-                    lore.add(String.valueOf(Placeholder.onPlaceholderRequest(p, color(s))));
+                    lore.add(String.valueOf(Placeholder.onPlaceholderRequest(m, p, color(s))));
                 }
 
                 int number = ProfileConfig.profile().getGUISpot(m);

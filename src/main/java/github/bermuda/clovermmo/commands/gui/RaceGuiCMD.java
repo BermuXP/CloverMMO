@@ -15,40 +15,27 @@ import java.util.List;
 import java.util.Set;
 
 import static github.bermuda.clovermmo.CloverMMO.color;
-import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class RaceGuiCMD {
 
     public static void RaceGUI(Player p) {
-        db.getUserData(p);
-        Inventory inv = Bukkit.createInventory(null, 27, "Select a race menu");
-        Set<String> amount = RaceConfig.getInstance().getRaceNames();
-        int ininventorywindow = -1;
+        String ms = "";
+        Inventory inv = Bukkit.createInventory(null, RaceConfig.getInstance().getGuiRows(), String.valueOf(Placeholder.onPlaceholderRequest(ms, p, color(RaceConfig.getInstance().getGuiTitle()))));
+        Set<String> amount = RaceConfig.getInstance().getGuiRaceNames();
+
         for (String m : amount) {
-            ininventorywindow++;
+            int number = RaceConfig.getInstance().getGuiRaceSpot(m);
 
             Material mat = Material.getMaterial(RaceConfig.getInstance().getRaceItem(m));
-            String dn = String.valueOf(Placeholder.onPlaceholderRequest(p, color(m)));
+            String dn = String.valueOf(Placeholder.onPlaceholderRequest(m, p, color(m)));
+
             List<String> lore = new ArrayList<String>();
-
-            int str = RaceConfig.getInstance().getRaceStrength(m);
-            int dex = RaceConfig.getInstance().getRaceDexterity(m);
-            int con = RaceConfig.getInstance().getRaceConstitution(m);
-            int intel = RaceConfig.getInstance().getRaceIntelligence(m);
-            int wis = RaceConfig.getInstance().getRaceWisdom(m);
-            int charm = RaceConfig.getInstance().getRaceCharisma(m);
-            int luck = RaceConfig.getInstance().getRaceLuck(m);
-
-            lore.add(color("&cStrength: &f" + String.valueOf(str)));
-            lore.add(color("&aDexterity: &f" + String.valueOf(dex)));
-            lore.add(color("&bConstitution: &f" + String.valueOf(con)));
-            lore.add(color("&3Wisdom: &f" + String.valueOf(wis)));
-            lore.add(color("&fIntelligence: &f" + String.valueOf(intel)));
-            lore.add(color("&dCharisma: &f" + String.valueOf(charm)));
-            lore.add(color("&eLuck: &f" + String.valueOf(luck)));
-            lore.add(color("&6Lore:"));
-            lore.addAll(RaceConfig.getInstance().getRaceLore(m));
-
+            for (String fl : RaceConfig.getInstance().getGuiLore()) {
+                lore.add(String.valueOf(Placeholder.onPlaceholderRequest(m, p, color(fl))));
+            }
+            for (String fn : RaceConfig.getInstance().getGuiRaceLore(m)) {
+                lore.add(String.valueOf(Placeholder.onPlaceholderRequest(m, p, color(fn))));
+            }
             ItemStack item = new ItemStack(mat);
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(dn);
@@ -56,10 +43,8 @@ public class RaceGuiCMD {
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             item.setItemMeta(meta);
             inv.addItem(item);
-            inv.setItem(ininventorywindow, item);
-
+            inv.setItem(number, item);
         }
         p.openInventory(inv);
     }
-
 }

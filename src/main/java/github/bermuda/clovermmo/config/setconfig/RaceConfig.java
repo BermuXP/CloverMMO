@@ -59,11 +59,31 @@ public class RaceConfig extends ConfigLoader {
         return config.getInt("Races." + race + ".luck");
     }
 
-    public String getRaceItem(String race) {
-        return config.getString("Races." + race + ".item");
+    public Set<String> getGuiRaceNames() {
+        return config.getConfigurationSection("gui.content").getKeys(false);
     }
 
-    public List<String> getRaceLore(String race) {
-        return config.getStringList("Races." + race + ".lore");
+    public String getRaceItem(String race) {
+        return config.getString("gui.content." + race + ".item");
+    }
+
+    public List<String> getGuiRaceLore(String race) {
+        return config.getStringList("gui.content." + race + ".description");
+    }
+
+    public List<String> getGuiLore() {
+        return config.getStringList("gui.description");
+    }
+
+    public String getGuiTitle() {
+        return config.getString("gui.title");
+    }
+
+    public int getGuiRows() {
+        return config.getInt("gui.rows");
+    }
+
+    public int getGuiRaceSpot(String race) {
+        return config.getInt("gui.content." + race + ".spot");
     }
 }

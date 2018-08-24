@@ -11,6 +11,12 @@ public class SyncCMD implements CommandExecutor {
         //todo Make 2 commands in here one after /sync db and one after /sync config
         // sync config needs to sync the config to the db
         // sync db needs to sync the db to the config
+
+
+
+
+
+
         //    public void InsertUserCharacteristics(Player player) {
 //        Player playername = player.getPlayer();
 //        int s = config.getInt("characteristics.strength");

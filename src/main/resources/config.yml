@@ -2,6 +2,7 @@
 factions:
   Alliance: ''
   Horde: ''
+
 characteristics:
   strength: 1
   dexterity: 1
@@ -10,12 +11,16 @@ characteristics:
   wisdom: 1
   charisma: 1
   luck: 1
+
 onjoin:
   OnFirstJoinMessageEnable: true
   OnReturningJoinMessageEnable: true
-  AddPointsOnRaceSelect: 6
 
+#GUIORCHAT - pick if the messages are shown in gui or chat.
+#Profile -> can be 'chat' or 'gui'
+#Class -> can be 'chat' or 'gui'
+#Race -> can be 'chat' or 'gui'
 GuiOrChat:
   Profile: 'gui'
   Class: 'gui'
-  Race: 'gui'
+  Race: 'chat'

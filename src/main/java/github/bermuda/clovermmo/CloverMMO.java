@@ -5,8 +5,9 @@ import github.bermuda.clovermmo.commands.*;
 import github.bermuda.clovermmo.commands.gui.InventoryListener;
 import github.bermuda.clovermmo.commands.gui.ProfileGuiCMD;
 import github.bermuda.clovermmo.config.setconfig.*;
-import github.bermuda.clovermmo.database.data.PlayerData;
-import github.bermuda.clovermmo.database.data.UserData;
+import github.bermuda.clovermmo.database.model.PlayerData;
+import github.bermuda.clovermmo.database.model.RacesModel;
+import github.bermuda.clovermmo.database.model.UserModel;
 import github.bermuda.clovermmo.database.Database;
 
 import github.bermuda.clovermmo.database.SQLite;
@@ -25,12 +26,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
 public class CloverMMO extends JavaPlugin implements Listener {
     public static CloverMMO clover;
-    public static UserData cc;
+    public static UserModel cc;
+    public static RacesModel rm;
     //    public PlaceholderAPI phapi;
     public PluginDescriptionFile pdFile = getDescription();
     public boolean noErrorsInConfigFiles = true;
@@ -41,13 +44,11 @@ public class CloverMMO extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         clover = this;
-        cc = new UserData(); //todo remove
+        cc = new UserModel(); //todo remove
+        rm = new RacesModel();
         new ExperienceEvent();
         new PlayerData();
-
         loadConfigFiles();
-
-
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v." + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(clover, clover);
@@ -62,13 +63,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        new OnJoinEvent().onPlayerJoinEvent(event);
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        new OnJoinEvent().onPlayerJoinEvent(e);
     }
 
     @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        new OnQuitEvent().onPlayerQuitEvent(event);
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        new OnQuitEvent().onPlayerQuitEvent(e);
     }
 
     @EventHandler
@@ -126,6 +127,7 @@ public class CloverMMO extends JavaPlugin implements Listener {
             db.setDatabaseClasses(c);
         }
         AdvancedConfig.advanced();
+        db.getDatabaseRaces();
     }
 
     public void debug(String message) {

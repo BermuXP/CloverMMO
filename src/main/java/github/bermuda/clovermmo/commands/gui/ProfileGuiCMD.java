@@ -2,7 +2,6 @@ package github.bermuda.clovermmo.commands.gui;
 
 import github.bermuda.clovermmo.API.placeholder.Placeholder;
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
-import github.bermuda.clovermmo.database.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -29,7 +28,7 @@ public class ProfileGuiCMD implements CommandExecutor {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             p.sendMessage(clover.cloverprefix + "Profile GUI loaded.");
-            db.getUserData(p, new UserData());
+            db.onRacePickDB(p);
             String ms = "";
             Inventory inv = Bukkit.createInventory(null, 9, String.valueOf(Placeholder.onPlaceholderRequest(ms, p, color(profile().getGUIName()))));
             Set<String> amount = ProfileConfig.profile().getGUIKeys();

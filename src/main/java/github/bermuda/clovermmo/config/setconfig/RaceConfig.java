@@ -71,6 +71,10 @@ public class RaceConfig extends ConfigLoader {
         return config.getStringList("gui.content." + race + ".description");
     }
 
+    public int getAddPointsOnRaceSelect() {
+        return config.getInt("AddPointsOnRaceSelect");
+    }
+
     public List<String> getGuiLore() {
         return config.getStringList("gui.description");
     }

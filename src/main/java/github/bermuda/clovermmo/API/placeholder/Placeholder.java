@@ -2,7 +2,6 @@ package github.bermuda.clovermmo.API.placeholder;
 
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
 import github.bermuda.clovermmo.config.setconfig.RaceConfig;
-import github.bermuda.clovermmo.database.data.UserData;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -17,7 +16,7 @@ import static github.bermuda.clovermmo.CloverMMO.db;
 public class Placeholder {
 
     public static StringBuffer onPlaceholderRequest(String m, Player player, String s) {
-        db.getUserData(player, new UserData());
+        db.onRacePickDB(player);
 
         String nextlevel = String.valueOf(ProfileConfig.profile().getExp(cc.getLevel()));
 
@@ -34,7 +33,7 @@ public class Placeholder {
         token.put("displayname", player.getDisplayName());
         token.put("playername", player.getName());
         token.put("faction", cc.getFaction());
-        token.put("race", cc.getRace());
+        token.put("race", String.valueOf(cc.getRace()));
         token.put("level", String.valueOf(cc.getLevel()));
 
         if (nextlevel.equals("0")) {
@@ -43,7 +42,7 @@ public class Placeholder {
             token.put("nextlevel", nextlevel);
         }
 //        token.put("nextlevel", String.valueOf(ProfileConfig.profile().getExp(cc.getLevel())));
-        token.put("class", cc.getPclass());
+        token.put("class", String.valueOf(cc.getPclass()));
         token.put("spec", cc.getSpec());
         token.put("strength", String.valueOf(cc.getStrength()));
         token.put("dexterity", String.valueOf(cc.getDexterity()));

@@ -7,6 +7,8 @@
 #Wisdom ->
 #Charisma ->
 #Luck -> Chances to get more: ExperienceEvent.
+AddPointsOnRaceSelect: 6
+
 Races:
   Elf:
     strength: 1
@@ -45,18 +47,17 @@ chat:
 # spot: what spot you want the item to show (must be within the number of rows mentioned in GUI-rows)
 # item: the item shown in the ui for that race
 # description: the description for the specific tace (gui-description  will be added above this)
-
 gui:
   title: "RaceMenu"
   rows: 27
   description:
-    - '&cStrength&f: %racestrength%'
-    - '&aDexterity&f: &f%racedexterity%'
-    - '&bConstitution&f: &f%raceconstitution%'
-    - '&7Intelligence&f: &f%raceintelligence%'
-    - '&6Wisdom&f: %racewisdom%'
-    - '&dCharisma&f: &f%racecharisma%'
-    - '&eLuck&f: %raceluck%'
+  - '&cStrength&f: %racestrength%'
+  - '&aDexterity&f: %racedexterity%'
+  - '&bConstitution&f: %raceconstitution%'
+  - '&7Intelligence&f: %raceintelligence%'
+  - '&6Wisdom&f: %racewisdom%'
+  - '&dCharisma&f: %racecharisma%'
+  - '&eLuck&f: %raceluck%'
   content:
     Elf:
       spot: 0

@@ -1,6 +1,5 @@
 package github.bermuda.clovermmo.commands;
 
-import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,14 +12,7 @@ import static github.bermuda.clovermmo.CloverMMO.clover;
 import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class FactionCMD implements CommandExecutor {
-    private SubCMD subfac = new SubCMD();
 
-    public FactionCMD() {
-        db = new SQLite(clover);
-        db.load();
-    }
-
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(clover.cloverprefix + "you must be a player to perform this command!");
@@ -34,7 +26,9 @@ public class FactionCMD implements CommandExecutor {
                 boolean match = false;
                 for (String s : factions) {
                     if (args[1].equalsIgnoreCase(s)) {
-                        subfac.SubFactioncommand(sender, s);
+                        Player player = (Player) sender;
+                        player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + s + ChatColor.WHITE + " as faction!");
+                        db.setFaction(player, s);
                         match = true;
                     }
                 }

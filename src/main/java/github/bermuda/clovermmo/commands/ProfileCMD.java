@@ -3,12 +3,10 @@ package github.bermuda.clovermmo.commands;
 import github.bermuda.clovermmo.config.setconfig.ProfileConfig;
 import github.bermuda.clovermmo.API.placeholder.Placeholder;
 
-import github.bermuda.clovermmo.database.data.UserData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class ProfileCMD implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        db.getUserData(player, new UserData());
+        db.onRacePickDB(player);
         List<String> text = ProfileConfig.profile().getProfileChatDisplay();
 
         for (String t : text) {

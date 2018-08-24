@@ -2,7 +2,7 @@ package github.bermuda.clovermmo.events;
 
 import github.bermuda.clovermmo.commands.gui.RaceGuiCMD;
 import github.bermuda.clovermmo.config.setconfig.DefaultConfig;
-import github.bermuda.clovermmo.database.data.PlayerData;
+import github.bermuda.clovermmo.database.model.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;

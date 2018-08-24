@@ -1,23 +1,26 @@
 package github.bermuda.clovermmo.database;
 
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import github.bermuda.clovermmo.database.data.PlayerData;
-import github.bermuda.clovermmo.database.data.UserData;
+import github.bermuda.clovermmo.database.model.PlayerData;
+import github.bermuda.clovermmo.database.model.RacesModel;
+import github.bermuda.clovermmo.database.model.UserModel;
 import github.bermuda.clovermmo.database.errors.Error;
 import github.bermuda.clovermmo.database.errors.Errors;
 import org.bukkit.entity.Player;
 
 import github.bermuda.clovermmo.CloverMMO;
+
 import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.rm;
 import static org.bukkit.Bukkit.getLogger;
 
 public abstract class Database {
@@ -241,6 +244,7 @@ public abstract class Database {
         return strin;
     }
 
+
     public void setDatabaseRaces(String mrace) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -268,25 +272,39 @@ public abstract class Database {
         return;
     }
 
-    public List<String> getDatabaseRaces() {
+    public void getDatabaseRaces() {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<String> strin = new ArrayList<>();
         try {
             conn = getSQLConnection();
             ps = conn.prepareStatement("SELECT * FROM table_races");
             rs = ps.executeQuery();
             while (rs.next()) {
-                strin.add(rs.getString("mrace"));
+                List<Object> arg = new ArrayList<>();
+                RacesModel Races = new RacesModel();
+
+                Races.race(
+                        rs.getInt("_id"),
+                        rs.getString("mrace"),
+                        rs.getInt("point"),
+                        rs.getInt("strength"),
+                        rs.getInt("dexterity"),
+                        rs.getInt("constitution"),
+                        rs.getInt("wisdom"),
+                        rs.getInt("charisma"),
+                        rs.getInt("intelligence"),
+                        rs.getInt("luck"));
+
+                PlayerData.addGlobalModal("Race", Races);
+                PlayerData.setOtherSetterData("Race", "RacesModel", arg);
             }
-            return strin;
+
         } catch (SQLException ex) {
             logger.log(Level.INFO, Errors.sqlConnectionExecute(), ex);
         } finally {
             close(ps, rs);
         }
-        return strin;
     }
 
     public void setFaction(Player player, String faction) {
@@ -363,7 +381,7 @@ public abstract class Database {
                     arg.add(rs.getString("charisma"));
                     arg.add(rs.getString("intelligence"));
                     arg.add(rs.getString("luck"));
-                    PlayerData.getVariable(p, "onRacePick", "UserData", arg);
+                    PlayerData.setSetterData(p, "onRacePick", "UserModel", arg);
                 }
             }
         } catch (SQLException ex) {
@@ -373,7 +391,7 @@ public abstract class Database {
         }
     }
 
-    public void getUserData(Player player, UserData cc) {
+    public void getUserData(Player player, UserModel cc) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -384,7 +402,6 @@ public abstract class Database {
             rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getString("player").equalsIgnoreCase(String.valueOf(player.getUniqueId()))) {
-
                     //todo fix
                     List<String> arg = new ArrayList<>();
                     arg.add(rs.getString("playername"));
@@ -403,7 +420,7 @@ public abstract class Database {
                     arg.add(rs.getString("lvl"));
                     arg.add(rs.getString("exp"));
 
-                    PlayerData.getVariable(player, "initialize", "UserData", arg);
+                    PlayerData.setSetterData(player, "initialize", "UserModel", arg);
 
 //                    cc.setPlayername(rs.getString("playername"));
 //                    cc.setRace(rs.getString("race"));

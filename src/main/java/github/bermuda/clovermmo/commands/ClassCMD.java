@@ -1,7 +1,6 @@
 package github.bermuda.clovermmo.commands;
 
 import github.bermuda.clovermmo.config.setconfig.ClassConfig;
-import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,14 +14,7 @@ import static github.bermuda.clovermmo.CloverMMO.clover;
 import static github.bermuda.clovermmo.CloverMMO.db;
 
 public class ClassCMD implements CommandExecutor {
-    private SubCMD subclass = new SubCMD();
 
-    public ClassCMD() {
-        db = new SQLite(clover);
-        db.load();
-    }
-
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(clover.cloverprefix + "you must be a player to perform this command!");
@@ -36,7 +28,9 @@ public class ClassCMD implements CommandExecutor {
                 boolean match = false;
                 for (String s : dclasses) {
                     if (args[1].equalsIgnoreCase(s)) {
-                        subclass.ClassSelSubcommand(sender, s);
+                        Player player = (Player) sender;
+                        player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + s + ChatColor.WHITE + " as class!");
+                        db.setClass(player, s);
                         match = true;
                     }
                 }
@@ -57,7 +51,8 @@ public class ClassCMD implements CommandExecutor {
                     Set<String> spec = ClassConfig.getInstance().getSpecName(clas);
                     for (String specs : spec) {
                         if (args[1].equalsIgnoreCase(specs)) {
-                            subclass.ClassSpecSubcommand(sender, specs);
+                            player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + specs + ChatColor.WHITE + " as spec!");
+                            db.setSpec(player, specs);
                             match = true;
                         }
                     }

@@ -11,11 +11,13 @@ import java.util.logging.Logger;
 
 import github.bermuda.clovermmo.database.errors.Error;
 import github.bermuda.clovermmo.database.errors.Errors;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 
 import github.bermuda.clovermmo.CloverMMO;
 
 import static github.bermuda.clovermmo.CloverMMO.cc;
+import static github.bermuda.clovermmo.CloverMMO.clover;
 import static org.bukkit.Bukkit.getLogger;
 
 public abstract class Database {
@@ -73,36 +75,6 @@ public abstract class Database {
         return "No race selected";
     }
 
-    public String getSpec(Player player) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
-            ps.setString(1, player.getName().toLowerCase());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
-                    return rs.getString("spec"); // Return the players ammount of kills. If you wanted to get total (just a random number for an example for you guys) You would change this to total!
-                }
-            }
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
-        }
-        return "No spec selected";
-    }
 
     public String getClasses(Player player) {
         Connection conn = null;
@@ -148,7 +120,23 @@ public abstract class Database {
             if (rs.next()) {
                 ps = conn.prepareStatement("UPDATE useraccount SET race = ? WHERE player = ?");
             } else {
-                ps = conn.prepareStatement("INSERT INTO useraccount (race,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                ps = conn.prepareStatement("INSERT INTO useraccount (race,player,strength,constitution,wisdom,charisma,intelligence,dexterity,luck,point) VALUES (?,?,?,?,?,?,?,?,?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+                int s = clover.getConfig().getInt("characteristics.strength");
+                int c = clover.getConfig().getInt("characteristics.constitution");
+                int w = clover.getConfig().getInt("characteristics.wisdom");
+                int ch = clover.getConfig().getInt("characteristics.charisma");
+                int i = clover.getConfig().getInt("characteristics.intelligence");
+                int d = clover.getConfig().getInt("characteristics.dexterity");
+                int l = clover.getConfig().getInt("characteristics.luck");
+                int p = clover.getConfig().getInt("onjoin.AddPointsOnJoin");
+                ps.setInt(3, s);
+                ps.setInt(4, c);
+                ps.setInt(5, w);
+                ps.setInt(6, ch);
+                ps.setInt(7, i);
+                ps.setInt(8, d);
+                ps.setInt(9, l);
+                ps.setInt(10, p);
             }
             ps.setString(1, race);   // YOU MUST put these into this line!! And depending on how man
             ps.setString(2, player.getName().toLowerCase());
@@ -342,37 +330,6 @@ public abstract class Database {
         return;
     }
 
-    public int getpoints(Player player) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            conn = getSQLConnection();
-            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
-            ps.setString(1, player.getName().toLowerCase());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString("player").equalsIgnoreCase(player.getName().toLowerCase())) { // Tell database to search for the player you sent into the method. e.g getTokens(sam) It will look for sam.
-                    return rs.getInt("point"); // Return the players ammount of kills. If you wanted to get total (just a random number for an example for you guys) You would change this to total!
-                }
-            }
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
-            }
-        }
-        return 0;
-    }
-
     public void setDatabaseRaces(String mrace) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -474,6 +431,41 @@ public abstract class Database {
         return;
     }
 
+    public void setExp(Player player, int exp) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = getSQLConnection();
+            ps = conn.prepareStatement("SELECT * FROM useraccount WHERE player = ?");
+            ps.setString(1, player.getName().toLowerCase());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = conn.prepareStatement("UPDATE useraccount SET exp = ? WHERE player = ?");
+            } else {
+                ps = conn.prepareStatement("INSERT INTO useraccount (exp,player) VALUES (?,?)"); // IMPORTANT. In SQLite class, We made 3 colums. player, Kills, Total.
+            }
+            ps.setInt(1, exp);   // YOU MUST put these into this line!! And depending on how man
+            ps.setString(2, player.getName().toLowerCase());
+            ps.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionExecute(), ex);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                plugin.getLogger().log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
+            }
+        }
+        return;
+    }
+
     public String getUserData(Player player) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -497,6 +489,8 @@ public abstract class Database {
                     cc.setCharisma(rs.getInt("charisma"));
                     cc.setIntelligence(rs.getInt("intelligence"));
                     cc.setLuck(rs.getInt("luck"));
+                    cc.setLevel(rs.getInt("level"));
+                    cc.setExp(rs.getInt("exp"));
                 }
             }
         } catch (SQLException ex) {
@@ -513,7 +507,7 @@ public abstract class Database {
                 logger.log(Level.SEVERE, Errors.sqlConnectionClose(), ex);
             }
         }
-        return "empty";
+        return "Empty";
     }
 
     public void setUserCharacteristics(Player player, int strength, int constitution, int wisdom, int charisma, int intelligence, int dexterity, int luck) {

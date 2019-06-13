@@ -1,31 +1,30 @@
 package github.bermuda.clovermmo;
 
-import github.bermuda.clovermmo.API.PlaceholderAPI;
 import github.bermuda.clovermmo.commands.*;
 
-import github.bermuda.clovermmo.config.DefaultConfig;
-import github.bermuda.clovermmo.config.classConfig;
-import github.bermuda.clovermmo.config.raceConfig;
-import github.bermuda.clovermmo.config.scoreboardConfig;
-import github.bermuda.clovermmo.database.UseraccountDB;
+import github.bermuda.clovermmo.config.setconfig.*;
+import github.bermuda.clovermmo.database.data.UserData;
 import github.bermuda.clovermmo.database.Database;
 
 import github.bermuda.clovermmo.database.SQLite;
-import org.bukkit.Bukkit;
+import github.bermuda.clovermmo.events.OnJoinEvent;
+import github.bermuda.clovermmo.experience.Exp;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class CloverMMO extends JavaPlugin implements Listener {
-    private DefaultConfig dc;
     public static CloverMMO clover;
-    public static UseraccountDB cc;
-    public PlaceholderAPI phapi;
+    public static UserData cc;
+    //    public PlaceholderAPI phapi;
     public PluginDescriptionFile pdFile = getDescription();
     public boolean noErrorsInConfigFiles = true;
     public FileConfiguration config = getConfig();
@@ -34,7 +33,6 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     public class ConfigListener implements Listener {
         CloverMMO clover;
-
         public ConfigListener(CloverMMO instance) {
             clover = instance;
         }
@@ -46,10 +44,14 @@ public class CloverMMO extends JavaPlugin implements Listener {
         clover.saveDefaultConfig();
         db = new SQLite(clover);
         db.load();
-        cc = new UseraccountDB();
-        dc = new DefaultConfig();
+
+        cc = new UserData();
+        new DefaultConfig();
+        new Exp();
+//
+//        onjoin.onPlayerJoinEvent();
+
         loadConfigFiles();
-        // logs startup in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v." + pdFile.getVersion() + ")");
         getServer().getPluginManager().registerEvents(clover, clover);
@@ -60,19 +62,23 @@ public class CloverMMO extends JavaPlugin implements Listener {
 //        } else {
 //            logger.info("PlaceHolderAPI not found, using default Placeholders");
 //        }
-        // gets the commands from the commands folder.
         commands();
+    }
+
+    @EventHandler
+    private void EntityDeathCaller(EntityDeathEvent e) {
+        new Exp().onEntityDeath(e);
     }
 
     private void commands() {
 //        String cmmo = "cmmo";
         getCommand("clovermmo").setExecutor(new ClovermmoCMD());
-        getCommand("level").setExecutor(new LevelCMD());
         getCommand("cloverboard").setExecutor(new CloverboardCMD());
         getCommand("race").setExecutor(new RaceCMD(clover));
         getCommand("class").setExecutor(new ClassCMD(clover));
         getCommand("profile").setExecutor(new ProfileCMD(clover));
         getCommand("faction").setExecutor(new FactionCMD(clover));
+        getCommand("cloverreload").setExecutor(new ReloadCMD());
     }
 
     public static String color(String Colors) {
@@ -83,9 +89,16 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void loadConfigFiles() {
-        scoreboardConfig.getInstance();
-        raceConfig.getInstance();
-        classConfig.getInstance();
+        ProfileConfig.getInstance();
+        FactionConfig.getInstance();
+        RaceConfig.getInstance();
+//        List<String> race = RaceConfig.getInstance().getRaceName();
+//        for(String r : race) {
+//            db.setDatabaseRaces(r);
+//        }
+
+        ClassConfig.getInstance();
+        AdvancedConfig.advanced();
     }
 
     public void debug(String message) {
@@ -94,7 +107,14 @@ public class CloverMMO extends JavaPlugin implements Listener {
 
     public void InsertUserCharacteristics(Player player) {
         Player playername = player.getPlayer();
-        db.setUserCharacteristics(playername, 1, 1, 1, 1, 1, 1, 1);
+        int s = config.getInt("characteristics.strength");
+        int c = config.getInt("characteristics.constitution");
+        int w = config.getInt("characteristics.wisdom");
+        int ch = config.getInt("characteristics.charisma");
+        int i = config.getInt("characteristics.intelligence");
+        int d = config.getInt("characteristics.dexterity");
+        int l = config.getInt("characteristics.luck");
+        db.setUserCharacteristics(playername, s, c, w, ch, i, d, l);
     }
 
     @Override

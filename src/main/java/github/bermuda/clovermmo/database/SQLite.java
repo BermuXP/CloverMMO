@@ -32,6 +32,8 @@ public class SQLite extends Database{
             "`charisma` int (11) NULL," +
             "`intelligence` int (11) NULL," +
             "`luck` int (11) NULL," +
+            "`Level` int (11) NULL," +
+            "`exp` int (11) NULL," +
             "PRIMARY KEY (`player`));" +  // This is creating 3 colums Player, Kills, Total. Primary key is what you are going to use as your indexer. Here we want to use player so
             "CREATE TABLE IF NOT EXISTS table_classes(`_id` integer PRIMARY KEY NOT NULL, `mclass` varchar(32) NOT NULL);" +
             "CREATE TABLE IF NOT EXISTS table_races(`_id` integer PRIMARY KEY NOT NULL, `mrace` varchar(32) NOT NULL);" +

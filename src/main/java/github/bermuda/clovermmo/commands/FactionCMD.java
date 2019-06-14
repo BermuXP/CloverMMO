@@ -1,8 +1,5 @@
 package github.bermuda.clovermmo.commands;
 
-import github.bermuda.clovermmo.CloverMMO;
-import github.bermuda.clovermmo.database.Database;
-import github.bermuda.clovermmo.database.SQLite;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,19 +8,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.db;
+
 public class FactionCMD implements CommandExecutor {
-    private CloverMMO clover;
-    private Database db;
-    private SubCMD subfac;
 
-    public FactionCMD(CloverMMO cmmo) {
-        subfac = new SubCMD(cmmo);
-        this.clover = cmmo;
-        db = new SQLite(clover);
-        db.load();
-    }
-
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(clover.cloverprefix + "you must be a player to perform this command!");
@@ -33,11 +22,13 @@ public class FactionCMD implements CommandExecutor {
         if (args.length == 2) {
             List<String> factions = db.getDatabaseFactions();
             if (args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("sel")) {
-                this.clover.getLogger().info(factions.toString());
+                clover.getLogger().info(factions.toString());
                 boolean match = false;
                 for (String s : factions) {
                     if (args[1].equalsIgnoreCase(s)) {
-                        subfac.SubFactioncommand(sender, args, s);
+                        Player player = (Player) sender;
+                        player.sendMessage(clover.cloverprefix + "You have successfully selected " + ChatColor.GOLD + s + ChatColor.WHITE + " as faction!");
+                        db.setFaction(player, s);
                         match = true;
                     }
                 }

@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="CloverMMO:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/CloverMMO_jar</output-path>
+  <artifact type="jar" build-on-make="true" name="CloverMMO">
+    <output-path>$PROJECT_DIR$/../cmmo/plugins</output-path>
     <root id="archive" name="CloverMMO.jar">
       <element id="module-output" name="CloverMMO" />
     </root>

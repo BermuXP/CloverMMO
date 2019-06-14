@@ -22,17 +22,12 @@ public class AdvancedConfig extends ConfigLoader {
 
     @Override
     protected boolean validateKeys() {
-        List<String> reason = new ArrayList<String>();
+        List<String> reason = new ArrayList<>();
         return noErrorsInConfig(reason);
     }
 
     @Override
-    protected void loadKeys() {
-    }
-
-    public int getDifficulty() {
-        return config.getInt("Difficulty.", 1);
-    }
+    protected void loadKeys() { }
 
     public int getDifficultyExp(int d) {
         return config.getInt("Difficulty." + d + ".exp", 0);

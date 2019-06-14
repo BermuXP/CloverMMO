@@ -1,26 +1,33 @@
 package github.bermuda.clovermmo.events;
 
+import github.bermuda.clovermmo.commands.gui.RaceGuiCMD;
+import github.bermuda.clovermmo.config.setconfig.DefaultConfig;
+import github.bermuda.clovermmo.database.model.PlayerData;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+
 import static github.bermuda.clovermmo.CloverMMO.clover;
+import static github.bermuda.clovermmo.CloverMMO.db;
 
-public class OnJoinEvent implements Listener {
+public class OnJoinEvent {
 
-    @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        Player playername = event.getPlayer();
-        if (event.getPlayer().hasPlayedBefore()) {
-            if (clover.config.get("Onjoin.OnFirstJoinMessageEnable").equals(true)) {
-                event.getPlayer().sendMessage("Welcome back " + playername.getName().toLowerCase());
-            }
-        } else {
+        final Player p = event.getPlayer();
+        PlayerData.onPlayerJoin(p);
+        db.onRacePickDB(p);
 
-            if (clover.config.get("Onjoin.OnReturningJoinMessageEnable").equals(true)) {
-                event.getPlayer().sendMessage("Welcome " + playername + ", it's your first time here... to start you need to pick a race! what race are you?");
+        if (event.getPlayer().hasPlayedBefore()) {
+            if (DefaultConfig.config().getOnReturnJoin() == true) {
+                p.sendMessage("Welcome back " + p.getName());
+                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(clover, new Runnable() {
+                    public void run() {
+                        RaceGuiCMD.RaceGUI(p);
+                    }
+                }, 5);
             }
+        } else if (DefaultConfig.config().getOnFirstJoin() == true) {
+            p.sendMessage("Welcome " + p.getDisplayName() + ", it's your first time here... to start you need to pick a race! what race are you?");
         }
     }
-
 }

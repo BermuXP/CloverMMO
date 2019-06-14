@@ -30,7 +30,3 @@ Mobs:
   Husk:
     CostumName: "Husk"
     Difficulty: 5
-  Zombie:
-    CustomName: "Zombie"
-    Difficulty: 1
-

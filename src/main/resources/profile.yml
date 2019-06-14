@@ -1,0 +1,112 @@
+# profile
+# level
+# Level number: this is one of the levels a player can be.
+# nextRankExp: the amount of exp a player needs to get the next level
+# Points: the amount of spendable points a player gets for leveling up.
+Profile:
+  chat:
+  - '&a&lProfile %displayname%'
+  - '&a&m+-------------------------------+'
+  - '» &6Player: &f %displayname%'
+  - '» &6Faction: &f %faction%'
+  - '» &6Race: &f %race%'
+  - '» &6Level: &f %level%'
+  - '» &6Class: &f %class%'
+  - '» &6Spec: &f %spec%'
+  - '» &6Strength: &f %strength%'
+  - '» &6Dexterity: &f %dexterity%'
+  - '» &6Constitution: &f %constitution%'
+  - '» &6Wisdom: &f %wisdom%'
+  - '» &6Intelligence: &f %intelligence%'
+  - '» &6Charisma: &f %charisma%'
+  - '» &6Luck: &f %luck%'
+  - '» &6EXP: &f %experience%/%nextlevel%'
+  - '» &6Points: &f %points%'
+  - '&a&m+-------------------------------+'
+
+  gui:
+    title: "%displayname%'s profile"
+    rows: 9
+    content:
+      1:
+        item: '%playerhead%'
+        displayname: '%displayname%'
+        spot: 0
+        description:
+        - '&fLevel: %level%'
+        - '&fExp: &e%experience%&f/&e%nextlevel%'
+        - '&fRace: &b%race%'
+        - '&fFaction: &b%faction%'
+        - '&fClass: &b%class%'
+        - '&fSpec: &b%spec%'
+      2:
+        item: 'DIAMOND_AXE'
+        displayname: '&fStrength'
+        spot: 1
+        description:
+        - '&c%strength%'
+      3:
+        item: 'SHIELD'
+        displayname: '&fDexterity'
+        spot: 2
+        description:
+        - '&a%dexterity%'
+      4:
+        item: 'GRASS'
+        displayname: '&fConstitution'
+        spot: 3
+        description:
+        - '&b%constitution%'
+      5:
+        item: 'BOOK_AND_QUILL'
+        displayname: '&fWisdom'
+        spot: 4
+        description:
+        - '&6%wisdom%'
+      6:
+        item: 'BOOKSHELF'
+        displayname: '&fIntelligence'
+        spot: 5
+        description:
+          - '&f%intelligence%'
+      7:
+        item: 'ARROW'
+        displayname: '&fCharisma'
+        spot: 6
+        description:
+          - '&d%charisma%'
+      8:
+        item: 'EMERALD'
+        displayname: '&fLuck'
+        spot: 7
+        description:
+          - '&e%luck%'
+      9:
+        item: 'GOLD_NUGGET'
+        displayname: '&fPoints'
+        spot: 8
+        description:
+          - '&6%points%'
+
+  level:
+    0:
+      NextRankExp: 10
+      points: 1
+    1:
+      NextRankExp: 50
+      points: 1
+    2:
+      NextRankExp: 150
+      points: 1
+    3:
+      NextRankExp: 450
+      points: 1
+    4:
+      NextRankExp: 500
+      points: 1
+    5:
+      NextRankExp: 600
+      points: 1
+    6:
+      NextRankExp: 0
+      points: 0

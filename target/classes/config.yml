@@ -1,1 +1,26 @@
 # This plugin is made/developed by Bermuda and Van Stein & Groentjes.
+factions:
+  Alliance: ''
+  Horde: ''
+
+characteristics:
+  strength: 1
+  dexterity: 1
+  constitution: 1
+  intelligence: 1
+  wisdom: 1
+  charisma: 1
+  luck: 1
+
+onjoin:
+  OnFirstJoinMessageEnable: true
+  OnReturningJoinMessageEnable: true
+
+#GUIORCHAT - pick if the messages are shown in gui or chat.
+#Profile -> can be 'chat' or 'gui'
+#Class -> can be 'chat' or 'gui'
+#Race -> can be 'chat' or 'gui'
+GuiOrChat:
+  Profile: 'gui'
+  Class: 'gui'
+  Race: 'chat'

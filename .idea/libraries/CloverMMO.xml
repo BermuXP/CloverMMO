@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="CloverMMO">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/out/artifacts/CloverMMO_jar/CloverMMO.jar!/" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES />
   </library>

@@ -11,20 +11,23 @@ import java.util.logging.Level;
 import github.bermuda.clovermmo.CloverMMO;
 import github.bermuda.clovermmo.database.Database;
 
-public class SQLite extends Database{
+public class SQLite extends Database {
     String dbname;
-    public SQLite(CloverMMO instance){
+
+    public SQLite(CloverMMO instance) {
         super(instance);
         dbname = plugin.getConfig().getString("SQLite.Filename", "CloverDB"); // Set the table name here e.g player_kills
     }
 
-    public String SQLiteCreateTokensTable = "CREATE TABLE IF NOT EXISTS useraccount(" + // make sure to put your table name in here too.
-            "`player` varchar(32) NOT NULL," + // This creates the different colums you will save data too. varchar(32) Is a string, int = integer
-            "`race` varchar(32) NULL," +
-            "`pclass` varchar(32) NULL," +
-            "`spec` varchar(32) NULL,"+
-            "'faction' varchar(32) NULL,"+
-            "`point` int(11) NULL,"+
+    public String SQLiteCreateTokensTable =
+            "CREATE TABLE IF NOT EXISTS useraccount(" +
+            "`playername` varchar(32) NULL," +
+            "`player` varchar(32) NOT NULL," +
+            "`race` int(11) NULL," +
+            "`pclass` int(11) NULL," +
+            "`spec` varchar(32) NULL," +
+            "`faction` varchar(32) NULL," +
+            "`point` int(11) NULL," +
             "`strength` int (11) NULL," +
             "`dexterity` int (11) NULL," +
             "`constitution` int (11) NULL," +
@@ -32,31 +35,55 @@ public class SQLite extends Database{
             "`charisma` int (11) NULL," +
             "`intelligence` int (11) NULL," +
             "`luck` int (11) NULL," +
-            "`Level` int (11) NULL," +
+            "`lvl` int (11) NULL," +
             "`exp` int (11) NULL," +
-            "PRIMARY KEY (`player`));" +  // This is creating 3 colums Player, Kills, Total. Primary key is what you are going to use as your indexer. Here we want to use player so
-            "CREATE TABLE IF NOT EXISTS table_classes(`_id` integer PRIMARY KEY NOT NULL, `mclass` varchar(32) NOT NULL);" +
-            "CREATE TABLE IF NOT EXISTS table_races(`_id` integer PRIMARY KEY NOT NULL, `mrace` varchar(32) NOT NULL);" +
-            "CREATE TABLE IF NOT EXISTS table_factions(`_id` integer PRIMARY KEY NOT NULL, `mfaction` varchar(32) NOT NULL);";
+            "PRIMARY KEY (`player`));" +
+
+            "CREATE TABLE IF NOT EXISTS table_classes(" +
+            "`_id` integer PRIMARY KEY NOT NULL," +
+            "`mclass` varchar(32) NOT NULL," +
+            "`strength` int (11) NULL," +
+            "`dexterity` int (11) NULL," +
+            "`constitution` int (11) NULL," +
+            "`wisdom` int (11) NULL," +
+            "`charisma` int (11) NULL," +
+            "`intelligence` int (11) NULL," +
+            "`luck` int (11) NULL);" +
+
+            "CREATE TABLE IF NOT EXISTS table_races(" +
+            "`_id` integer PRIMARY KEY NOT NULL," +
+            "`mrace` varchar(32) NOT NULL," +
+            "`point` int(11) NULL," +
+            "`strength` int (11) NULL," +
+            "`dexterity` int (11) NULL," +
+            "`constitution` int (11) NULL," +
+            "`wisdom` int (11) NULL," +
+            "`charisma` int (11) NULL," +
+            "`intelligence` int (11) NULL," +
+            "`luck` int (11) NULL);" +
+
+            "CREATE TABLE IF NOT EXISTS table_factions(" +
+            "`_id` integer PRIMARY KEY NOT NULL, " +
+            "`mfaction` varchar(32) NOT NULL);";
 
     public Connection getSQLConnection() {
         File dataFolder = new File(plugin.getDataFolder(), dbname + ".db");
-        if (!dataFolder.exists()){
+        if (!dataFolder.exists()) {
             try {
                 dataFolder.createNewFile();
             } catch (IOException e) {
-                plugin.getLogger().log(Level.SEVERE, "File write error: "+dbname+".db");
+                plugin.getLogger().log(Level.SEVERE, "File write error: " + dbname + ".db");
             }
         }
         try {
-            if(connection!=null&&!connection.isClosed()){
+            if (connection != null && !connection.isClosed()) {
                 return connection;
             }
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + dataFolder);
             return connection;
         } catch (SQLException ex) {
-            plugin.getLogger().log(Level.SEVERE,"SQLite exception on initialize", ex);
+            plugin.getLogger().log(Level.SEVERE, "SQLite exception on initialize", ex);
         } catch (ClassNotFoundException ex) {
             plugin.getLogger().log(Level.SEVERE, "You need the SQLite JBDC library. Google it. Put it in /lib folder.");
         }

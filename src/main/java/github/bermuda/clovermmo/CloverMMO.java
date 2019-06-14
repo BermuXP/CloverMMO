@@ -2,28 +2,38 @@ package github.bermuda.clovermmo;
 
 import github.bermuda.clovermmo.commands.*;
 
+import github.bermuda.clovermmo.commands.gui.InventoryListener;
+import github.bermuda.clovermmo.commands.gui.ProfileGuiCMD;
 import github.bermuda.clovermmo.config.setconfig.*;
-import github.bermuda.clovermmo.database.data.UserData;
+import github.bermuda.clovermmo.database.model.PlayerData;
+import github.bermuda.clovermmo.database.model.RacesModel;
+import github.bermuda.clovermmo.database.model.UserModel;
 import github.bermuda.clovermmo.database.Database;
 
 import github.bermuda.clovermmo.database.SQLite;
+import github.bermuda.clovermmo.events.DamageEvent;
+import github.bermuda.clovermmo.events.ExperienceEvent;
 import github.bermuda.clovermmo.events.OnJoinEvent;
-import github.bermuda.clovermmo.experience.Exp;
+import github.bermuda.clovermmo.events.OnQuitEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class CloverMMO extends JavaPlugin implements Listener {
     public static CloverMMO clover;
-    public static UserData cc;
+    public static UserModel cc;
+    public static RacesModel rm;
     //    public PlaceholderAPI phapi;
     public PluginDescriptionFile pdFile = getDescription();
     public boolean noErrorsInConfigFiles = true;
@@ -31,26 +41,13 @@ public class CloverMMO extends JavaPlugin implements Listener {
     public static Database db;
     public String cloverprefix = ChatColor.BOLD + "" + ChatColor.GREEN + "CloverMMO " + ChatColor.BLUE + "» " + ChatColor.WHITE;
 
-    public class ConfigListener implements Listener {
-        CloverMMO clover;
-        public ConfigListener(CloverMMO instance) {
-            clover = instance;
-        }
-    }
-
     @Override
     public void onEnable() {
         clover = this;
-        clover.saveDefaultConfig();
-        db = new SQLite(clover);
-        db.load();
-
-        cc = new UserData();
-        new DefaultConfig();
-        new Exp();
-//
-//        onjoin.onPlayerJoinEvent();
-
+        cc = new UserModel(); //todo remove
+        rm = new RacesModel();
+        new ExperienceEvent();
+        new PlayerData();
         loadConfigFiles();
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been enabled (v." + pdFile.getVersion() + ")");
@@ -66,18 +63,40 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        new OnJoinEvent().onPlayerJoinEvent(e);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        new OnQuitEvent().onPlayerQuitEvent(e);
+    }
+
+    @EventHandler
+    public void onPlayerClickInventory(InventoryClickEvent e) {
+        new InventoryListener().ProfileInventory(e);
+    }
+
+    @EventHandler
     private void EntityDeathCaller(EntityDeathEvent e) {
-        new Exp().onEntityDeath(e);
+        new DamageEvent().onEntityDeath(e);
     }
 
     private void commands() {
-//        String cmmo = "cmmo";
+//        getCommand("sync").setExecutor(new SyncCMD());
         getCommand("clovermmo").setExecutor(new ClovermmoCMD());
+        getCommand("cmmo").setExecutor(new ClovermmoCMD());
         getCommand("cloverboard").setExecutor(new CloverboardCMD());
-        getCommand("race").setExecutor(new RaceCMD(clover));
-        getCommand("class").setExecutor(new ClassCMD(clover));
-        getCommand("profile").setExecutor(new ProfileCMD(clover));
-        getCommand("faction").setExecutor(new FactionCMD(clover));
+        getCommand("race").setExecutor(new RaceCMD());
+        getCommand("class").setExecutor(new ClassCMD());
+
+        if (DefaultConfig.config().getGuiOrChatProfile().equalsIgnoreCase("gui")) {
+            getCommand("profile").setExecutor(new ProfileGuiCMD());
+        } else {
+            getCommand("profile").setExecutor(new ProfileCMD());
+        }
+
+        getCommand("faction").setExecutor(new FactionCMD());
         getCommand("cloverreload").setExecutor(new ReloadCMD());
     }
 
@@ -89,32 +108,30 @@ public class CloverMMO extends JavaPlugin implements Listener {
     }
 
     private void loadConfigFiles() {
-        ProfileConfig.getInstance();
+        ProfileConfig.profile();
+        DefaultConfig.config();
         FactionConfig.getInstance();
         RaceConfig.getInstance();
-//        List<String> race = RaceConfig.getInstance().getRaceName();
-//        for(String r : race) {
-//            db.setDatabaseRaces(r);
-//        }
+
+        db = new SQLite(clover);
+        db.load();
+
+        Set<String> race = RaceConfig.getInstance().getRaceNames();
+        for (String r : race) {
+            db.setDatabaseRaces(r);
+        }
 
         ClassConfig.getInstance();
+        Set<String> classes = ClassConfig.getInstance().getClassNames();
+        for (String c : classes) {
+            db.setDatabaseClasses(c);
+        }
         AdvancedConfig.advanced();
+//        db.getDatabaseRaces();
     }
 
     public void debug(String message) {
         getLogger().info(message);
-    }
-
-    public void InsertUserCharacteristics(Player player) {
-        Player playername = player.getPlayer();
-        int s = config.getInt("characteristics.strength");
-        int c = config.getInt("characteristics.constitution");
-        int w = config.getInt("characteristics.wisdom");
-        int ch = config.getInt("characteristics.charisma");
-        int i = config.getInt("characteristics.intelligence");
-        int d = config.getInt("characteristics.dexterity");
-        int l = config.getInt("characteristics.luck");
-        db.setUserCharacteristics(playername, s, c, w, ch, i, d, l);
     }
 
     @Override
@@ -123,6 +140,5 @@ public class CloverMMO extends JavaPlugin implements Listener {
         //logs disable in the console.
         Logger logger = getLogger();
         logger.info(pdFile.getName() + " has been disabled (v." + pdFile.getVersion() + ")");
-
     }
 }

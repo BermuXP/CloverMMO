@@ -11,6 +11,7 @@ AddPointsOnRaceSelect: 6
 
 Races:
   Elf:
+    description: "Long point ear human like creatures that dont eat meat, AKA vegans"
     strength: 1
     dexterity: 2
     constitution: 3
@@ -19,6 +20,7 @@ Races:
     charisma: 6
     luck: 7
   Human:
+    description: "self centered douche snouzles"
     strength: 7
     dexterity: 6
     constitution: 5
@@ -27,6 +29,7 @@ Races:
     charisma: 2
     luck: 1
   Dwarf:
+    description: "tiny people"
     strength: 99
     dexterity: 56
     constitution: 12
@@ -51,32 +54,32 @@ gui:
   title: "RaceMenu"
   rows: 27
   description:
-  - '&cStrength&f: %racestrength%'
-  - '&aDexterity&f: %racedexterity%'
-  - '&bConstitution&f: %raceconstitution%'
-  - '&7Intelligence&f: %raceintelligence%'
-  - '&6Wisdom&f: %racewisdom%'
-  - '&dCharisma&f: %racecharisma%'
-  - '&eLuck&f: %raceluck%'
+    - '&cStrength&f: %racestrength%'
+    - '&aDexterity&f: %racedexterity%'
+    - '&bConstitution&f: %raceconstitution%'
+    - '&7Intelligence&f: %raceintelligence%'
+    - '&6Wisdom&f: %racewisdom%'
+    - '&dCharisma&f: %racecharisma%'
+    - '&eLuck&f: %raceluck%'
   content:
     Elf:
       spot: 0
       item: 'ELYTRA'
       description:
-      - '&fLore:'
-      - '&6Elf lore'
-      - '&6Even more elf lore'
+        - '&fLore:'
+        - '&6Elf lore'
+        - '&6Even more elf lore'
     Human:
       spot: 1
       item: 'DIRT'
       description:
-      - '&fLore:'
-      - '&6Dir- Human lore'
-      - '&6Even more (disgusting) human lore'
+        - '&fLore:'
+        - '&6Dir- Human lore'
+        - '&6Even more (disgusting) human lore'
     Dwarf:
       spot: 2
       item: 'GOLD_NUGGET'
       description:
-      - '&fLore:'
-      - '&6Dwarf lore'
-      - '&6Even more dwarf lore!'
+        - '&fLore:'
+        - '&6Dwarf lore'
+        - '&6Even more dwarf lore!'

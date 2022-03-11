@@ -1,5 +1,6 @@
 Classes:
   Paladin:
+    description: ''
     strength: ''
     dexterity: ''
     constitution: ''
@@ -26,6 +27,7 @@ Classes:
         luck: ''
 
   Druid:
+    description: ''
     strength: ''
     dexterity: ''
     constitution: ''
@@ -52,6 +54,7 @@ Classes:
        luck: ''
 
   Priest:
+    description: ''
     strength: ''
     dexterity: ''
     constitution: ''

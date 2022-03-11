@@ -1,32 +1,4 @@
-Difficulty:
-  1:
-    exp: 10
-  2:
-    exp: 20
-  3:
-    exp: 30
-  4:
-    exp: 40
-  5:
-    exp: 50
-
-#Mobs: -> DO NOT change this
-#Mobs name (Zombie:) -> the name of the mob you want to costumize
-#Mobs CustomName -> The name you want to give to the mob youre creating or to a default mob.
-#Mobs Difficulty -> the difficulty of the mob, with the experience defined in difficulty above.
-Mobs:
-  Zombie:
-    CustomName: "Zombie"
-    Difficulty: 1
-  Skeleton:
-    CustomName: "Skeleton"
-    Difficulty: 2
-  Witch:
-    CostumName: "Witch"
-    Difficulty: 3
-  Creeper:
-    CostumName: "Creeper"
-    Difficulty: 4
-  Husk:
-    CostumName: "Husk"
-    Difficulty: 5
+#this permission is for database syncing with config this happens on restart or on the sync command
+#If false the Database will try rewrite the config file.
+#if true all changes in the config will be written to the database
+syncConfigToDb: true;

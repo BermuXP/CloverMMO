@@ -1,0 +1,37 @@
+#custom items
+#
+#custom items are formated as following in a crafting bench:
+# 1 | 2 | 3
+# 4 | 5 | 6
+# 7 | 8 | 9
+# every number in the above `crafting bench` resemble items, putting in an itemname for example:
+#item: diamond_axe
+#name: "Axe of damage"
+#lore: "mighty axe of damage!"
+#1: DIAMOND
+#2: IRON_INGOT
+#3: STICK
+#4:
+#5:
+#6:
+#7:
+#8:
+#9:
+# The list above will give the user a diamong axe when crafting
+# will add a crafting recipe for the item specified under customItems -> [item] -> item
+# a list of items can be found in the professions_readme
+blacksmith:
+  customItems:
+    1:
+      item: DIAMOND_AXE
+      name: "Axe of damage"
+      lore: "mighty axe of damage!"
+      1: DIAMOND
+      2: IRON_INGOT
+      3: STICK
+      4:
+      5:
+      6:
+      7:
+      8:
+      9:

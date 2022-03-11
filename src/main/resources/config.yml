@@ -1,26 +1,44 @@
-# This plugin is made/developed by Bermuda and Van Stein & Groentjes.
+#This plugin is made/developed by Bermuda need support https://discord.gg/DaheZKn.
+Prefix: §aCloverMMO§9 » &f
+Locale: en_US
+
 factions:
-  Alliance: ''
-  Horde: ''
+    factionOne:
+        name:
+    factionTwo:
+        name:
 
 characteristics:
-  strength: 1
-  dexterity: 1
-  constitution: 1
-  intelligence: 1
-  wisdom: 1
-  charisma: 1
-  luck: 1
+    strength: 1
+    dexterity: 1
+    constitution: 1
+    intelligence: 1
+    wisdom: 1
+    charisma: 1
+    luck: 1
+
+Database:
+    enabled: "sqlite"
+    MySQL:
+        enabled: false
+        username: username
+        password: password
+        name: databasename
+        prefix: clovermmo_
+        Server:
+            Port: 3306
+            Address: localhost
+            SSL: true
 
 onjoin:
-  OnFirstJoinMessageEnable: true
-  OnReturningJoinMessageEnable: true
+    OnFirstJoinMessageEnable: true
+    OnReturningJoinMessageEnable: true
 
-#GUIORCHAT - pick if the messages are shown in gui or chat.
-#Profile -> can be 'chat' or 'gui'
-#Class -> can be 'chat' or 'gui'
-#Race -> can be 'chat' or 'gui'
+#GUIORCHAT      pick if the messages are shown in gui or chat.
+#Profile        can be 'chat' or 'gui'
+#Class          can be 'chat' or 'gui'
+#Race           can be 'chat' or 'gui'
 GuiOrChat:
-  Profile: 'gui'
-  Class: 'gui'
-  Race: 'chat'
+    Profile: 'chat'
+    Class: 'chat'
+    Race: 'chat'
